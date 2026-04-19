@@ -1,0 +1,40 @@
+/* src/App.css */
+.app-container {
+	width: 100vw;
+	height: 100vh;
+	background-color: #e5eff3;
+	margin: 0;
+	overflow: hidden;
+}
+
+.ui-panel {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	z-index: 10;
+	color: #222255;
+	gap: 10px;
+	font-family: sans-serif;
+	background: rgba(245, 243, 243, 0.5);
+	padding: 15px;
+	border-radius: 8px;
+	z-index: 999999999;
+}
+
+.ui-panel h1 {
+	font-size: 1.2rem;
+	margin: 0 0 10px 0;
+}
+
+.ui-panel input,
+.ui-panel select {
+	color: #222255;
+	pointer-events: auto;
+	cursor: pointer;
+	width: 200px;
+}
+
+.ui-panel-control {
+	display: flex;
+	flex-direction: column;
+}
