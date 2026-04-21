@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 import Board from './Board'
 
-const Render = ( { wardrobeWidth, wardrobeDepth, wardrobeHeight, boardThickness, backBoardThickness, shelves }: WardrobeProps ) => {
+const Render = ( { wardrobe }: WardrobeProps ) => {
     
     return (
         <Canvas camera={{ position: [200, 200, 200] }}>
@@ -12,31 +12,31 @@ const Render = ( { wardrobeWidth, wardrobeDepth, wardrobeHeight, boardThickness,
 
 				<Board
 					name='wardrobe-bottom'
-					scale={[wardrobeWidth, boardThickness, wardrobeDepth]}
+					scale={[wardrobe.width, wardrobe.boardThickness, wardrobe.depth]}
 					rotation={[0, 0, 0]}
-					position={[0, boardThickness / 2, 0]}
+					position={[0, wardrobe.boardThickness / 2, 0]}
 					color='red'
 				/>
 
 				<Board
 					name='wardrobe-top'
-					scale={[wardrobeWidth, boardThickness, wardrobeDepth]}
+					scale={[wardrobe.width, wardrobe.boardThickness, wardrobe.depth]}
 					rotation={[0, 0, 0]}
-					position={[0, wardrobeHeight - boardThickness / 2, 0]}
+					position={[0, wardrobe.height - wardrobe.boardThickness / 2, 0]}
 					color='green'
 				/>
 
 				<Board
 					name='wardrobe-side-left'
 					scale={[
-						boardThickness,
-						wardrobeHeight - 2 * boardThickness,
-						wardrobeDepth,
+						wardrobe.boardThickness,
+						wardrobe.height - 2 * wardrobe.boardThickness,
+						wardrobe.depth,
 					]}
 					rotation={[0, 0, 0]}
 					position={[
-						wardrobeWidth / 2 - boardThickness / 2,
-						wardrobeHeight / 2,
+						wardrobe.width / 2 - wardrobe.boardThickness / 2,
+						wardrobe.height / 2,
 						0,
 					]}
 					color='blue'
@@ -45,14 +45,14 @@ const Render = ( { wardrobeWidth, wardrobeDepth, wardrobeHeight, boardThickness,
 				<Board
 					name='wardrobe-side-right'
 					scale={[
-						boardThickness,
-						wardrobeHeight - 2 * boardThickness,
-						wardrobeDepth,
+						wardrobe.boardThickness,
+						wardrobe.height - 2 * wardrobe.boardThickness,
+						wardrobe.depth,
 					]}
 					rotation={[0, 0, 0]}
 					position={[
-						-(wardrobeWidth / 2 - boardThickness / 2),
-						wardrobeHeight / 2,
+						-(wardrobe.width / 2 - wardrobe.boardThickness / 2),
+						wardrobe.height / 2,
 						0,
 					]}
 					color='blue'
@@ -60,29 +60,29 @@ const Render = ( { wardrobeWidth, wardrobeDepth, wardrobeHeight, boardThickness,
 
 				<Board
 					name='wardrobe-back'
-					scale={[wardrobeWidth, wardrobeHeight, backBoardThickness]}
+					scale={[wardrobe.width, wardrobe.height, wardrobe.backBoardThickness]}
 					rotation={[0, 0, 0]}
 					position={[
 						0,
-						wardrobeHeight / 2,
-						-(wardrobeDepth / 2) + backBoardThickness / 2,
+						wardrobe.height / 2,
+						-(wardrobe.depth / 2) + wardrobe.backBoardThickness / 2,
 					]}
 					color='orange'
 				/>
                 
-				{shelves.map((id, idx) => {
-					const availableHeight = wardrobeHeight - 2 * boardThickness
-					const spacing = availableHeight / (shelves.length + 1)
-					const currentY = boardThickness + spacing * (idx + 1)
+				{wardrobe.shelves.map((id, idx) => {
+					const availableHeight = wardrobe.height - 2 * wardrobe.boardThickness
+					const spacing = availableHeight / (wardrobe.shelves.length + 1)
+					const currentY = wardrobe.boardThickness + spacing * (idx + 1)
 
 					return (
 						<Board
 							key={id}
 							name={`shelf-${id}`}
 							scale={[
-								wardrobeWidth - 2 * boardThickness,
-								boardThickness,
-								wardrobeDepth,
+								wardrobe.width - 2 * wardrobe.boardThickness,
+								wardrobe.boardThickness,
+								wardrobe.depth,
 							]}
 							rotation={[0, 0, 0]}
 							position={[0, currentY, 0]}

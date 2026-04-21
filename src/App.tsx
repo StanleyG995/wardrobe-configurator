@@ -19,12 +19,7 @@ function App() {
 			/>
 
 			<Render
-				wardrobeDepth={wardrobe.depth}
-				wardrobeHeight={wardrobe.height}
-				wardrobeWidth={wardrobe.width}
-				boardThickness={wardrobe.boardThickness}
-				backBoardThickness={wardrobe.backBoardThickness}
-				shelves={wardrobe.shelves}
+				wardrobe={wardrobe}
 			/>
 		</div>
 	)
