@@ -1,6 +1,6 @@
 import type { WardrobeProps } from "../types/WardrobeProps"
 
-const Sidebar = ({ onUpdate }: WardrobeProps) => {
+const Sidebar = ({ onUpdate, onAddShelf, onRemoveShelf }: WardrobeProps) => {
 	return (
 		<div className='ui-panel'>
 			<div className='ui-panel-control'>
@@ -49,10 +49,10 @@ const Sidebar = ({ onUpdate }: WardrobeProps) => {
 					<option value={2}>20 mm</option>
 				</select>
 			</div>
-			{/* <div className='ui-panel-control'>
-				<button onClick={addShelf}>Add shelf</button>
-				<button onClick={removeShelf}>Remove shelf</button>
-			</div> */}
+			<div className='ui-panel-control'>
+				<button onClick={onAddShelf}>Add shelf</button>
+				<button onClick={onRemoveShelf}>Remove shelf</button>
+			</div>
 		</div>
 	)
 }

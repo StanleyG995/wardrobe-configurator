@@ -70,7 +70,7 @@ const Render = ( { wardrobeWidth, wardrobeDepth, wardrobeHeight, boardThickness,
 					color='orange'
 				/>
                 
-				{/* {shelves.map((id, idx) => {
+				{shelves.map((id, idx) => {
 					const availableHeight = wardrobeHeight - 2 * boardThickness
 					const spacing = availableHeight / (shelves.length + 1)
 					const currentY = boardThickness + spacing * (idx + 1)
@@ -89,7 +89,7 @@ const Render = ( { wardrobeWidth, wardrobeDepth, wardrobeHeight, boardThickness,
 							color='purple'
 						/>
 					)
-				})} */}
+				})}
 
 				<OrbitControls />
 				<gridHelper args={[1000, 100, "#999999", "#cccccc"]} />

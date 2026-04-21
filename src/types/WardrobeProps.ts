@@ -6,5 +6,7 @@ export interface WardrobeProps {
     backBoardThickness: number;
     shelves: string[];
     onUpdate: (name: string, value: number) => void;
+    onAddShelf: () => void;
+    onRemoveShelf: () => void;
 }
 
