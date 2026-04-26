@@ -2,7 +2,7 @@ import type { BoardProps } from '../types/BoardProps'
 
 const Board = ({ name, scale, rotation, position, color }: BoardProps) => {
 	return (
-		<mesh name={name} scale={scale} rotation={rotation} position={position}>
+		<mesh name={name} scale={scale} rotation={rotation} position={position} castShadow={true} receiveShadow={true}>
 			<boxGeometry />
 			<meshStandardMaterial color={color} />
 		</mesh>
