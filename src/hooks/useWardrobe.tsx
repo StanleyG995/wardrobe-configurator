@@ -2,14 +2,14 @@ import { useState } from "react"
 
 export const useWardrobe = () => {
     const [wardrobe, setWardrobe] = useState({
-        width: 100,
-        height: 200,
-        depth: 60,
-        boardThickness: 1.8,
-        backBoardThickness: 0.5,
+        width: 1000,
+        height: 2000,
+        depth: 600,
+        boardThickness: 18,
+        backBoardThickness: 5,
         shelves: [],
     })
-    
+
     const handleUpdate = (name: string, value: number) => {
         setWardrobe(prev => ({
             ...prev,
@@ -18,7 +18,7 @@ export const useWardrobe = () => {
     }
     
     const addShelf = () => {
-        const minShelfGap = 45
+        const minShelfGap = 450
         const usableHeight =
             wardrobe.height -
             2 * wardrobe.boardThickness -

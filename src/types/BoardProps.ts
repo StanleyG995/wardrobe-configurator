@@ -1,7 +1,11 @@
 export interface BoardProps {
 	name: string;
-	scale: [number, number, number];
+	w: number;
+	h: number;
+	d: number;
+	x: number;
+	y: number;
+	z: number;
 	rotation: [number, number, number];
-	position: [number, number, number];
 	color: string;
 }

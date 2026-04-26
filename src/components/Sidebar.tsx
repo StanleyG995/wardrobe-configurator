@@ -9,8 +9,8 @@ const Sidebar = ({ onUpdate, onAddShelf, onRemoveShelf }: WardrobeProps) => {
 					name='width'
 					id='width'
 					type='range'
-					max='140'
-					min='80'
+					max='1400'
+					min='800'
 					onChange={e =>
 						onUpdate(e.target.name, parseFloat(e.target.value))
 					}></input>
@@ -21,8 +21,8 @@ const Sidebar = ({ onUpdate, onAddShelf, onRemoveShelf }: WardrobeProps) => {
 					name='height'
 					id='height'
 					type='range'
-					max='250'
-					min='150'
+					max='2500'
+					min='1500'
 					onChange={e =>
 						onUpdate(e.target.name, parseFloat(e.target.value))
 					}></input>
@@ -33,8 +33,8 @@ const Sidebar = ({ onUpdate, onAddShelf, onRemoveShelf }: WardrobeProps) => {
 					name='depth'
 					id='depth'
 					type='range'
-					max='80'
-					min='40'
+					max='800'
+					min='400'
 					onChange={e =>
 						onUpdate(e.target.name, parseFloat(e.target.value))
 					}></input>
@@ -44,9 +44,9 @@ const Sidebar = ({ onUpdate, onAddShelf, onRemoveShelf }: WardrobeProps) => {
 				<select
 					name='boardThickness'
 					onChange={e => onUpdate(e.target.name, parseFloat(e.target.value))}>
-					<option value={1.5}>15 mm</option>
-					<option value={1.8}>18 mm</option>
-					<option value={2}>20 mm</option>
+					<option value={15}>15 mm</option>
+					<option value={18}>18 mm</option>
+					<option value={20}>20 mm</option>
 				</select>
 			</div>
 			<div className='ui-panel-control'>
