@@ -4,6 +4,7 @@ import { Canvas } from "@react-three/fiber"
 import { OrbitControls, ContactShadows } from "@react-three/drei"
 import Board from "./Board"
 import * as THREE from "three"
+import { toMeters } from '../helpers/unitConverter'
 
 const Render = ({ wardrobe }: WardrobeProps) => {
 	return (
@@ -82,12 +83,12 @@ const Render = ({ wardrobe }: WardrobeProps) => {
 
 				<Board
 					name='wardrobe-back'
-					w={wardrobe.width}
+					w={wardrobe.width-2*wardrobe.boardThickness}
 					h={wardrobe.height}
 					d={wardrobe.backBoardThickness}
 					x={0}
 					y={wardrobe.height / 2}
-					z={-(wardrobe.depth / 2) + wardrobe.backBoardThickness / 2}
+					z={-(wardrobe.depth / 2) + wardrobe.backBoardThickness}
 					rotation={[0, 0, 0]}
 					color='orange'
 				/>
@@ -103,7 +104,7 @@ const Render = ({ wardrobe }: WardrobeProps) => {
 							name={`shelf-${id}`}
 							w={wardrobe.width - 2 * wardrobe.boardThickness}
 							h={wardrobe.boardThickness}
-							d={wardrobe.depth}
+							d={wardrobe.depth-wardrobe.boardThickness-10}
 							x={0}
 							y={currentY}
 							z={0}
@@ -123,7 +124,13 @@ const Render = ({ wardrobe }: WardrobeProps) => {
 				resolution={512}
 			/>
 
-			<OrbitControls />
+			<OrbitControls
+				target={[0, toMeters(wardrobe.height/2), 0]} // Blokuje punkt obrotu na środku układu współrzędnych
+				enablePan={false} // WYŁĄCZA przesuwanie kamery prawym przyciskiem myszy
+				maxPolarAngle={Math.PI / 2} // Blokuje kamerę, aby nie wchodziła pod podłogę
+				minDistance={1} // Minimalny zoom (żeby nie wejść do środka płyty)
+				maxDistance={10} // Maksymalne oddalenie
+			/>
 		</Canvas>
 	)
 }
