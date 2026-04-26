@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import type { BoardProps } from '../types/BoardProps'
 import { toMeters } from '../helpers/unitConverter'
 import darkWood from '../assets/dark-wood.webp'
-import warmWood from '../assets/warm-wood.webp'
 
 import { useLoader } from '@react-three/fiber'
 import * as THREE from 'three'
