@@ -5,10 +5,16 @@ import type { RenderProps } from "@/types/RenderProps"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, ContactShadows } from "@react-three/drei"
 import Board from "./Board"
+import DimensionLabel from "./DimensionLabel"
 import * as THREE from "three"
 import { toMeters } from '../helpers/unitConverter'
+import { Line } from "@react-three/drei"
+
+
 
 const Render = ({ wardrobe }: RenderProps) => {
+
+	
 	return (
 		<Canvas shadows camera={{ position: [3, 3, 3] }}>
 			<ambientLight intensity={0.3} />
@@ -117,6 +123,26 @@ const Render = ({ wardrobe }: RenderProps) => {
 				})}
 			</group>
 
+			<group>
+   
+    <DimensionLabel 
+      position={[0, 0, toMeters(wardrobe.depth/2)+0.3]} 
+      value={wardrobe.width} 
+      label="W" 
+    />
+
+    <DimensionLabel 
+      position={[toMeters(wardrobe.width) / 2 + 0.3, toMeters(wardrobe.height)/2, 0]} 
+      value={wardrobe.height} 
+      label="H" 
+    />
+    <DimensionLabel 
+      position={[toMeters(wardrobe.width) / 2 + 0.3, 0, toMeters(wardrobe.depth)/2 -0.3]} 
+      value={wardrobe.depth} 
+      label="D" 
+    />
+  </group>
+
 			<ContactShadows
 				position={[0, -0.0005, 0]}
 				opacity={1}
@@ -127,11 +153,11 @@ const Render = ({ wardrobe }: RenderProps) => {
 			/>
 
 			<OrbitControls
-				target={[0, toMeters(wardrobe.height/2), 0]} // Blokuje punkt obrotu na środku układu współrzędnych
-				enablePan={false} // WYŁĄCZA przesuwanie kamery prawym przyciskiem myszy
-				maxPolarAngle={Math.PI / 2} // Blokuje kamerę, aby nie wchodziła pod podłogę
-				minDistance={1} // Minimalny zoom (żeby nie wejść do środka płyty)
-				maxDistance={10} // Maksymalne oddalenie
+				target={[0, toMeters(wardrobe.height/2), 0]} 
+				enablePan={false}
+				maxPolarAngle={Math.PI / 2} 
+				minDistance={1} 
+				maxDistance={10}
 			/>
 		</Canvas>
 	)

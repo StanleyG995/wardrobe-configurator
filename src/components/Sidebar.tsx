@@ -2,11 +2,11 @@
 
 import type { WardrobeProps } from "../types/WardrobeProps"
 
-const Sidebar = ({ onUpdate, onAddShelf, onRemoveShelf }: WardrobeProps) => {
+const Sidebar = ({ onUpdate, onAddShelf, onRemoveShelf, wardrobe }: WardrobeProps) => {
 	return (
 		<div>
 			<div className='pb-2 flex flex-row align-center justify-start gap-4'>
-				<label htmlFor='width'>Width:</label>
+				<label htmlFor='width' className='w-full'>Width: <strong>{wardrobe.width} mm</strong></label>
 				<input
 					name='width'
 					id='width'
@@ -19,7 +19,7 @@ const Sidebar = ({ onUpdate, onAddShelf, onRemoveShelf }: WardrobeProps) => {
 					}></input>
 			</div>
 			<div className='pb-2 flex flex-row align-center justify-start gap-4'>
-				<label htmlFor='height'>Height:</label>
+				<label htmlFor='height' className='w-full'>Height: <strong>{wardrobe.height} mm</strong></label>
 				<input
 					name='height'
 					id='height'
@@ -32,7 +32,7 @@ const Sidebar = ({ onUpdate, onAddShelf, onRemoveShelf }: WardrobeProps) => {
 					}></input>
 			</div>
 			<div className='pb-3 flex flex-row align-center justify-start gap-4'>
-				<label htmlFor='depth'>Depth:</label>
+				<label htmlFor='depth' className='w-full'>Depth: <strong>{wardrobe.depth} mm</strong></label>
 				<input
 					name='depth'
 					id='depth'
@@ -50,9 +50,9 @@ const Sidebar = ({ onUpdate, onAddShelf, onRemoveShelf }: WardrobeProps) => {
 					name='boardThickness'
 					onChange={e => onUpdate(e.target.name, parseFloat(e.target.value))}
 					className='border-1 w-full'>
-					<option value={15}>15 mm</option>
-					<option value={18}>18 mm</option>
-					<option value={20}>20 mm</option>
+					<option value={15} className='text-black'>15 mm</option>
+					<option value={18} className='text-black'>18 mm</option>
+					<option value={20} className='text-black'>20 mm</option>
 				</select>
 			</div>
 			<div className='pb-2 flex flex-row align-center justify-start gap-4'>
