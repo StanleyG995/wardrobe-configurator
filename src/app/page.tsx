@@ -9,10 +9,10 @@ export default function Home() {
 
     return (
        
-        <main className="flex flex-col lg:flex-row h-screen w-full bg-[#1a1a1a] overflow-hidden"> 
+        <main className="flex flex-col lg:flex-row h-screen w-full bg-[#182433] overflow-hidden"> 
             
             
-            <div className="z-10 w-full lg:w-96 flex-none border-b lg:border-r border-white/10 bg-black/40 backdrop-blur-xl">
+            <div className="z-10 w-full lg:w-96 flex-col border-b lg:border-r border-white/50 bg-gradient-to-b from-[#042554] to-[#0C1D36] backdrop-blur-xl p-10 gap-4 text-white">
                 <Sidebar
                     wardrobe={wardrobe}
                     onUpdate={handleUpdate}
@@ -22,7 +22,7 @@ export default function Home() {
             </div>
 
           
-            <div className="flex-1 w-full relative">
+            <div className="flex-1 w-full relative bg-white/90">
                 <Render wardrobe={wardrobe} />
             </div>
         </main>
