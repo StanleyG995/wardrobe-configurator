@@ -8,11 +8,11 @@ export default function Home() {
     const { wardrobe, handleUpdate, addShelf, removeShelf } = useWardrobe()
 
     return (
-  
-        <main className="flex flex-col lg:flex-row min-h-screen bg-neutral-900 overflow-hidden"> 
+       
+        <main className="flex flex-col lg:flex-row h-screen w-full bg-[#1a1a1a] overflow-hidden"> 
             
-        
-            <div className="z-10 w-full lg:w-96 lg:min-h-screen border-b lg:border-r border-white/10 bg-black/20 backdrop-blur-md">
+            
+            <div className="z-10 w-full lg:w-96 flex-none border-b lg:border-r border-white/10 bg-black/40 backdrop-blur-xl">
                 <Sidebar
                     wardrobe={wardrobe}
                     onUpdate={handleUpdate}
@@ -21,7 +21,8 @@ export default function Home() {
                 />
             </div>
 
-            <div className="flex-1 relative h-[60vh] lg:h-screen">
+          
+            <div className="flex-1 w-full relative">
                 <Render wardrobe={wardrobe} />
             </div>
         </main>
