@@ -7,5 +7,4 @@ export interface BoardProps {
 	y: number;
 	z: number;
 	rotation: [number, number, number];
-	color: string;
 }

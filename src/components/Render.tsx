@@ -8,13 +8,16 @@ import Board from "./Board"
 import DimensionLabel from "./DimensionLabel"
 import * as THREE from "three"
 import { toMeters } from '../helpers/unitConverter'
-import { Line } from "@react-three/drei"
-
-
 
 const Render = ({ wardrobe }: RenderProps) => {
 
-	
+	// const dimensionsMeters = {
+	// 	width: toMeters(wardrobe.width),
+	// 	height: toMeters(wardrobe.height),
+	// 	depth: toMeters(wardrobe.depth),
+	// 	thickness: toMeters(wardrobe.boardThickness)
+	// }
+
 	return (
 		<Canvas shadows camera={{ position: [3, 3, 3] }}>
 			<ambientLight intensity={0.3} />
@@ -50,7 +53,6 @@ const Render = ({ wardrobe }: RenderProps) => {
 					y={wardrobe.boardThickness / 2}
 					z={0}
 					rotation={[0, 0, 0]}
-					color='red'
 				/>
 
 				<Board
@@ -62,7 +64,6 @@ const Render = ({ wardrobe }: RenderProps) => {
 					y={wardrobe.height - wardrobe.boardThickness / 2}
 					z={0}
 					rotation={[0, 0, 0]}
-					color='green'
 				/>
 
 				<Board
@@ -74,7 +75,6 @@ const Render = ({ wardrobe }: RenderProps) => {
 					y={wardrobe.height / 2}
 					z={0}
 					rotation={[0, 0, 0]}
-					color='blue'
 				/>
 
 				<Board
@@ -86,7 +86,6 @@ const Render = ({ wardrobe }: RenderProps) => {
 					y={wardrobe.height / 2}
 					z={0}
 					rotation={[0, 0, 0]}
-					color='blue'
 				/>
 
 				<Board
@@ -98,7 +97,6 @@ const Render = ({ wardrobe }: RenderProps) => {
 					y={wardrobe.height / 2}
 					z={-(wardrobe.depth / 2) + wardrobe.backBoardThickness}
 					rotation={[0, 0, 0]}
-					color='orange'
 				/>
 
 				{wardrobe.shelves.map((id, idx) => {
@@ -117,7 +115,6 @@ const Render = ({ wardrobe }: RenderProps) => {
 							y={currentY}
 							z={0}
 							rotation={[0, 0, 0]}
-							color='purple'
 						/>
 					)
 				})}
@@ -128,17 +125,23 @@ const Render = ({ wardrobe }: RenderProps) => {
     <DimensionLabel 
       position={[0, 0, toMeters(wardrobe.depth/2)+0.3]} 
       value={wardrobe.width} 
+	  linePositionStart={[toMeters(-wardrobe.width/2),0,toMeters(wardrobe.depth/2)+0.3]}
+	  linePositionEnd={[toMeters(wardrobe.width/2),0,toMeters(wardrobe.depth/2)+0.3]}
       label="W" 
     />
 
     <DimensionLabel 
       position={[toMeters(wardrobe.width) / 2 + 0.3, toMeters(wardrobe.height)/2, 0]} 
-      value={wardrobe.height} 
+      value={wardrobe.height}
+	  linePositionStart={[0,0,0]}
+	  linePositionEnd={[1,0,0]}
       label="H" 
     />
     <DimensionLabel 
       position={[toMeters(wardrobe.width) / 2 + 0.3, 0, toMeters(wardrobe.depth)/2 -0.3]} 
       value={wardrobe.depth} 
+	  linePositionStart={[0,0,0]}
+	  linePositionEnd={[1,0,0]}
       label="D" 
     />
   </group>
