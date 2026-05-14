@@ -11,13 +11,6 @@ import { toMeters } from '../helpers/unitConverter'
 
 const Render = ({ wardrobe }: RenderProps) => {
 
-	// const dimensionsMeters = {
-	// 	width: toMeters(wardrobe.width),
-	// 	height: toMeters(wardrobe.height),
-	// 	depth: toMeters(wardrobe.depth),
-	// 	thickness: toMeters(wardrobe.boardThickness)
-	// }
-
 	return (
 		<Canvas shadows camera={{ position: [3, 3, 3] }}>
 			<ambientLight intensity={0.3} />
@@ -128,21 +121,24 @@ const Render = ({ wardrobe }: RenderProps) => {
 	  linePositionStart={[toMeters(-wardrobe.width/2),0,toMeters(wardrobe.depth/2)+0.3]}
 	  linePositionEnd={[toMeters(wardrobe.width/2),0,toMeters(wardrobe.depth/2)+0.3]}
       label="W" 
+	  axis='z'
     />
 
     <DimensionLabel 
       position={[toMeters(wardrobe.width) / 2 + 0.3, toMeters(wardrobe.height)/2, 0]} 
       value={wardrobe.height}
-	  linePositionStart={[0,0,0]}
-	  linePositionEnd={[1,0,0]}
+	  linePositionStart={[toMeters(wardrobe.width) / 2 + 0.3,0,0]}
+	  linePositionEnd={[toMeters(wardrobe.width) / 2 + 0.3,toMeters(wardrobe.height),0]}
       label="H" 
+	  axis='x'
     />
     <DimensionLabel 
-      position={[toMeters(wardrobe.width) / 2 + 0.3, 0, toMeters(wardrobe.depth)/2 -0.3]} 
+      position={[toMeters(-wardrobe.width) / 2 - 0.3, 0, 0]} 
       value={wardrobe.depth} 
-	  linePositionStart={[0,0,0]}
-	  linePositionEnd={[1,0,0]}
+	  linePositionStart={[toMeters(-wardrobe.width) / 2 - 0.3,0,toMeters(wardrobe.depth) / 2]}
+	  linePositionEnd={[toMeters(-wardrobe.width) / 2 - 0.3,0,toMeters(-wardrobe.depth) / 2]}
       label="D" 
+	  axis='x'
     />
   </group>
 
