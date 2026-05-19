@@ -1,11 +1,17 @@
-// src/types/Wardrobe.ts
+
+export interface SegmentData {
+    id: string;
+    type: 'shelves' | 'hanger' | 'empty';
+    shelves: string[];
+}
+
 export interface WardrobeData {
     width: number;
     height: number;
     depth: number;
     boardThickness: number;
     backBoardThickness: number;
-    shelves: string[];
+    segments: SegmentData[];
 }
 
 export interface WardrobeProps {
