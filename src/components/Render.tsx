@@ -5,6 +5,7 @@ import { Canvas } from "@react-three/fiber"
 import { OrbitControls, ContactShadows } from "@react-three/drei"
 import Board from "./Board"
 import DimensionLabel from "./DimensionLabel"
+import Hitbox from "./Hitbox"
 import * as THREE from "three"
 import { toMeters } from '../helpers/unitConverter'
 
@@ -51,7 +52,7 @@ const Render = ({ wardrobe }: RenderProps) => {
             </mesh>
 
             <group position={[0, 0.001, 0]}>
-                
+                <Hitbox wardrobe={wardrobe}/>
                 <Board
                     name='wardrobe-bottom'
                     w={wardrobe.width-boardGap}

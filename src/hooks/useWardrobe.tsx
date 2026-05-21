@@ -1,10 +1,10 @@
 'use client';
 import { useState, useMemo } from "react"
-import { WardrobeData, SegmentData } from '../types/WardrobeProps'
+import { WardrobeData, SegmentData, WardrobeDimensions } from '../types/WardrobeProps'
 
 export const useWardrobe = () => {
     // 1. W stanie trzymamy czyste wymiary szafy
-    const [wardrobe, setWardrobe] = useState<Omit<WardrobeData, 'segments'>>({
+    const [wardrobe, setWardrobe] = useState<WardrobeDimensions>({
         width: 1000,
         height: 2000,
         depth: 600,

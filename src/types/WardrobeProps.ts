@@ -5,14 +5,17 @@ export interface SegmentData {
     shelves: string[];
 }
 
-export interface WardrobeData {
+export interface WardrobeDimensions {
     width: number;
     height: number;
     depth: number;
     boardThickness: number;
     backBoardThickness: number;
+  }
+
+  export interface WardrobeData extends WardrobeDimensions {
     segments: SegmentData[];
-}
+  }
 
 export interface WardrobeProps {
     wardrobe: WardrobeData;
