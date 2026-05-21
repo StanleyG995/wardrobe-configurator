@@ -118,7 +118,7 @@ const Sidebar = ({
 							</label>
 							<select
 								value={segment.type}
-								onChange={e => onChangeSegmentType(idx, e.target.value as any)}
+								onChange={e => onChangeSegmentType(idx, e.target.value as 'shelves' | 'hanger' | 'empty')}
 								className='border border-gray-300 rounded p-1 w-full bg-black/10 text-white'>
 								<option className='bg-neutral-900 text-white' value='shelves'>Shelves</option>
 								<option className='bg-neutral-900 text-white' value='hanger'>Hanger Rod</option>
