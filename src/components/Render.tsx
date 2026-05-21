@@ -8,7 +8,6 @@ import DimensionLabel from "./DimensionLabel"
 import * as THREE from "three"
 import { toMeters } from '../helpers/unitConverter'
 
-// Definiujemy strukturę segmentu wewnątrz pliku, jeśli nie masz jej w osobnym typie
 interface SegmentData {
     id: string;
     type: 'shelves' | 'hanger' | 'empty';
@@ -18,18 +17,15 @@ interface SegmentData {
 const Render = ({ wardrobe }: RenderProps) => {
     const boardGap = 0
 
-    // 1. Wyliczamy podstawowe dane o wnękach
     const segments: SegmentData[] = wardrobe.segments || [];
     const segmentCount = segments.length > 0 ? segments.length : 1;
     const hasDividers = segmentCount > 1;
 
-    // 2. Obliczamy przestrzeń użytkową w środku szafy (mm)
-    // Całkowita szerokość - boki szafy - (liczba przegród * grubość płyty)
     const totalInnerWidth = wardrobe.width - (2 * wardrobe.boardThickness) - (hasDividers ? (segmentCount - 1) * wardrobe.boardThickness : 0);
     const compartmentWidth = totalInnerWidth / segmentCount;
 
     return (
-        <Canvas shadows camera={{ position: [3, 3, 3] }}>
+        <Canvas shadows={{ type: THREE.PCFShadowMap }} camera={{ position: [3, 3, 3] }}>
             <ambientLight intensity={0.3} />
             <directionalLight
                 position={[1, 3, 4]}
@@ -44,8 +40,8 @@ const Render = ({ wardrobe }: RenderProps) => {
             />
             <hemisphereLight intensity={0.5} color='#ffffff' groundColor='#b97a20' />
 
-            {/* Podłoga pokoju */}
             <mesh
+                name='floor'
                 scale={[10, 10, 1]}
                 position={[0, -0.001, 0]}
                 rotation={[-Math.PI / 2, 0, 0]}
@@ -54,9 +50,8 @@ const Render = ({ wardrobe }: RenderProps) => {
                 <meshStandardMaterial color='#E8CEA0' side={THREE.DoubleSide} />
             </mesh>
 
-            {/* KORPUS GŁÓWNY SZAFY */}
             <group position={[0, 0.001, 0]}>
-                {/* Wieniec dolny */}
+                
                 <Board
                     name='wardrobe-bottom'
                     w={wardrobe.width-boardGap}
@@ -68,7 +63,6 @@ const Render = ({ wardrobe }: RenderProps) => {
                     rotation={[0, 0, 0]}
                 />
 
-                {/* Wieniec górny */}
                 <Board
                     name='wardrobe-top'
                     w={wardrobe.width-boardGap}
@@ -80,7 +74,6 @@ const Render = ({ wardrobe }: RenderProps) => {
                     rotation={[0, 0, 0]}
                 />
 
-                {/* Bok lewy */}
                 <Board
                     name='wardrobe-side-left'
                     w={wardrobe.boardThickness-boardGap}
@@ -92,7 +85,6 @@ const Render = ({ wardrobe }: RenderProps) => {
                     rotation={[0, 0, 0]}
                 />
 
-                {/* Bok prawy */}
                 <Board
                     name='wardrobe-side-right'
                     w={wardrobe.boardThickness-boardGap}
@@ -104,7 +96,6 @@ const Render = ({ wardrobe }: RenderProps) => {
                     rotation={[0, 0, 0]}
                 />
 
-                {/* Plecy szafy */}
                 <Board
                     name='wardrobe-back'
                     w={wardrobe.width-2*wardrobe.boardThickness-boardGap}
@@ -116,9 +107,7 @@ const Render = ({ wardrobe }: RenderProps) => {
                     rotation={[0, 0, 0]}
                 />
 
-                {/* 3. PRZEGRODY PIONOWE (Renderują się tylko gdy mamy min. 2 segmenty) */}
                 {hasDividers && Array.from({ length: segmentCount - 1 }).map((_, idx) => {
-                    // Matematyczne wyliczenie pozycji X kolejnych pionowych przegród mebla
                     const startX = -wardrobe.width / 2 + wardrobe.boardThickness;
                     const dividerX = startX + (idx + 1) * compartmentWidth + idx * wardrobe.boardThickness + wardrobe.boardThickness / 2;
 
@@ -128,20 +117,17 @@ const Render = ({ wardrobe }: RenderProps) => {
                             name={`wardrobe-divider-${idx}`}
                             w={wardrobe.boardThickness}
                             h={wardrobe.height - 2 * wardrobe.boardThickness}
-                            d={wardrobe.depth - wardrobe.boardThickness - 10} // cofnięte o 10mm na plecy
+                            d={wardrobe.depth - wardrobe.boardThickness - 10}
                             x={dividerX}
                             y={wardrobe.height / 2}
-                            z={5} // przesunięcie środka z uwagi na cofnięcie głębokości
+                            z={5}
                             rotation={[0, 0, 0]}
                         />
                     )
                 })}
 
-                {/* 4. RENDEROWANIE WNĘTRZA SEGMENTÓW */}
                 {segments.map((segment, idx) => {
-                    // Obliczamy lewą krawędź pierwszej wnęki mebla jako punkt odniesienia
                     const startX = -wardrobe.width / 2 + wardrobe.boardThickness;
-                    // Środek danej wnęki na osi X
                     const segmentX = startX + idx * (compartmentWidth + wardrobe.boardThickness) + compartmentWidth / 2;
 
                     return (
