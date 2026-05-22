@@ -26,7 +26,9 @@ const Render = ({ wardrobe, activeSegmentIdx, setActiveSegmentIdx }: RenderProps
     const compartmentWidth = totalInnerWidth / segmentCount;
 
     return (
-        <Canvas shadows={{ type: THREE.PCFShadowMap }} camera={{ position: [3, 3, 3] }}>
+        <Canvas shadows={{ type: THREE.PCFShadowMap }} camera={{ position: [3, 3, 3] }} onPointerMissed={() => {
+            setActiveSegmentIdx(null);
+        }}>
             <ambientLight intensity={0.3} />
             <directionalLight
                 position={[1, 3, 4]}
