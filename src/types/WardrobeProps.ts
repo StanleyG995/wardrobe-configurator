@@ -20,6 +20,12 @@ export interface WardrobeDimensions {
 export interface WardrobeProps {
     wardrobe: WardrobeData;
     onUpdate: (name: string, value: number) => void;
-    onAddShelf: () => void;
-    onRemoveShelf: () => void;
+    onAddShelf: (idx: number) => void;
+    onRemoveShelf: (idx: number) => void;
+    onChangeSegmentType: (
+      segmentIndex: number,
+      type: "shelves" | "hanger" | "empty"
+  ) => void,
+    activeSegmentIdx: number | null,
+    setActiveSegmentIdx: (idx: number | null) => void,
 }

@@ -11,7 +11,9 @@ export default function Home() {
         handleUpdate, 
         addShelfToSegment, 
         removeShelfFromSegment, 
-        changeSegmentType 
+        changeSegmentType,
+        activeSegmentIdx,
+        setActiveSegmentIdx, 
     } = useWardrobe()
 
     return (
@@ -25,12 +27,17 @@ export default function Home() {
                     onAddShelf={addShelfToSegment}    
                     onRemoveShelf={removeShelfFromSegment}
                     onChangeSegmentType={changeSegmentType}
+                    activeSegmentIdx={activeSegmentIdx}
+                    setActiveSegmentIdx={setActiveSegmentIdx}
                 />
             </div>
 
-            {/* PODGLĄD TRÓJWYMIAROWY */}
+            
             <div className="flex-1 w-full relative bg-white/90">
-                <Render wardrobe={wardrobe} />
+                <Render 
+                    wardrobe={wardrobe}
+                    activeSegmentIdx={activeSegmentIdx}
+                    setActiveSegmentIdx={setActiveSegmentIdx}     />
             </div>
         </main>
     )

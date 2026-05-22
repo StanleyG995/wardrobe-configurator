@@ -10,9 +10,11 @@ interface HitboxProps {
         boardThickness: number;
         segments?: Array<{ id: string; type: 'shelves' | 'hanger' | 'empty'; shelves: string[] }>;
     };
+    activeSegmentIdx: number | null,
+    setActiveSegmentIdx: (idx: number | null) => void,
 }
 
-function Hitbox({ wardrobe }: HitboxProps) {
+function Hitbox({ wardrobe, activeSegmentIdx, setActiveSegmentIdx }: HitboxProps) {
   const segments = wardrobe.segments || [];
   const segmentCount = segments.length > 0 ? segments.length : 1;
   const hasDividers = segmentCount > 1;
@@ -20,6 +22,8 @@ function Hitbox({ wardrobe }: HitboxProps) {
   const totalInnerWidth = wardrobe.width - (2 * wardrobe.boardThickness) - (hasDividers ? (segmentCount - 1) * wardrobe.boardThickness : 0);
   const compartmentWidth = totalInnerWidth / segmentCount;
   const innerHeight = wardrobe.height - (2 * wardrobe.boardThickness);
+  
+  
 
   return (
     <group name="hitboxes">
@@ -37,7 +41,8 @@ function Hitbox({ wardrobe }: HitboxProps) {
             ]}
             onClick={(e) => {
               e.stopPropagation();
-              console.log(`Kliknięto wnękę numer: ${idx + 1}`);
+              setActiveSegmentIdx(idx);
+              
             }}
           >
             <boxGeometry args={[
@@ -48,8 +53,8 @@ function Hitbox({ wardrobe }: HitboxProps) {
             <meshBasicMaterial 
               color="lime" 
               transparent 
-              opacity={0.3+Number(`0.${2*idx}`)} 
-              
+              opacity={idx === activeSegmentIdx ? 0.4 : 0} 
+    
             />
           </mesh>
         );

@@ -15,7 +15,7 @@ interface SegmentData {
     shelves: string[];
 }
 
-const Render = ({ wardrobe }: RenderProps) => {
+const Render = ({ wardrobe, activeSegmentIdx, setActiveSegmentIdx }: RenderProps) => {
     const boardGap = 0
 
     const segments: SegmentData[] = wardrobe.segments || [];
@@ -52,7 +52,7 @@ const Render = ({ wardrobe }: RenderProps) => {
             </mesh>
 
             <group position={[0, 0.001, 0]}>
-                <Hitbox wardrobe={wardrobe}/>
+                <Hitbox wardrobe={wardrobe} activeSegmentIdx={activeSegmentIdx} setActiveSegmentIdx={setActiveSegmentIdx}/>
                 <Board
                     name='wardrobe-bottom'
                     w={wardrobe.width-boardGap}
@@ -172,7 +172,7 @@ const Render = ({ wardrobe }: RenderProps) => {
                 })}
             </group>
 
-            {/* Linie wymiarowe */}
+       
             <group>
                 <DimensionLabel 
                     position={[0, 0, toMeters(wardrobe.depth/2)+0.3]} 
