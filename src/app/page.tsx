@@ -5,7 +5,6 @@ import Render from "@/components/Render"
 import { useWardrobe } from '@/hooks/useWardrobe'
 
 export default function Home() {
-    // Łączymy się z nowymi, precyzyjnymi funkcjami z hooka
     const { 
         wardrobe, 
         handleUpdate, 
@@ -13,8 +12,11 @@ export default function Home() {
         removeShelfFromSegment, 
         changeSegmentType,
         activeSegmentIdx,
-        setActiveSegmentIdx, 
+        setActiveSegmentIdx,
+        wardrobePrice, 
     } = useWardrobe()
+
+   
 
     return (
         <main className="flex flex-col lg:flex-row h-screen w-full bg-[#182433] overflow-hidden"> 
@@ -29,6 +31,7 @@ export default function Home() {
                     onChangeSegmentType={changeSegmentType}
                     activeSegmentIdx={activeSegmentIdx}
                     setActiveSegmentIdx={setActiveSegmentIdx}
+                    price={wardrobePrice}
                 />
             </div>
 

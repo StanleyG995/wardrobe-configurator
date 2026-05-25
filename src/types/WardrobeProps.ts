@@ -19,6 +19,7 @@ export interface WardrobeDimensions {
 
 export interface WardrobeProps {
     wardrobe: WardrobeData;
+    price: number;
     onUpdate: (name: string, value: number) => void;
     onAddShelf: (idx: number) => void;
     onRemoveShelf: (idx: number) => void;

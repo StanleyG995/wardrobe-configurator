@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo } from "react"
 import { WardrobeData, SegmentData, WardrobeDimensions } from '../types/WardrobeProps'
+import { calculateWardrobePrice } from '@/helpers/price'
 
 export const useWardrobe = () => {
     const [wardrobe, setWardrobe] = useState<WardrobeDimensions>({
@@ -84,6 +85,10 @@ export const useWardrobe = () => {
         }));
     };
 
+    const wardrobePrice = useMemo(() => {
+        return calculateWardrobePrice(wardrobe.width, wardrobe.height, wardrobe.depth, segments);
+      }, [wardrobe.width, wardrobe.height, wardrobe.depth, segments]);
+
     const fullWardrobeData: WardrobeData = {
         ...wardrobe,
         segments
@@ -96,6 +101,7 @@ export const useWardrobe = () => {
         removeShelfFromSegment, 
         changeSegmentType,
         activeSegmentIdx,
-        setActiveSegmentIdx 
+        setActiveSegmentIdx,
+        wardrobePrice 
     }
 }
