@@ -132,11 +132,13 @@ const Render = ({ wardrobe, activeSegmentIdx, setActiveSegmentIdx }: RenderProps
                 {segments.map((segment, idx) => {
                     const startX = -wardrobe.width / 2 + wardrobe.boardThickness;
                     const segmentX = startX + idx * (compartmentWidth + wardrobe.boardThickness) + compartmentWidth / 2;
+                    const hangerRodHeight = wardrobe.height < 2000 ? 1600 : 1800
+                    const minHeightForLoft = 2300;
+                    const hangerRodTopGap = 150;
 
                     return (
                         <group key={segment.id} position={[toMeters(segmentX), 0, 0]}>
                             
-                            {/* Układ Półek w tym segmencie */}
                             {segment.type === 'shelves' && segment.shelves.map((shelfId, shelfIdx) => {
                                 const availableHeight = wardrobe.height - 2 * wardrobe.boardThickness
                                 const spacing = availableHeight / (segment.shelves.length + 1)
@@ -157,16 +159,30 @@ const Render = ({ wardrobe, activeSegmentIdx, setActiveSegmentIdx }: RenderProps
                                 )
                             })}
 
-                            
                             {segment.type === 'hanger' && (
+                                <group>
                                 <mesh 
-                                    position={[0, toMeters(wardrobe.height - 300), 0]} 
+                                    position={[0, toMeters(hangerRodHeight), 0]} 
                                     rotation={[0, 0, Math.PI / 2]}
                                     castShadow
                                 >
                                     <cylinderGeometry args={[0.0125, 0.0125, toMeters(compartmentWidth), 16]} />
                                     <meshStandardMaterial color="#cccccc" metalness={0.8} roughness={0.2} />
                                 </mesh>
+                                {(wardrobe.height > minHeightForLoft) && (
+                                    <Board
+                                    key={1}
+                                    name={`shelf-${2}`}
+                                    w={compartmentWidth}
+                                    h={wardrobe.boardThickness}
+                                    d={wardrobe.depth - wardrobe.boardThickness - 10}
+                                    x={0}
+                                    y={hangerRodHeight+hangerRodTopGap}
+                                    z={0}
+                                    rotation={[0, 0, 0]}
+                                />
+                                )}
+                                </group>
                             )}
 
                         </group>
@@ -175,7 +191,7 @@ const Render = ({ wardrobe, activeSegmentIdx, setActiveSegmentIdx }: RenderProps
             </group>
 
        
-            <group>
+            <group name='dimensions'>
                 <DimensionLabel 
                     position={[0, 0, toMeters(wardrobe.depth/2)+0.3]} 
                     value={wardrobe.width} 
