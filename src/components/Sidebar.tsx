@@ -23,16 +23,16 @@ const Sidebar = ({
 					</p>
 				</div>
 				<div className='flex flex-col gap-1 pb-2'>
-					<h2 className='text-xl font-bold text-blue-400'>
+					<h2 className='text-[24px] font-bold text-blue-400'>
 						Bay {activeSegmentIdx + 1} Configuration
 					</h2>
-					<p className='text-xs text-white/50'>
-						Modyfikujesz wnętrze wybranej sekcji szafy
+					<p className='text-[14px] text-white/50'>
+						Modyfying current section:
 					</p>
 				</div>
 
 				<div className='flex flex-col gap-1'>
-					<label className='text-xs text-white font-medium'>Layout Type:</label>
+					<label className='text-[14px] text-white font-medium'>Layout Type:</label>
 					<select
 						value={activeSegment?.type || "shelves"}
 						onChange={e =>
@@ -50,19 +50,19 @@ const Sidebar = ({
 
 				{activeSegment?.type === "shelves" && (
 					<div className='flex flex-col gap-2 mt-1'>
-						<label className='text-xs text-white/70'>
-							Półki w tej sekcji:{" "}
+						<label className='text-[14px] text-white/70'>
+							Shelves in section:{" "}
 							<strong>{activeSegment.shelves.length}</strong>
 						</label>
 						<div className='flex flex-row gap-2'>
 							<button
 								onClick={() => onRemoveShelf(activeSegmentIdx)}
-								className='w-full bg-[#E04646] hover:bg-red-600 text-white text-xs px-3 py-2 rounded-md cursor-pointer transition-colors'>
+								className='w-full bg-[#E04646] hover:bg-red-600 text-white text-[14px] px-3 py-2 rounded-md cursor-pointer transition-colors'>
 								- Remove Shelf
 							</button>
 							<button
 								onClick={() => onAddShelf(activeSegmentIdx)}
-								className='w-full bg-[#2b7fff] hover:bg-blue-600 text-white text-xs px-3 py-2 rounded-md cursor-pointer transition-colors'>
+								className='w-full bg-[#2b7fff] hover:bg-blue-600 text-white text-[14px] px-3 py-2 rounded-md cursor-pointer transition-colors'>
 								+ Add Shelf
 							</button>
 						</div>
@@ -71,7 +71,7 @@ const Sidebar = ({
 				<hr className='border-white/10 my-4' />
 				<button
 					onClick={() => setActiveSegmentIdx(null)}
-					className='w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs py-2.5 rounded-md cursor-pointer transition-all'>
+					className='w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-[14px] py-2.5 rounded-md cursor-pointer transition-all'>
 					← Back to General Dimensions
 				</button>
 			</div>
@@ -160,11 +160,11 @@ const Sidebar = ({
 						className='p-4 border border-gray-200 bg-black/10 hover:bg-white/5 rounded-lg flex justify-between items-center cursor-pointer transition-all'>
 						<div className='flex flex-col'>
 							<span className='font-semibold text-blue-500'>Bay {idx + 1}</span>
-							<span className='text-[10px] text-white/40'>
+							<span className='text-[14px] text-white/40'>
 								Click to configure
 							</span>
 						</div>
-						<span className='text-xs text-white/70 bg-black/40 px-2 py-0.5 rounded'>
+						<span className='text-[14px] text-white/70 bg-black/50 px-2 py-0.5 rounded'>
 							{segment.type === "shelves"
 								? `${segment.shelves.length} shelves`
 								: segment.type}

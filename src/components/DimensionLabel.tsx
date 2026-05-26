@@ -73,7 +73,7 @@ function DimensionLabel({
 					onPointerDown={stopPropagation}
 					onMouseDown={stopPropagation}
 					onPointerUp={stopPropagation}
-					className='bg-black/60 backdrop-blur-md text-white px-2 flex flex-row justify-center py-1 rounded border border-white/20 text-[10px] text-[clamp(10px,1vw,14px)] max-w-[200px]'>
+					className='bg-black/60 backdrop-blur-md text-white px-2 flex flex-row justify-center py-1 rounded border border-white/20 text-[10px] text-[clamp(10px,1vw,14px)] max-w-[200px] focus-within:border-blue-600 focus-within:border-2 hover:border-blue-600 hover:border-2' >
 					{label}:{" "}
 					<input
 						ref={inputRef}
