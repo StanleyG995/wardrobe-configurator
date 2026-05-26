@@ -38,6 +38,7 @@ export default function Home() {
             
             <div className="flex-1 w-full relative bg-white/90">
                 <Render 
+                    onUpdate={handleUpdate}
                     wardrobe={wardrobe}
                     activeSegmentIdx={activeSegmentIdx}
                     setActiveSegmentIdx={setActiveSegmentIdx}     />
