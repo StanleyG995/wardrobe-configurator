@@ -13,7 +13,9 @@ export default function Home() {
         changeSegmentType,
         activeSegmentIdx,
         setActiveSegmentIdx,
-        wardrobePrice, 
+        wardrobePrice,
+        handleViewportToggle,
+        ViewportOptions,
     } = useWardrobe()
 
    
@@ -39,9 +41,14 @@ export default function Home() {
             <div className="flex-1 w-full relative bg-white/90">
                 <Render 
                     onUpdate={handleUpdate}
+                    onToggleUpdate={handleViewportToggle}
                     wardrobe={wardrobe}
                     activeSegmentIdx={activeSegmentIdx}
-                    setActiveSegmentIdx={setActiveSegmentIdx}     />
+                    setActiveSegmentIdx={setActiveSegmentIdx} 
+                    dimensions={ViewportOptions.dimensions} 
+                    humanScale={ViewportOptions.humanScale} 
+                    doorsOpen={ViewportOptions.doorsOpen} 
+                    />
             </div>
         </main>
     )

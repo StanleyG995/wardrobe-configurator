@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo } from "react"
 import { WardrobeData, SegmentData, WardrobeDimensions } from '../types/WardrobeProps'
+import { ViewportOptionsProps } from '@/types/RenderProps'
 import { calculateWardrobePrice } from '@/helpers/price'
 
 export const useWardrobe = () => {
@@ -18,12 +19,24 @@ export const useWardrobe = () => {
         2: { type: 'empty', shelves: [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()] },
     })
 
+    const [ViewportOptions, setViewportOptions] = useState<ViewportOptionsProps>({
+        dimensions: true,
+        humanScale: true,
+        doorsOpen: true,
+    })
+
     const [activeSegmentIdx, setActiveSegmentIdx] = useState<number | null>(null)
 
     const handleUpdate = (name: string, value: number) => {
         setWardrobe(prev => ({ ...prev, [name]: value }))
     }
 
+    const handleViewportToggle = (name: keyof ViewportOptionsProps) => {
+        setViewportOptions(prev => ({
+            ...prev,
+            [name]: !prev[name]
+        }))
+    }
 
     const targetSegmentCount = wardrobe.width < 1200 ? 1 : (wardrobe.width < 1800 ? 2 : 3);
 
@@ -102,6 +115,8 @@ export const useWardrobe = () => {
         changeSegmentType,
         activeSegmentIdx,
         setActiveSegmentIdx,
-        wardrobePrice 
+        wardrobePrice,
+        handleViewportToggle,
+        ViewportOptions,
     }
 }
