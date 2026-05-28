@@ -12,8 +12,9 @@ export interface ViewportOptionsProps {
 	dimensions: boolean,
 	humanScale: boolean,
 	doorsOpen: boolean,
+	floor: boolean
 }
 
-export interface ViewportButtonProps {
+export interface ViewportButtonProps extends ViewportOptionsProps {
 	onToggleUpdate: (name: keyof ViewportOptionsProps ) => void,
 }

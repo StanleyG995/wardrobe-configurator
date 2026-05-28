@@ -1,13 +1,13 @@
 "use client"
 
 import type { RenderProps, ViewportOptionsProps } from "@/types/RenderProps"
-import { Canvas } from "@react-three/fiber"
+import { Canvas, useLoader } from "@react-three/fiber"
 import { OrbitControls, ContactShadows } from "@react-three/drei"
 import Board from "./Board"
 import DimensionLabel from "./DimensionLabel"
 import Hitbox from "./Hitbox"
 import ViewportControls from "./ViewportControls"
-import { useWardrobe } from '@/hooks/useWardrobe'
+
 import * as THREE from "three"
 import { toMeters } from "../helpers/unitConverter"
 
@@ -18,16 +18,18 @@ interface SegmentData {
 }
 
 const Render = ({
-    wardrobe,
-    activeSegmentIdx,
-    setActiveSegmentIdx,
-    onUpdate,
+	wardrobe,
+	activeSegmentIdx,
+	setActiveSegmentIdx,
+	onUpdate,
 	onToggleUpdate,
-    dimensions,
-    humanScale,
-    doorsOpen,
+	dimensions,
+	humanScale,
+	doorsOpen,
+	floor
 }: RenderProps & ViewportOptionsProps) => {
-
+	const floorTexture = useLoader(THREE.TextureLoader, "/floor.png")
+	
 
 	const boardGap = 0
 
@@ -43,7 +45,13 @@ const Render = ({
 
 	return (
 		<>
-			<ViewportControls onToggleUpdate = {onToggleUpdate}/>
+			<ViewportControls
+				onToggleUpdate={onToggleUpdate}
+				dimensions={dimensions}
+				humanScale={humanScale}
+				doorsOpen={doorsOpen}
+				floor={floor}
+			/>
 			<Canvas
 				shadows={{ type: THREE.PCFShadowMap }}
 				camera={{ position: [3, 3, 3] }}
@@ -68,14 +76,16 @@ const Render = ({
 					groundColor='#b97a20'
 				/>
 
-				<mesh
+				floor && <mesh
 					name='floor'
 					scale={[10, 10, 1]}
 					position={[0, -0.001, 0]}
 					rotation={[-Math.PI / 2, 0, 0]}
-					receiveShadow>
+					receiveShadow
+					>
 					<planeGeometry />
-					<meshStandardMaterial color='#E8CEA0' side={THREE.DoubleSide} />
+
+					<meshStandardMaterial map={floorTexture} side={THREE.DoubleSide} />
 				</mesh>
 
 				<group position={[0, 0.001, 0]}>
@@ -234,69 +244,70 @@ const Render = ({
 					})}
 				</group>
 
-				{ dimensions && <group name='dimensions'>
-					<DimensionLabel
-						min={500}
-						max={2500}
-						name='width'
-						position={[0, 0, toMeters(wardrobe.depth / 2) + 0.3]}
-						value={wardrobe.width}
-						linePositionStart={[
-							toMeters(-wardrobe.width / 2),
-							0,
-							toMeters(wardrobe.depth / 2) + 0.3,
-						]}
-						linePositionEnd={[
-							toMeters(wardrobe.width / 2),
-							0,
-							toMeters(wardrobe.depth / 2) + 0.3,
-						]}
-						label='W'
-						axis='z'
-						onUpdate={onUpdate}
-					/>
-					<DimensionLabel
-						min={1800}
-						max={2700}
-						name='height'
-						position={[
-							toMeters(wardrobe.width) / 2 + 0.3,
-							toMeters(wardrobe.height) / 2,
-							0,
-						]}
-						value={wardrobe.height}
-						linePositionStart={[toMeters(wardrobe.width) / 2 + 0.3, 0, 0]}
-						linePositionEnd={[
-							toMeters(wardrobe.width) / 2 + 0.3,
-							toMeters(wardrobe.height),
-							0,
-						]}
-						label='H'
-						axis='x'
-						onUpdate={onUpdate}
-					/>
-					<DimensionLabel
-						min={450}
-						max={700}
-						name='depth'
-						position={[toMeters(-wardrobe.width) / 2 - 0.3, 0, 0]}
-						value={wardrobe.depth}
-						linePositionStart={[
-							toMeters(-wardrobe.width) / 2 - 0.3,
-							0,
-							toMeters(wardrobe.depth) / 2,
-						]}
-						linePositionEnd={[
-							toMeters(-wardrobe.width) / 2 - 0.3,
-							0,
-							toMeters(-wardrobe.depth) / 2,
-						]}
-						label='D'
-						axis='x'
-						onUpdate={onUpdate}
-					/>
-				</group>
-				}
+				{dimensions && (
+					<group name='dimensions'>
+						<DimensionLabel
+							min={500}
+							max={3000}
+							name='width'
+							position={[0, 0, toMeters(wardrobe.depth / 2) + 0.3]}
+							value={wardrobe.width}
+							linePositionStart={[
+								toMeters(-wardrobe.width / 2),
+								0,
+								toMeters(wardrobe.depth / 2) + 0.3,
+							]}
+							linePositionEnd={[
+								toMeters(wardrobe.width / 2),
+								0,
+								toMeters(wardrobe.depth / 2) + 0.3,
+							]}
+							label='W'
+							axis='z'
+							onUpdate={onUpdate}
+						/>
+						<DimensionLabel
+							min={1800}
+							max={2700}
+							name='height'
+							position={[
+								toMeters(wardrobe.width) / 2 + 0.3,
+								toMeters(wardrobe.height) / 2,
+								0,
+							]}
+							value={wardrobe.height}
+							linePositionStart={[toMeters(wardrobe.width) / 2 + 0.3, 0, 0]}
+							linePositionEnd={[
+								toMeters(wardrobe.width) / 2 + 0.3,
+								toMeters(wardrobe.height),
+								0,
+							]}
+							label='H'
+							axis='x'
+							onUpdate={onUpdate}
+						/>
+						<DimensionLabel
+							min={450}
+							max={700}
+							name='depth'
+							position={[toMeters(-wardrobe.width) / 2 - 0.3, 0, 0]}
+							value={wardrobe.depth}
+							linePositionStart={[
+								toMeters(-wardrobe.width) / 2 - 0.3,
+								0,
+								toMeters(wardrobe.depth) / 2,
+							]}
+							linePositionEnd={[
+								toMeters(-wardrobe.width) / 2 - 0.3,
+								0,
+								toMeters(-wardrobe.depth) / 2,
+							]}
+							label='D'
+							axis='x'
+							onUpdate={onUpdate}
+						/>
+					</group>
+				)}
 
 				<ContactShadows
 					position={[0, -0.0005, 0]}

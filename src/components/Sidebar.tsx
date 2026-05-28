@@ -94,7 +94,7 @@ const Sidebar = ({
 					id='width'
 					type='range'
 					className='w-full rounded-lg cursor-pointer accent-blue-600'
-					max='2500'
+					max='3000'
 					min='500'
 					value={wardrobe.width}
 					onChange={e => onUpdate(e.target.name, parseFloat(e.target.value))}
