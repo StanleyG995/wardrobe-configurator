@@ -28,7 +28,7 @@ const Render = ({
 	doorsOpen,
 	floor
 }: RenderProps & ViewportOptionsProps) => {
-	const floorTexture = useLoader(THREE.TextureLoader, "/floor.png")
+	
 	
 
 	const boardGap = 0
@@ -85,7 +85,7 @@ const Render = ({
 					>
 					<planeGeometry />
 
-					<meshStandardMaterial map={floorTexture} side={THREE.DoubleSide} />
+					<meshStandardMaterial color='black' side={THREE.DoubleSide} />
 				</mesh>
 
 				<group position={[0, 0.001, 0]}>
