@@ -1,10 +1,11 @@
 "use client"
 
 import type { RenderProps, ViewportOptionsProps } from "@/types/RenderProps"
-import { Canvas, useLoader } from "@react-three/fiber"
+import { Canvas } from "@react-three/fiber"
 import { OrbitControls, ContactShadows } from "@react-three/drei"
 import Board from "./Board"
 import DimensionLabel from "./DimensionLabel"
+import Floor from "./Floor"
 import Hitbox from "./Hitbox"
 import ViewportControls from "./ViewportControls"
 
@@ -76,17 +77,7 @@ const Render = ({
 					groundColor='#b97a20'
 				/>
 
-				floor && <mesh
-					name='floor'
-					scale={[10, 10, 1]}
-					position={[0, -0.001, 0]}
-					rotation={[-Math.PI / 2, 0, 0]}
-					receiveShadow
-					>
-					<planeGeometry />
-
-					<meshStandardMaterial color='black' side={THREE.DoubleSide} />
-				</mesh>
+				{ floor && <Floor/> }
 
 				<group position={[0, 0.001, 0]}>
 					<Hitbox
