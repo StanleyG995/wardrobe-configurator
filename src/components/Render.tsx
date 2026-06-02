@@ -6,6 +6,7 @@ import { OrbitControls, ContactShadows } from "@react-three/drei"
 import Board from "./Board"
 import DimensionLabel from "./DimensionLabel"
 import Floor from "./Floor"
+import HumanScale from "./HumanScale"
 import Hitbox from "./Hitbox"
 import ViewportControls from "./ViewportControls"
 
@@ -26,8 +27,9 @@ const Render = ({
 	onToggleUpdate,
 	dimensions,
 	humanScale,
+	gender,
 	doorsOpen,
-	floor
+	floor,
 }: RenderProps & ViewportOptionsProps) => {
 	
 	
@@ -50,6 +52,7 @@ const Render = ({
 				onToggleUpdate={onToggleUpdate}
 				dimensions={dimensions}
 				humanScale={humanScale}
+				gender={gender}
 				doorsOpen={doorsOpen}
 				floor={floor}
 			/>
@@ -78,6 +81,7 @@ const Render = ({
 				/>
 
 				{ floor && <Floor/> }
+				{ humanScale && <HumanScale gender={gender}/>}
 
 				<group position={[0, 0.001, 0]}>
 					<Hitbox

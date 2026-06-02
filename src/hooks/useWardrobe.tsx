@@ -21,9 +21,10 @@ export const useWardrobe = () => {
 
     const [ViewportOptions, setViewportOptions] = useState<ViewportOptionsProps>({
         dimensions: true,
-        humanScale: false,
+        humanScale: true,
         doorsOpen: false,
         floor: true,
+        gender: 'male'
     })
 
     const [activeSegmentIdx, setActiveSegmentIdx] = useState<number | null>(null)

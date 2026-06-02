@@ -134,16 +134,7 @@ const Sidebar = ({
 			</div>
 
 			<div className='pb-6 flex flex-row align-center justify-start gap-4'>
-				<label htmlFor='boardThickness'>Thickness:</label>
-				<select
-					name='boardThickness'
-					value={wardrobe.boardThickness}
-					onChange={e => onUpdate(e.target.name, parseFloat(e.target.value))}
-					className='border border-gray-300 rounded p-1 w-full bg-neutral-900 text-white outline-none'>
-					<option value={15}>15 mm</option>
-					<option value={18}>18 mm</option>
-					<option value={20}>20 mm</option>
-				</select>
+				<span>Thickness: <strong>{wardrobe.boardThickness} mm</strong></span>
 			</div>
 
 			<hr className='border-white/10 my-2' />

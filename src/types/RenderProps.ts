@@ -8,7 +8,11 @@ export interface RenderProps {
 	onToggleUpdate: (name: keyof ViewportOptionsProps ) => void,
 }
 
-export interface ViewportOptionsProps {
+export interface HumanScaleProps {
+    gender: 'male' | 'female',
+  }
+
+export interface ViewportOptionsProps extends HumanScaleProps{
 	dimensions: boolean,
 	humanScale: boolean,
 	doorsOpen: boolean,

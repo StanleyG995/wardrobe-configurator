@@ -49,6 +49,7 @@ export default function Home() {
                     humanScale={ViewportOptions.humanScale} 
                     doorsOpen={ViewportOptions.doorsOpen} 
                     floor={ViewportOptions.floor}
+                    gender={ViewportOptions.gender}
                     />
             </div>
         </main>
