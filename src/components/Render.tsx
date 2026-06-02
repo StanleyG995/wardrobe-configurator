@@ -242,7 +242,7 @@ const Render = ({
 					<group name='dimensions'>
 						<DimensionLabel
 							min={500}
-							max={3000}
+							max={3600}
 							name='width'
 							position={[0, 0, toMeters(wardrobe.depth / 2) + 0.3]}
 							value={wardrobe.width}
