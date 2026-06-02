@@ -24,7 +24,7 @@ export const useWardrobe = () => {
         humanScale: true,
         doorsOpen: false,
         floor: true,
-        gender: 'male'
+        gender: 'female'
     })
 
     const [activeSegmentIdx, setActiveSegmentIdx] = useState<number | null>(null)
@@ -38,6 +38,21 @@ export const useWardrobe = () => {
             ...prev,
             [name]: !prev[name]
         }))
+    }
+
+    const handleViewportGenderToggle = () => {
+        if (ViewportOptions.gender === 'male') {
+            setViewportOptions(prev => ({
+                ...prev,
+                ['gender']: 'female'
+            }))
+        }
+        else {
+            setViewportOptions(prev => ({
+                ...prev,
+                ['gender']: 'male'
+            }))
+        }
     }
 
     const targetSegmentCount = wardrobe.width < 1200 ? 1 : (wardrobe.width < 1800 ? 2 : 3);
@@ -119,6 +134,7 @@ export const useWardrobe = () => {
         setActiveSegmentIdx,
         wardrobePrice,
         handleViewportToggle,
+        handleViewportGenderToggle,
         ViewportOptions,
     }
 }

@@ -15,6 +15,7 @@ export default function Home() {
         setActiveSegmentIdx,
         wardrobePrice,
         handleViewportToggle,
+        handleViewportGenderToggle,
         ViewportOptions,
     } = useWardrobe()
 
@@ -42,6 +43,7 @@ export default function Home() {
                 <Render 
                     onUpdate={handleUpdate}
                     onToggleUpdate={handleViewportToggle}
+                    onToggleGender={handleViewportGenderToggle}
                     wardrobe={wardrobe}
                     activeSegmentIdx={activeSegmentIdx}
                     setActiveSegmentIdx={setActiveSegmentIdx} 

@@ -1,6 +1,6 @@
 "use client"
 
-import type { RenderProps, ViewportOptionsProps } from "@/types/RenderProps"
+import type { RenderProps, ViewportButtonProps } from "@/types/RenderProps"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, ContactShadows } from "@react-three/drei"
 import Board from "./Board"
@@ -25,15 +25,13 @@ const Render = ({
 	setActiveSegmentIdx,
 	onUpdate,
 	onToggleUpdate,
+	onToggleGender,
 	dimensions,
 	humanScale,
 	gender,
 	doorsOpen,
 	floor,
-}: RenderProps & ViewportOptionsProps) => {
-	
-	
-
+}: RenderProps & ViewportButtonProps) => {
 	const boardGap = 0
 
 	const segments: SegmentData[] = wardrobe.segments || []
@@ -50,6 +48,7 @@ const Render = ({
 		<>
 			<ViewportControls
 				onToggleUpdate={onToggleUpdate}
+				onToggleGender={onToggleGender}
 				dimensions={dimensions}
 				humanScale={humanScale}
 				gender={gender}
@@ -80,8 +79,8 @@ const Render = ({
 					groundColor='#b97a20'
 				/>
 
-				{ floor && <Floor/> }
-				{ humanScale && <HumanScale gender={gender}/>}
+				{floor && <Floor />}
+				{humanScale && <HumanScale gender={gender} dimensions={dimensions} />}
 
 				<group position={[0, 0.001, 0]}>
 					<Hitbox

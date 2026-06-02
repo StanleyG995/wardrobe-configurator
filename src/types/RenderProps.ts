@@ -10,6 +10,7 @@ export interface RenderProps {
 
 export interface HumanScaleProps {
     gender: 'male' | 'female',
+	dimensions: boolean,
   }
 
 export interface ViewportOptionsProps extends HumanScaleProps{
@@ -21,4 +22,5 @@ export interface ViewportOptionsProps extends HumanScaleProps{
 
 export interface ViewportButtonProps extends ViewportOptionsProps {
 	onToggleUpdate: (name: keyof ViewportOptionsProps ) => void,
+	onToggleGender: () => void,
 }
