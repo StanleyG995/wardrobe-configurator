@@ -9,6 +9,7 @@ import Floor from "./Floor"
 import HumanScale from "./HumanScale"
 import Hitbox from "./Hitbox"
 import ViewportControls from "./ViewportControls"
+import Door from "./Door"
 
 import * as THREE from "three"
 import { toMeters } from "../helpers/unitConverter"
@@ -305,6 +306,8 @@ const Render = ({
 						/>
 					</group>
 				)}
+
+				<Door wardrobe={wardrobe}/>
 
 				<ContactShadows
 					position={[0, -0.0005, 0]}
