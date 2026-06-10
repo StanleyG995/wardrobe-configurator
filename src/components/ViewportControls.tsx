@@ -6,6 +6,7 @@ import type { ViewportButtonProps } from "@/types/RenderProps"
 const ViewportControls = ({
 	onToggleUpdate,
 	onToggleGender,
+	onToggleDoors,
 	dimensions,
 	humanScale,
 	doorsOpen,
@@ -52,7 +53,7 @@ const ViewportControls = ({
 				</button>
 			)}
 			<button
-				onClick={() => onToggleUpdate("doorsOpen")}
+				onClick={() => onToggleDoors()}
 				className={
 					doorsOpen
 						? "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-400"

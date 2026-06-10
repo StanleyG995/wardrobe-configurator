@@ -17,10 +17,12 @@ export interface ViewportOptionsProps extends HumanScaleProps{
 	dimensions: boolean,
 	humanScale: boolean,
 	doorsOpen: boolean,
+	doorRotation: [number, number, number]
 	floor: boolean
 }
 
 export interface ViewportButtonProps extends ViewportOptionsProps {
 	onToggleUpdate: (name: keyof ViewportOptionsProps ) => void,
 	onToggleGender: () => void,
+	onToggleDoors: () =>  void,
 }

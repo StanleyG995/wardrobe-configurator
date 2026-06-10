@@ -23,6 +23,7 @@ export const useWardrobe = () => {
         dimensions: true,
         humanScale: true,
         doorsOpen: false,
+        doorRotation: [0,0,0],
         floor: true,
         gender: 'female'
     })
@@ -54,6 +55,11 @@ export const useWardrobe = () => {
             }))
         }
     }
+
+    const handleDoorsToggle = () => {
+        ViewportOptions.doorsOpen ? setViewportOptions(prev => ({...prev, ['doorRotation']:[0,0,0], ['doorsOpen']: false})) : setViewportOptions(prev => ({...prev, ['doorRotation']:[0,-Math.PI/1.5,0], ['doorsOpen']: true}))
+    }
+    
 
     const targetSegmentCount = wardrobe.width < 1200 ? 1 : (wardrobe.width < 1800 ? 2 : 3);
 
@@ -136,5 +142,6 @@ export const useWardrobe = () => {
         handleViewportToggle,
         handleViewportGenderToggle,
         ViewportOptions,
+        handleDoorsToggle    
     }
 }

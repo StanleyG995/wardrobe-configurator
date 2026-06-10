@@ -32,6 +32,8 @@ const Render = ({
 	gender,
 	doorsOpen,
 	floor,
+	doorRotation,
+	onToggleDoors
 }: RenderProps & ViewportButtonProps) => {
 	const boardGap = 0
 
@@ -54,7 +56,9 @@ const Render = ({
 				humanScale={humanScale}
 				gender={gender}
 				doorsOpen={doorsOpen}
+				doorRotation={doorRotation}
 				floor={floor}
+				onToggleDoors={onToggleDoors}
 			/>
 			<Canvas
 				shadows={{ type: THREE.PCFShadowMap }}
@@ -307,7 +311,7 @@ const Render = ({
 					</group>
 				)}
 
-				<Door width={wardrobe.width} height={wardrobe.height} depth={wardrobe.depth} boardThickness={wardrobe.boardThickness}/>
+				<Door width={wardrobe.width} height={wardrobe.height} depth={wardrobe.depth} boardThickness={wardrobe.boardThickness} doorRotation = {doorRotation} isOpen={doorsOpen}/>
 
 				<ContactShadows
 					position={[0, -0.0005, 0]}
