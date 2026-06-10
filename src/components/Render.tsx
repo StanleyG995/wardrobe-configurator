@@ -307,7 +307,7 @@ const Render = ({
 					</group>
 				)}
 
-				<Door wardrobe={wardrobe}/>
+				<Door width={wardrobe.width} height={wardrobe.height} depth={wardrobe.depth} boardThickness={wardrobe.boardThickness}/>
 
 				<ContactShadows
 					position={[0, -0.0005, 0]}
