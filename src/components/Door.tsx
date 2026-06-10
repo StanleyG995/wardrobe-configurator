@@ -28,8 +28,8 @@ const Door = ({width, height, depth, boardThickness, doorRotation, isOpen}: Door
     return (
         <group ref={hingeRef} position={[toMeters(-width/2), 0, toMeters(depth/2+boardThickness/2)]}>
            <Handle1 position={[toMeters(width-100),toMeters(height/2), toMeters(-20+boardThickness*3)]} rotation={[0,-Math.PI/2,0]} scale={[0.7,0.6,0.7]}/>
-           <Handle2 position={[toMeters(width-100),toMeters(height/2), toMeters(-20+boardThickness*3)]} rotation={[0,-Math.PI/2,0]} scale={[0.7,0.6,0.7]}/>
-           <Handle3 position={[toMeters(width-100),toMeters(height/2), toMeters(-20+boardThickness*3)]} rotation={[0,-Math.PI/2,0]} scale={[0.7,0.6,0.7]}/>
+           {false && <Handle2 position={[toMeters(width-100),toMeters(height/2), toMeters(-20+boardThickness*3)]} rotation={[0,-Math.PI/2,0]} scale={[0.7,0.6,0.7]}/>}
+           {false && <Handle3 position={[toMeters(width-100),toMeters(height/2), toMeters(-20+boardThickness*3)]} rotation={[0,-Math.PI/2,0]} scale={[0.7,0.6,0.7]}/>}
             <Board name='door' w={width} h={height} d={boardThickness} x={width/2} y={height/2} z={0} rotation = {[0,0,0]}/>
         </group>
         
