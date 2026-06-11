@@ -1,6 +1,6 @@
 "use client"
 
-import Sidebar from "@/components/Sidebar"
+import Sidebar from "@/components/ui/Sidebar"
 import Render from "@/components/Render"
 import { useWardrobe } from '@/hooks/useWardrobe'
 

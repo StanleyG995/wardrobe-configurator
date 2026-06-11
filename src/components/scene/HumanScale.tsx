@@ -5,7 +5,7 @@ import type { HumanScaleProps } from "@/types/RenderProps"
 import { useRef, useState, useEffect } from "react"
 import { useFrame } from "@react-three/fiber"
 import { Image as DreiImage, Line, Html } from "@react-three/drei"
-import { toMeters, toMilimeters } from "../helpers/unitConverter"
+import { toMeters, toMilimeters } from "@/helpers/unitConverter"
 import * as THREE from "three"
 
 const HumanScale = ({ gender, dimensions }: HumanScaleProps) => {

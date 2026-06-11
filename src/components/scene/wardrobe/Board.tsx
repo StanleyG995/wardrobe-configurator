@@ -1,7 +1,7 @@
 'use client';
 import { useMemo } from 'react'
-import type { BoardProps } from '../types/BoardProps'
-import { toMeters } from '../helpers/unitConverter'
+import type { BoardProps } from '@/types/BoardProps'
+import { toMeters } from '@/helpers/unitConverter'
 
 import { useLoader } from '@react-three/fiber'
 import * as THREE from 'three'

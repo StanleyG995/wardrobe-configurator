@@ -1,6 +1,6 @@
 "use client"
 
-import type { WardrobeProps } from "../types/WardrobeProps"
+import type { WardrobeProps } from "@/types/WardrobeProps"
 
 const Sidebar = ({
 	onUpdate,

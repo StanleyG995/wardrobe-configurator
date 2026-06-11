@@ -2,10 +2,10 @@
 import { useRef } from "react"
 import { useFrame } from "@react-three/fiber"
 import { MathUtils, Group } from "three"
-import Board from "@/components/Board"
+import Board from "@/components/scene/wardrobe/Board"
 import { DoorProps } from "@/types/WardrobeProps"
 import { toMeters } from "@/helpers/unitConverter"
-import CurrentDoorHandle from "@/components/CurrentDoorHandle"
+import CurrentDoorHandle from "@/components/scene/wardrobe/CurrentDoorHandle"
 
 const Door = ({
 	width,

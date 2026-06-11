@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { toMeters } from "../helpers/unitConverter"
+import { toMeters } from "@/helpers/unitConverter"
 
 interface HitboxProps {
 	wardrobe: {
