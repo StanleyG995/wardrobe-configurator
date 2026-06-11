@@ -35,5 +35,4 @@ export interface WardrobeProps {
 export interface DoorProps extends Omit<WardrobeDimensions, 'backBoardThickness'> {
   doorRotation: [number, number, number],
   isOpen: boolean,
-  handle: 'string',
 } 
