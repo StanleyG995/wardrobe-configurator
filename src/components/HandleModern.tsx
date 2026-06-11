@@ -13,7 +13,7 @@ function HandleModern(props: ThreeElements['group']) {
 
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={handleMesh.geometry} material={handleMesh.material} />
+      <mesh geometry={handleMesh.geometry} material={handleMesh.material}  />
     </group>
   )
 }

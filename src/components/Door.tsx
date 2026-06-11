@@ -34,12 +34,12 @@ const Door = ({
 			position={[toMeters(-width / 2), 0, toMeters(depth / 2)]}>
 			<CurrentDoorHandle
 				position={[
-					toMeters(width - 100),
+					toMeters(width-boardThickness/2),
 					toMeters(height / 2),
-					toMeters(-20 + boardThickness * 3),
+					toMeters(boardThickness+boardThickness/2),
 				]}
 				rotation={[0, -Math.PI / 2, 0]}
-				scale={[0.7, 0.6, 0.7]}
+				
 			/>
 			
 			<Board
