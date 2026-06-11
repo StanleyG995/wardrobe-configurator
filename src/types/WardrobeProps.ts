@@ -15,7 +15,6 @@ export interface WardrobeDimensions {
 
   export interface WardrobeData extends WardrobeDimensions {
     segments: SegmentData[];
-    doorHandle: 'string'
   }
 
 export interface WardrobeProps {

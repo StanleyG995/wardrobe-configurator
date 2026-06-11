@@ -30,7 +30,6 @@ export const useWardrobe = () => {
 
     const [activeSegmentIdx, setActiveSegmentIdx] = useState<number | null>(null)
 
-    const [currentDoorHandle, setCurrentDoorHandle] = useState<'straight' | 'modern' | 'long'>('straight')
 
     const handleUpdate = (name: string, value: number) => {
         setWardrobe(prev => ({ ...prev, [name]: value }))
@@ -74,9 +73,7 @@ export const useWardrobe = () => {
         }
       };
     
-    const handleDoorsHandleChange = () => {
-        set
-    }
+    
 
     const targetSegmentCount = wardrobe.width < 1200 ? 1 : (wardrobe.width < 1800 ? 2 : 3);
 
