@@ -39,7 +39,7 @@ const Render = ({
 	doorRotation,
 	onToggleDoors
 }: RenderProps & ViewportButtonProps) => {
-	const boardGap = 0
+	
 
 	const segments: SegmentData[] = wardrobe.segments || []
 	const segmentCount = segments.length > 0 ? segments.length : 1
@@ -91,7 +91,7 @@ const Render = ({
 					groundColor='#b97a20'
 				/>
 
-
+				<WardrobeCase width={wardrobe.width} height={wardrobe.height} depth={wardrobe.depth} boardThickness={wardrobe.boardThickness} backBoardThickness={wardrobe.backBoardThickness}/>
 
 				{floor && <Floor />}
 				{humanScale && <HumanScale gender={gender} dimensions={dimensions} />}
@@ -191,7 +191,7 @@ const Render = ({
 							</group>
 						)
 					})}
-				</group>
+				
 
 				{dimensions && (
 					<group name='dimensions'>

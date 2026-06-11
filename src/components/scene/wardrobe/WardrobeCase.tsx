@@ -1,6 +1,10 @@
 import Board from "@/components/scene/wardrobe/Board"
+import type { WardrobeDimensions } from "@/types/WardrobeProps"
 
-const WardrobeCase = () => {
+const WardrobeCase = (wardrobe: WardrobeDimensions) => {
+
+	const boardGap = 0
+
     return (
         <group position={[0, 0.001, 0]}>
 					
