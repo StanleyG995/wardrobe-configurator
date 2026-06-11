@@ -30,6 +30,8 @@ export const useWardrobe = () => {
 
     const [activeSegmentIdx, setActiveSegmentIdx] = useState<number | null>(null)
 
+    const [currentDoorHandle, setCurrentDoorHandle] = useState<'straight' | 'modern' | 'long'>('straight')
+
     const handleUpdate = (name: string, value: number) => {
         setWardrobe(prev => ({ ...prev, [name]: value }))
     }
@@ -51,15 +53,30 @@ export const useWardrobe = () => {
         else {
             setViewportOptions(prev => ({
                 ...prev,
-                ['gender']: 'male'
+                gender: 'male'
             }))
         }
     }
 
     const handleDoorsToggle = () => {
-        ViewportOptions.doorsOpen ? setViewportOptions(prev => ({...prev, ['doorRotation']:[0,0,0], ['doorsOpen']: false})) : setViewportOptions(prev => ({...prev, ['doorRotation']:[0,-Math.PI/1.5,0], ['doorsOpen']: true}))
-    }
+        if (ViewportOptions.doorsOpen) {
+          setViewportOptions(prev => ({
+            ...prev, 
+            doorRotation: [0, 0, 0],
+            doorsOpen: false
+          }));
+        } else {
+          setViewportOptions(prev => ({
+            ...prev, 
+            doorRotation: [0, -Math.PI / 1.5, 0], 
+            doorsOpen: true
+          }));
+        }
+      };
     
+    const handleDoorsHandleChange = () => {
+        set
+    }
 
     const targetSegmentCount = wardrobe.width < 1200 ? 1 : (wardrobe.width < 1800 ? 2 : 3);
 

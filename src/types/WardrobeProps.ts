@@ -15,6 +15,7 @@ export interface WardrobeDimensions {
 
   export interface WardrobeData extends WardrobeDimensions {
     segments: SegmentData[];
+    doorHandle: 'string'
   }
 
 export interface WardrobeProps {
@@ -34,4 +35,5 @@ export interface WardrobeProps {
 export interface DoorProps extends Omit<WardrobeDimensions, 'backBoardThickness'> {
   doorRotation: [number, number, number],
   isOpen: boolean,
+  handle: 'string',
 } 

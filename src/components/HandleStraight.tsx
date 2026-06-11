@@ -3,9 +3,9 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 import { ThreeElements } from '@react-three/fiber'
 
-function Handle3(props: ThreeElements['group']) {
+function HandleStraight(props: ThreeElements['group']) {
 
-  const { nodes } = useGLTF('/models/handle-3.glb')
+  const { nodes } = useGLTF('/models/handle-straight.glb')
 
   const handleMesh = nodes.Cube as THREE.Mesh
 
@@ -18,6 +18,6 @@ function Handle3(props: ThreeElements['group']) {
   )
 }
 
-useGLTF.preload('/models/handle-3.glb')
+useGLTF.preload('/models/handle-straight.glb')
 
-export default Handle3
+export default HandleStraight
