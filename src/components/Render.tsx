@@ -13,16 +13,10 @@ import Door from "@/components/scene/wardrobe/Door"
 import WardrobeHitbox from "./scene/wardrobe/WardrobeHitbox"
 import WardrobeCase from "@/components/scene/wardrobe/WardrobeCase"
 import WardrobeInterior from "@/components/scene/wardrobe/WardrobeInterior"
-import WardrobeDoors from "@/components/scene/wardrobe/WardrobeDoors"
+
 
 import * as THREE from "three"
 import { toMeters } from "../helpers/unitConverter"
-
-interface SegmentData {
-	id: string
-	type: "shelves" | "hanger" | "empty"
-	shelves: string[]
-}
 
 const Render = ({
 	wardrobe,
