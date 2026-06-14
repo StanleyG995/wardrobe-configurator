@@ -2,24 +2,10 @@
 
 import { useState, useEffect } from "react"
 import { toMeters } from "@/helpers/unitConverter"
+import type { HitboxProps } from "@/types/WardrobeProps"
 
-interface HitboxProps {
-	wardrobe: {
-		width: number
-		height: number
-		depth: number
-		boardThickness: number
-		segments?: Array<{
-			id: string
-			type: "shelves" | "hanger" | "empty"
-			shelves: string[]
-		}>
-	}
-	activeSegmentIdx: number | null
-	setActiveSegmentIdx: (idx: number | null) => void
-}
 
-function Hitbox({
+function WardrobeHitbox({
 	wardrobe,
 	activeSegmentIdx,
 	setActiveSegmentIdx,
@@ -87,4 +73,4 @@ function Hitbox({
 	)
 }
 
-export default Hitbox
+export default WardrobeHitbox

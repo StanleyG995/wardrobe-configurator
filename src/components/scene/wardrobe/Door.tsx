@@ -5,7 +5,7 @@ import { MathUtils, Group } from "three"
 import Board from "@/components/scene/wardrobe/Board"
 import { DoorProps } from "@/types/WardrobeProps"
 import { toMeters } from "@/helpers/unitConverter"
-import CurrentDoorHandle from "@/components/scene/wardrobe/CurrentDoorHandle"
+import DoorHandle from "@/components/scene/wardrobe/DoorHandle"
 
 const Door = ({
 	width,
@@ -32,7 +32,7 @@ const Door = ({
 		<group
 			ref={hingeRef}
 			position={[toMeters(-width / 2), 0, toMeters(depth / 2)]}>
-			<CurrentDoorHandle
+			<DoorHandle
 				position={[
 					toMeters(width-boardThickness/2),
 					toMeters(height / 2),
