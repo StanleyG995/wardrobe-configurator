@@ -36,14 +36,14 @@ const Render = ({
 	return (
 		<>
 			<ViewportControls
-				onToggleUpdate={onToggleUpdate}
-				onToggleGender={onToggleGender}
 				dimensions={dimensions}
 				humanScale={humanScale}
 				gender={gender}
 				doorsOpen={doorsOpen}
 				doorRotation={doorRotation}
 				floor={floor}
+				onToggleUpdate={onToggleUpdate}
+				onToggleGender={onToggleGender}
 				onToggleDoors={onToggleDoors}
 			/>
 			<Canvas

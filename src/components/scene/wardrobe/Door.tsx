@@ -13,6 +13,7 @@ const Door = ({
 	depth,
 	boardThickness,
 	isOpen,
+	hingeposition
 }: DoorProps) => {
 	const hingeRef = useRef<Group>(null)
 
@@ -34,10 +35,11 @@ const Door = ({
 			position={[toMeters(-width / 2), 0, toMeters(depth / 2)]}>
 			<DoorHandle
 				position={[
-					toMeters(width-boardThickness/2),
+					toMeters(width-100),
 					toMeters(height / 2),
-					toMeters(boardThickness+boardThickness/2),
+					toMeters(3*boardThickness),
 				]}
+				scale={[1,0.6,0.7]}
 				rotation={[0, -Math.PI / 2, 0]}
 				
 			/>

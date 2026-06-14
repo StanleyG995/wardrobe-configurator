@@ -6,7 +6,6 @@ const WardrobeInterior = ({width, height, depth, boardThickness, segments}: Ward
     
 	const segmentCount = segments.length > 0 ? segments.length : 1
 	const hasDividers = segmentCount > 1
-
 	const totalInnerWidth =
 		width -
 		2 * boardThickness -

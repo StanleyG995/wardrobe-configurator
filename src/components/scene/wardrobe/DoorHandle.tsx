@@ -1,10 +1,10 @@
 import { ThreeElements } from '@react-three/fiber'
 
-import HandleLong from '@/components/scene/wardrobe/handles/HandleLong'
+import HandleStraight from '@/components/scene/wardrobe/handles/HandleStraight'
 
 const DoorHandle = (props: ThreeElements['group']) => {
     return (
-        <HandleLong {...props}/>
+        <HandleStraight {...props}/>
     )
 }
 

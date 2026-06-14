@@ -77,8 +77,6 @@ const HumanScale = ({ gender, dimensions }: HumanScaleProps) => {
 	return (
 		<group ref={groupRef} position={[0, 0, 1.4]}>
 			<DreiImage
-				castShadow
-				receiveShadow
 				url={imgUrl}
 				scale={[humanWidth, humanHeight]}
 				position={[0, humanHeight / 2, 0]}
