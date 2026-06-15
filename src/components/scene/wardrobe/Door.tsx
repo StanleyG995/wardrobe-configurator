@@ -13,31 +13,31 @@ const Door = ({
 	depth,
 	boardThickness,
 	isOpen,
+	hingeSide,
+	handleSide,
 }: DoorProps) => {
 	const hingeRef = useRef<Group>(null)
 
-	const targetRotation = isOpen ? -Math.PI / 2 : 0
+	const targetRotation = isOpen ? Math.PI / 2 : 0
+	const hingePos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width / 2), 0, toMeters(depth / 2)] : [toMeters(width / 2), 0, toMeters(depth / 2)]
+	const handlePos: [number, number, number] = handleSide === 'left' ? [toMeters(width-100), toMeters(height / 2), toMeters(3*boardThickness),] : [toMeters(-width+100), toMeters(height / 2), toMeters(3*boardThickness),]
 
 	useFrame(() => {
 		if (hingeRef.current) {
 			hingeRef.current.rotation.y = MathUtils.lerp(
 				hingeRef.current.rotation.y,
-				targetRotation,
+				hingeSide === 'left' ? -targetRotation : targetRotation,
 				0.1
 			)
 		}
 	})
-
+	
 	return (
 		<group
 			ref={hingeRef}
-			position={[toMeters(-width / 2), 0, toMeters(depth / 2)]}>
+			position={hingePos}>
 			<DoorHandle
-				position={[
-					toMeters(width-100),
-					toMeters(height / 2),
-					toMeters(3*boardThickness),
-				]}
+				position={handlePos}
 				scale={[1,0.6,0.7]}
 				rotation={[0, -Math.PI / 2, 0]}
 				
@@ -48,7 +48,7 @@ const Door = ({
 				w={width}
 				h={height}
 				d={boardThickness}
-				x={width / 2}
+				x={hingeSide === 'left' ? width / 2 : -width / 2}
 				y={height / 2}
 				z={boardThickness / 2}
 				rotation={[0, 0, 0]}

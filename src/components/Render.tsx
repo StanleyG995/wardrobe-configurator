@@ -186,6 +186,8 @@ const Render = ({
 						boardThickness={wardrobe.boardThickness}
 						doorRotation={doorRotation}
 						isOpen={doorsOpen}
+						hingeSide="right"
+						handleSide="right"
 					/>
 				</group>
 			</Canvas>
