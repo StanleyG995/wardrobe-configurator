@@ -13,7 +13,6 @@ const Door = ({
 	depth,
 	boardThickness,
 	isOpen,
-	hingeposition
 }: DoorProps) => {
 	const hingeRef = useRef<Group>(null)
 
