@@ -8,11 +8,11 @@ import DimensionLabel from "./scene/DimensionLabel"
 import Floor from "./scene/Floor"
 import HumanScale from "./scene/HumanScale"
 import ViewportControls from "./ui/ViewportControls"
-import Door from "@/components/scene/wardrobe/Door"
 
 import WardrobeHitbox from "./scene/wardrobe/WardrobeHitbox"
 import WardrobeCase from "@/components/scene/wardrobe/WardrobeCase"
 import WardrobeInterior from "@/components/scene/wardrobe/WardrobeInterior"
+import WardrobeDoors from "@/components/scene/wardrobe/WardrobeDoors"
 
 
 import * as THREE from "three"
@@ -179,15 +179,14 @@ const Render = ({
 						setActiveSegmentIdx={setActiveSegmentIdx}
 					/>
 
-					<Door
+					<WardrobeDoors
 						width={wardrobe.width}
 						height={wardrobe.height}
 						depth={wardrobe.depth}
 						boardThickness={wardrobe.boardThickness}
-						doorRotation={doorRotation}
 						isOpen={doorsOpen}
-						hingeSide="right"
-						handleSide="right"
+						segments={wardrobe.segments}
+						backBoardThickness={wardrobe.backBoardThickness}
 					/>
 				</group>
 			</Canvas>

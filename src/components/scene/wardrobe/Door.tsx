@@ -18,15 +18,27 @@ const Door = ({
 }: DoorProps) => {
 	const hingeRef = useRef<Group>(null)
 
-	const targetRotation = isOpen ? Math.PI / 2 : 0
+	const targetRotation = isOpen ? Math.PI / 2.1 : 0
 	const hingePos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width / 2), 0, toMeters(depth / 2)] : [toMeters(width / 2), 0, toMeters(depth / 2)]
 	const handlePos: [number, number, number] = handleSide === 'left' ? [toMeters(width-100), toMeters(height / 2), toMeters(3*boardThickness),] : [toMeters(-width+100), toMeters(height / 2), toMeters(3*boardThickness),]
+	const targetHingePositionX = isOpen ? toMeters(12+boardThickness) : 0
+	const targetHingePositionZ = isOpen ? toMeters(6) : 0
 
 	useFrame(() => {
 		if (hingeRef.current) {
 			hingeRef.current.rotation.y = MathUtils.lerp(
 				hingeRef.current.rotation.y,
 				hingeSide === 'left' ? -targetRotation : targetRotation,
+				0.1
+			)
+			hingeRef.current.position.x = MathUtils.lerp(
+				hingeRef.current.position.x,
+				hingeSide === 'left' ? hingePos[0]+targetHingePositionX : hingePos[0]-targetHingePositionX,
+				0.1
+			)
+			hingeRef.current.position.z = MathUtils.lerp(
+				hingeRef.current.position.z,
+				hingePos[2]+targetHingePositionZ,
 				0.1
 			)
 		}
