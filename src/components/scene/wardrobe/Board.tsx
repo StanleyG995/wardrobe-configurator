@@ -23,7 +23,13 @@ const Board = ({ name, w, h, d, x, y, z, rotation }: BoardProps) => {
             
             t.repeat.set(sX / tileSize, sY / tileSize);
             t.needsUpdate = true;
-            return new THREE.MeshStandardMaterial({ map: t });
+    
+         
+            return new THREE.MeshStandardMaterial({ 
+                map: t,
+                metalness: 0.0,
+                roughness: 0.6  
+            });
         };
 
     

@@ -1,23 +1,28 @@
-import * as THREE from 'three'
-import React from 'react'
-import { useGLTF } from '@react-three/drei'
-import { ThreeElements } from '@react-three/fiber'
+import * as THREE from "three"
+import React from "react"
+import { useGLTF } from "@react-three/drei"
+import { ThreeElements } from "@react-three/fiber"
 
-function HandleStraight(props: ThreeElements['group']) {
+function HandleStraight(props: ThreeElements["group"]) {
+	const { nodes } = useGLTF("/models/handle-straight.glb")
 
-  const { nodes } = useGLTF('/models/handle-straight.glb')
+	const handleMesh = nodes.Cube as THREE.Mesh
 
-  const handleMesh = nodes.Cube as THREE.Mesh
+	if (!handleMesh) return null
 
-  if (!handleMesh) return null
-
-  return (
-    <group {...props} dispose={null}>
-      <mesh geometry={handleMesh.geometry} material={handleMesh.material} />
-    </group>
-  )
+	return (
+		<group {...props} dispose={null}>
+			<mesh geometry={handleMesh.geometry}>
+				<meshStandardMaterial
+					color='#f7f7f7'
+					metalness={0.7}
+					roughness={0.1}
+				/>
+			</mesh>
+		</group>
+	)
 }
 
-useGLTF.preload('/models/handle-straight.glb')
+useGLTF.preload("/models/handle-straight.glb")
 
 export default HandleStraight

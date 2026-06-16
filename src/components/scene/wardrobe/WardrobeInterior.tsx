@@ -1,9 +1,14 @@
 import type { WardrobeData } from "@/types/WardrobeProps"
 import Board from "@/components/scene/wardrobe/Board"
-import { toMeters } from '@/helpers/unitConverter'
+import { toMeters } from "@/helpers/unitConverter"
 
-const WardrobeInterior = ({width, height, depth, boardThickness, segments}: WardrobeData) => {
-    
+const WardrobeInterior = ({
+	width,
+	height,
+	depth,
+	boardThickness,
+	segments,
+}: WardrobeData) => {
 	const segmentCount = segments.length > 0 ? segments.length : 1
 	const hasDividers = segmentCount > 1
 	const totalInnerWidth =
@@ -47,15 +52,25 @@ const WardrobeInterior = ({width, height, depth, boardThickness, segments}: Ward
 				const minHeightForLoft = 2300
 				const hangerRodTopGap = 150
 
+
 				return (
 					<group key={segment.id} position={[toMeters(segmentX), 0, 0]}>
+						{(height > 2200) && <Board
+							name={`top-shelf-${segment.id}`}
+							key={`top-shelf-${segment.id}`}
+							w={compartmentWidth}
+							h={boardThickness}
+							d={depth - boardThickness - 10}
+							x={0}
+							y={1900}
+							z={0}
+							rotation = {[0,0,0,]}
+						/>}
 						{segment.type === "shelves" &&
 							segment.shelves.map((shelfId, shelfIdx) => {
-								const availableHeight =
-									height - 2 * boardThickness
+								const availableHeight = height - 2 * boardThickness
 								const spacing = availableHeight / (segment.shelves.length + 1)
-								const currentY =
-									boardThickness + spacing * (shelfIdx + 1)
+								const currentY = boardThickness + spacing * (shelfIdx + 1)
 
 								return (
 									<Board

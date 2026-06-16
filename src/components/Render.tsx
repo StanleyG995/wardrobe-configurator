@@ -2,7 +2,8 @@
 
 import type { RenderProps, ViewportButtonProps } from "@/types/RenderProps"
 import { Canvas } from "@react-three/fiber"
-import { OrbitControls, ContactShadows } from "@react-three/drei"
+
+import { OrbitControls, ContactShadows, Environment } from "@react-three/drei"
 
 import DimensionLabel from "./scene/DimensionLabel"
 import Floor from "./scene/Floor"
@@ -52,8 +53,9 @@ const Render = ({
 				onPointerMissed={() => {
 					setActiveSegmentIdx(null)
 				}}>
+					<Environment preset="studio" environmentIntensity={0.06} />
 				<group name='scene'>
-					<ambientLight intensity={0.3} />
+					<ambientLight intensity={0.2} />
 					<directionalLight
 						position={[2, 6, 6]}
 						shadow-mapSize={[2048, 2048]}
