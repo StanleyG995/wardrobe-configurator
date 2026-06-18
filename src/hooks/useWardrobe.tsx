@@ -176,6 +176,6 @@ export const useWardrobe = () => {
         handleViewportGenderToggle,
         ViewportOptions,
         handleDoorsToggle,
-        handleDoorPositionChange    
+        handleDoorPositionChange, 
     }
 }

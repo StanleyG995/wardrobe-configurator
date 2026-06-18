@@ -30,6 +30,7 @@ export interface WardrobeProps {
   ) => void,
     activeSegmentIdx: number | null,
     setActiveSegmentIdx: (idx: number | null) => void,
+    onToggleDoorPosition: (idx: number) => void
 }
 
 export interface DoorProps extends Omit<WardrobeDimensions, 'backBoardThickness'> {

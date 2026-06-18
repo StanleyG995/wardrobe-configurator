@@ -42,8 +42,8 @@ const WardrobeDoors = ({
 								depth={depth}
 								boardThickness={boardThickness}
 								isOpen={isOpen}
-								hingeSide={'left'}
-								handleSide={'left'}
+								hingeSide={segment.doorPosition}
+								handleSide={segment.doorPosition}
 								topOffset={0}
 							/>
 					</group>}

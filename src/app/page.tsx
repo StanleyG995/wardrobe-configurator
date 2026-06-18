@@ -18,6 +18,7 @@ export default function Home() {
         handleViewportGenderToggle,
         ViewportOptions,
         handleDoorsToggle,
+        handleDoorPositionChange, 
     } = useWardrobe()
 
    
@@ -36,6 +37,7 @@ export default function Home() {
                     activeSegmentIdx={activeSegmentIdx}
                     setActiveSegmentIdx={setActiveSegmentIdx}
                     price={wardrobePrice}
+                    onToggleDoorPosition={handleDoorPositionChange}
                 />
             </div>
 
@@ -55,7 +57,6 @@ export default function Home() {
                     floor={ViewportOptions.floor}
                     gender={ViewportOptions.gender}
                     onToggleDoors={handleDoorsToggle}
-                    on
                     />
             </div>
         </main>
