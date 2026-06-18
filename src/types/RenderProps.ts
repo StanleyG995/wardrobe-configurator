@@ -6,6 +6,7 @@ export interface RenderProps {
     setActiveSegmentIdx: (idx: number | null) => void,
 	onUpdate: (name: string, value:number ) => void,
 	onToggleUpdate: (name: keyof ViewportOptionsProps ) => void,
+	onToggleDoorPosition: (idx: number | null) => void
 }
 
 export interface HumanScaleProps {

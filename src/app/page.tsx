@@ -55,6 +55,7 @@ export default function Home() {
                     floor={ViewportOptions.floor}
                     gender={ViewportOptions.gender}
                     onToggleDoors={handleDoorsToggle}
+                    on
                     />
             </div>
         </main>
