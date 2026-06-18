@@ -71,7 +71,7 @@ const Sidebar = ({
 				)}
 				<hr className='border-white/10 my-4' />
 				<button onClick={() => onToggleDoorPosition(activeSegmentIdx)}
-					className='w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-[14px] py-2.5 rounded-md cursor-pointer transition-all'>Change door position: </button>
+					className='w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-[14px] py-2.5 rounded-md cursor-pointer transition-all'>Change door position: <strong>{activeSegment.doorPosition}</strong></button>
 				<button
 					onClick={() => setActiveSegmentIdx(null)}
 					className='w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-[14px] py-2.5 rounded-md cursor-pointer transition-all'>
