@@ -72,10 +72,8 @@ export const useWardrobe = () => {
           }));
         }
       };
-    
-    
 
-    const targetSegmentCount = wardrobe.width < 1200 ? 1 : (wardrobe.width < 1800 ? 2 : 3);
+    const targetSegmentCount = wardrobe.width < 800 ? 1 : (wardrobe.width < 1200 ? 2 : (wardrobe.width < 1600) ? 3 : (wardrobe.width < 2000) ? 4 : (wardrobe.width < 2400) ? 5: 6) ;
 
     const segments = useMemo<SegmentData[]>(() => {
         return Array.from({ length: targetSegmentCount }).map((_, index) => {
