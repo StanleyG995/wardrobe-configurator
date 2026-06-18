@@ -17,6 +17,7 @@ const WardrobeInterior = ({
 		(hasDividers ? (segmentCount - 1) * boardThickness : 0)
 	const compartmentWidth = totalInnerWidth / segmentCount
 	const topBayHeight = 1900
+	const topBayBreakpoint = 2200
 	
 	return (
 		<>
@@ -51,8 +52,6 @@ const WardrobeInterior = ({
 					idx * (compartmentWidth + boardThickness) +
 					compartmentWidth / 2
 				const hangerRodHeight = height < 2000 ? 1600 : 1800
-				const minHeightForLoft = 2300
-				const hangerRodTopGap = 150
 
 
 				return (
@@ -64,13 +63,13 @@ const WardrobeInterior = ({
 							h={boardThickness}
 							d={depth - boardThickness - 10}
 							x={0}
-							y={1900}
+							y={topBayHeight}
 							z={0}
 							rotation = {[0,0,0,]}
 						/>}
 						{segment.type === "shelves" &&
 							segment.shelves.map((shelfId, shelfIdx) => {
-								const availableHeight = height-(height-topBayHeight)
+								const availableHeight = (height < topBayBreakpoint) ? height : height-(height-topBayHeight)
 								const spacing = availableHeight / (segment.shelves.length + 1)
 								const currentY = boardThickness + spacing * (shelfIdx + 1)
 
