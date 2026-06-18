@@ -15,13 +15,13 @@ const Door = ({
 	isOpen,
 	hingeSide,
 	handleSide,
-	topOffset,
+	topOffset
 }: DoorProps) => {
 	const hingeRef = useRef<Group>(null)
-
+	const doorHeight = height-topOffset
 	const targetRotation = isOpen ? Math.PI / 2.09 : 0
 	const hingePos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width / 2), 0, toMeters(depth / 2)] : [toMeters(width / 2), 0, toMeters(depth / 2)]
-	const handlePos: [number, number, number] = handleSide === 'left' ? [toMeters(width-50), toMeters(height / 2), toMeters(boardThickness+12),] : [toMeters(-width+50), toMeters(height / 2), toMeters(boardThickness+12),]
+	const handlePos: [number, number, number] = handleSide === 'left' ? [toMeters(width-50), toMeters(doorHeight/2), toMeters(boardThickness+12),] : [toMeters(-width+50), toMeters(doorHeight), toMeters(boardThickness+12),]
 	const targetHingePositionX = isOpen ? toMeters(12+boardThickness) : 0
 	const targetHingePositionZ = isOpen ? toMeters(6) : 0
 
@@ -52,7 +52,6 @@ const Door = ({
 			<DoorHandle
 				position={handlePos}
 				rotation={[0, -Math.PI / 2, 0]}
-				
 			/>
 			
 			<Board

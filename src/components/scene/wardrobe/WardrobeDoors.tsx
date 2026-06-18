@@ -15,7 +15,6 @@ const WardrobeDoors = ({
 	boardThickness,
 	segments,
 	isOpen,
-	topOffset
 }: WardrobeDoorsProps) => {
 	const segmentCount = segments.length > 0 ? segments.length : 1
 	const compartmentWidth = width / segmentCount
@@ -69,13 +68,13 @@ const WardrobeDoors = ({
 							position={[toMeters(segmentX), 0, 0]}>
 								<Door
 									width={compartmentWidth}
-									height={height-topBayHeight}
+									height={height-topBayHeight+boardThickness/2}
 									depth={depth}
 									boardThickness={boardThickness}
 									isOpen={isOpen}
 									hingeSide={'left'}
 									handleSide={'left'}
-									topOffset={(topBayHeight)}
+									topOffset={(topBayHeight-boardThickness/2)}
 								/>
 						</group>
 					</>

@@ -7,9 +7,10 @@ import { useLoader } from '@react-three/fiber'
 import * as THREE from 'three'
 
 const Board = ({ name, w, h, d, x, y, z, rotation }: BoardProps) => {
-    const width = toMeters(w);
-    const height = toMeters(h);
-    const depth = toMeters(d);
+    const gap = toMeters(1.2)
+    const width = toMeters(w)-gap;
+    const height = toMeters(h)-gap;
+    const depth = toMeters(d)-gap;
     const meshPosition: [number, number, number] = [toMeters(x), toMeters(y), toMeters(z)];
     
     const texture = useLoader(THREE.TextureLoader, '/dark-wood.webp')
