@@ -14,9 +14,9 @@ export const useWardrobe = () => {
     })
 
     const [compartmentsConfig, setCompartmentsConfig] = useState<Record<number, Omit<SegmentData, 'id'>>>({
-        0: { type: 'shelves', shelves: [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()] },
-        1: { type: 'hanger', shelves: [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()] },
-        2: { type: 'empty', shelves: [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()] },
+        0: { type: 'shelves', shelves: [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()], doorPosition: 'left' },
+        1: { type: 'hanger', shelves: [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()], doorPosition: 'left' },
+        2: { type: 'empty', shelves: [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()], doorPosition: 'left' },
     })
 
     const [ViewportOptions, setViewportOptions] = useState<ViewportOptionsProps>({
@@ -30,6 +30,26 @@ export const useWardrobe = () => {
 
     const [activeSegmentIdx, setActiveSegmentIdx] = useState<number | null>(null)
 
+    const handleDoorPositionChange = (segmentIndex: number) => {
+        if (compartmentsConfig[segmentIndex].doorPosition === 'left') {
+            setCompartmentsConfig(prev => ({
+                ...prev,
+                [segmentIndex]: {
+                    ...prev[segmentIndex],
+                    doorPosition: 'right'
+                }
+            }));
+        }
+        else {
+             setCompartmentsConfig(prev => ({
+                ...prev,
+                [segmentIndex]: {
+                    ...prev[segmentIndex],
+                    doorPosition: 'left'
+                }
+            }));
+        }
+    }
 
     const handleUpdate = (name: string, value: number) => {
         setWardrobe(prev => ({ ...prev, [name]: value }))
@@ -127,8 +147,9 @@ export const useWardrobe = () => {
         setCompartmentsConfig(prev => ({
             ...prev,
             [segmentIndex]: {
-                type: newType,
-                shelves: []
+                ...prev[segmentIndex],
+                type: newType,       
+                shelves: [],
             }
         }));
     };

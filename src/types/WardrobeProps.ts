@@ -3,6 +3,7 @@ export interface SegmentData {
     id: string;
     type: 'shelves' | 'hanger' | 'empty';
     shelves: string[];
+    doorPosition: 'left' | 'right'
 }
 
 export interface WardrobeDimensions {
