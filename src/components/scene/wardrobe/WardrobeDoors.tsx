@@ -15,9 +15,12 @@ const WardrobeDoors = ({
 	boardThickness,
 	segments,
 	isOpen,
+	topOffset
 }: WardrobeDoorsProps) => {
 	const segmentCount = segments.length > 0 ? segments.length : 1
 	const compartmentWidth = width / segmentCount
+	const topBayDoorsBreakpoint = 2300
+	const topBayHeight = 1900
 
 	return (
 		<>
@@ -29,6 +32,8 @@ const WardrobeDoors = ({
 					compartmentWidth / 2
 
 				return (
+					<>
+					{(height < topBayDoorsBreakpoint) && 
 					<group
 						key={`segment-doors-${segment.id}`}
 						position={[toMeters(segmentX), 0, 0]}>
@@ -40,8 +45,42 @@ const WardrobeDoors = ({
 								isOpen={isOpen}
 								hingeSide={'left'}
 								handleSide={'left'}
+								topOffset={0}
 							/>
-					</group>
+					</group>}
+					{(height >= topBayDoorsBreakpoint) && 
+					<>
+						<group
+							key={`segment-doors-lower-${segment.id}`}
+							position={[toMeters(segmentX), 0, 0]}>
+								<Door
+									width={compartmentWidth}
+									height={height-(height-topBayHeight)-boardThickness/2}
+									depth={depth}
+									boardThickness={boardThickness}
+									isOpen={isOpen}
+									hingeSide={'left'}
+									handleSide={'left'}
+									topOffset={0}
+								/>
+						</group>
+						<group
+							key={`segment-doors-upper-${segment.id}`}
+							position={[toMeters(segmentX), 0, 0]}>
+								<Door
+									width={compartmentWidth}
+									height={height-topBayHeight}
+									depth={depth}
+									boardThickness={boardThickness}
+									isOpen={isOpen}
+									hingeSide={'left'}
+									handleSide={'left'}
+									topOffset={(topBayHeight)}
+								/>
+						</group>
+					</>
+					}
+					</>
 				)
 			})}
 		</>

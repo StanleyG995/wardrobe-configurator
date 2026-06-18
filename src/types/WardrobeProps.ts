@@ -36,6 +36,7 @@ export interface DoorProps extends Omit<WardrobeDimensions, 'backBoardThickness'
   isOpen: boolean,
   hingeSide: 'left' | 'right'
   handleSide: 'left' | 'right'
+  topOffset: number
 } 
 
 export interface HitboxProps {

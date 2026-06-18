@@ -15,6 +15,7 @@ const Door = ({
 	isOpen,
 	hingeSide,
 	handleSide,
+	topOffset,
 }: DoorProps) => {
 	const hingeRef = useRef<Group>(null)
 
@@ -60,7 +61,7 @@ const Door = ({
 				h={height}
 				d={boardThickness}
 				x={hingeSide === 'left' ? width / 2 : -width / 2}
-				y={height / 2}
+				y={height / 2 + topOffset}
 				z={boardThickness / 2}
 				rotation={[0, 0, 0]}
 			/>
