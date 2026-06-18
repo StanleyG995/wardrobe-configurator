@@ -73,7 +73,7 @@ export const useWardrobe = () => {
         }
       };
 
-    const targetSegmentCount = wardrobe.width < 800 ? 1 : (wardrobe.width < 1200 ? 2 : (wardrobe.width < 1600) ? 3 : (wardrobe.width < 2000) ? 4 : (wardrobe.width < 2400) ? 5: 6) ;
+    const targetSegmentCount = wardrobe.width < 700 ? 1 : (wardrobe.width < 1400 ? 2 : (wardrobe.width < 2100) ? 3 : (wardrobe.width < 2800) ? 4 : 5) ;
 
     const segments = useMemo<SegmentData[]>(() => {
         return Array.from({ length: targetSegmentCount }).map((_, index) => {
