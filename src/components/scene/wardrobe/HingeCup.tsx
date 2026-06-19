@@ -4,21 +4,25 @@ import { useGLTF } from "@react-three/drei"
 import { ThreeElements } from "@react-three/fiber"
 
 function HingeCup(props: ThreeElements["group"]) {
-   
-    const { scene } = useGLTF("/models/hinge-cup.glb")
+	const { nodes } = useGLTF("/models/hinge-cup.glb")
 
-    return (
-    
-        <group {...props} dispose={null}>
-            <primitive 
-                object={scene.clone()} 
-                scale={[1, 1, 1]} 
-                rotation={[0,0,0]}
-            />
-        </group>
-    )
+	const handleMesh = nodes.Cube as THREE.Mesh
+
+	if (!handleMesh) return null
+
+	return (
+		<group {...props} dispose={null}>
+			<mesh geometry={handleMesh.geometry}>
+				<meshStandardMaterial
+					color='#f7f7f7'
+					metalness={0.7}
+					roughness={0.1}
+				/>
+			</mesh>
+		</group>
+	)
 }
 
-useGLTF.preload("/models/hinge-cup.glb")
+useGLTF.preload("/models/handle-cup.glb")
 
 export default HingeCup
