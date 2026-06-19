@@ -32,7 +32,7 @@ const Door = ({
 	const hingeZPos: number = handleSide === 'left' ? toMeters(26) : toMeters(-26)
 	const hingeCupRotation: [number, number, number] = handleSide === 'left' ? [Math.PI/2,Math.PI,Math.PI] : [Math.PI/2,0,Math.PI]
 
-	const hingeArmZPos: number = handleSide === 'left' ? toMeters(-width/2 + boardThickness/2 - 4) : toMeters(-width + width/2 - boardThickness/2 + 4)
+	const hingeArmZPos: number = handleSide === 'left' ? toMeters(-width/2 + boardThickness/2 - 4) : toMeters(-width + width/2 - boardThickness/2 + 12)
 
 	const getHingePositionsY = (height: number): number[] => {
 		const edgeOffset = 100;
@@ -99,10 +99,10 @@ const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
 					rotation={[0, -Math.PI / 2, 0]}
 				/>
 				{hingePositionsY.map((yPosition, index) => (
-			<group key={index}>
-			<HingeCup 
-				position={[hingeZPos, toMeters(yPosition-height/2), toMeters(-3)]} 
-				rotation={hingeCupRotation}
+					<group key={index}>
+					<HingeCup 
+					position={[hingeZPos, toMeters(yPosition-height/2), toMeters(-3)]} 
+					rotation={hingeCupRotation}
 			/>
 			
 			</group>

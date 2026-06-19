@@ -94,7 +94,7 @@ export const useWardrobe = () => {
 
     const segments = useMemo<SegmentData[]>(() => {
         return Array.from({ length: targetSegmentCount }).map((_, index) => {
-            const config = compartmentsConfig[index] || { type: 'shelves', shelves: [], doorPosition: 'left' };
+            const config = compartmentsConfig[index] || { type: 'shelves', shelves: [], doorPosition: 'right' };
             return {
                 id: `segment-${index}`,
                 ...config
