@@ -1,6 +1,7 @@
 import type { WardrobeData } from "@/types/WardrobeProps"
 import Board from "@/components/scene/wardrobe/Board"
 import { toMeters } from "@/helpers/unitConverter"
+import HingeCup from "@/components/scene/wardrobe/HingeCup"
 
 const WardrobeInterior = ({
 	width,
@@ -30,7 +31,7 @@ const WardrobeInterior = ({
 						idx * boardThickness +
 						boardThickness / 2
 
-					return (
+					return (<>
 						<Board
 							key={`divider-${idx}`}
 							name={`wardrobe-divider-${idx}`}
@@ -42,6 +43,8 @@ const WardrobeInterior = ({
 							z={5}
 							rotation={[0, 0, 0]}
 						/>
+						<HingeCup/>
+						</>
 					)
 				})}
 
