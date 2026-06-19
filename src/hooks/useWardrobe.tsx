@@ -31,25 +31,23 @@ export const useWardrobe = () => {
     const [activeSegmentIdx, setActiveSegmentIdx] = useState<number | null>(null)
 
     const handleDoorPositionChange = (segmentIndex: number) => {
-        if (compartmentsConfig[segmentIndex].doorPosition === 'left') {
-            setCompartmentsConfig(prev => ({
-                ...prev,
-                [segmentIndex]: {
-                    ...prev[segmentIndex],
-                    doorPosition: 'right'
-                }
-            }));
-        }
-        else {
-             setCompartmentsConfig(prev => ({
-                ...prev,
-                [segmentIndex]: {
-                    ...prev[segmentIndex],
-                    doorPosition: 'left'
-                }
-            }));
-        }
-    }
+    setCompartmentsConfig(prev => {
+        const currentSegment = prev[segmentIndex] || { 
+            type: 'shelves', 
+            shelves: [], 
+            doorPosition: 'left' 
+        };
+        const nextPosition = currentSegment.doorPosition === 'left' ? 'right' : 'left';
+
+        return {
+            ...prev,
+            [segmentIndex]: {
+                ...currentSegment,
+                doorPosition: nextPosition
+            }
+        };
+    });
+};
 
     const handleUpdate = (name: string, value: number) => {
         setWardrobe(prev => ({ ...prev, [name]: value }))
@@ -97,7 +95,7 @@ export const useWardrobe = () => {
 
     const segments = useMemo<SegmentData[]>(() => {
         return Array.from({ length: targetSegmentCount }).map((_, index) => {
-            const config = compartmentsConfig[index] || { type: 'shelves', shelves: [] };
+            const config = compartmentsConfig[index] || { type: 'shelves', shelves: [], doorPosition: 'left' };
             return {
                 id: `segment-${index}`,
                 ...config
