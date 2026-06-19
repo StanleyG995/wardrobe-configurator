@@ -6,6 +6,7 @@ import Board from "@/components/scene/wardrobe/Board"
 import { DoorProps } from "@/types/WardrobeProps"
 import { toMeters } from "@/helpers/unitConverter"
 import DoorHandle from "@/components/scene/wardrobe/DoorHandle"
+import HingeArm from "@/components/scene/wardrobe/HingeArm"
 
 const Door = ({
 	width,
@@ -53,6 +54,7 @@ const Door = ({
 				position={handlePos}
 				rotation={[0, -Math.PI / 2, 0]}
 			/>
+			<HingeArm/>
 			
 			<Board
 				name='door'
