@@ -19,8 +19,8 @@ export const useWardrobe = () => {
     })
 
     const [ViewportOptions, setViewportOptions] = useState<ViewportOptionsProps>({
-        dimensions: true,
-        humanScale: true,
+        dimensions: false,
+        humanScale: false,
         doorsOpen: false,
         doorRotation: [0,0,0],
         floor: true,

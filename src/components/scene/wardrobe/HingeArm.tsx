@@ -16,7 +16,7 @@ function HingeArm(props: ThreeElements["group"]) {
 			<mesh geometry={handleMesh.geometry} position={[0.015,1,0.283]} rotation={[Math.PI/2, Math.PI, Math.PI/2]}>
 				<meshStandardMaterial
 					color='#f7f7f7'
-					metalness={0.7}
+					metalness={0.8}
 					roughness={0.1}
 				/>
 			</mesh>

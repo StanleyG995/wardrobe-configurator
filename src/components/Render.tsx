@@ -49,7 +49,7 @@ const Render = ({
 			/>
 			<Canvas
 				shadows={{ type: THREE.PCFShadowMap }}
-				camera={{ position: [3, 3, 3] }}
+				camera={{ position: [0, 1, 2] }}
 				onPointerMissed={() => {
 					setActiveSegmentIdx(null)
 				}}>
@@ -85,9 +85,8 @@ const Render = ({
 					/>
 					<OrbitControls
 						target={[0, toMeters(wardrobe.height / 2), 0]}
-						enablePan={false}
-						maxPolarAngle={Math.PI / 2}
-						minDistance={1}
+						maxPolarAngle={Math.PI / 1.8}
+						minDistance={0.5}
 						maxDistance={10}
 					/>
 				</group>
