@@ -29,8 +29,10 @@ const Door = ({
 	const targetHingePositionX = isOpen ? toMeters(boardThickness) : 0
 	const targetHingePositionZ = isOpen ? toMeters(6) : 0
 
-	const hingeZPos: number = handleSide === 'left' ? toMeters(30) : toMeters(-30)
+	const hingeZPos: number = handleSide === 'left' ? toMeters(26) : toMeters(-26)
 	const hingeCupRotation: [number, number, number] = handleSide === 'left' ? [Math.PI/2,Math.PI,Math.PI] : [Math.PI/2,0,Math.PI]
+
+	const hingeArmZPos: number = handleSide === 'left' ? toMeters(-width/2 + boardThickness/2 - 4) : toMeters(-width + width/2 - boardThickness/2 + 4)
 
 	const getHingePositionsY = (height: number): number[] => {
 		const edgeOffset = 100;
@@ -80,20 +82,15 @@ const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
 	
 	return (
 		<group>
-			{/* {hingePositionsY.map((yPosition, index) => {
-                
-                const armX = hingePos[0] 
-                const armY = hingePos[1] + toMeters(yPosition - height / 2)
-                const armZ = hingePos[2]
-
+			{hingePositionsY.map((yPosition, index) => {
                 return (
                     <HingeArm
                         key={`arm-${index}`}
-                        position={[armX, armY, armZ]}
-                        rotation={hingeSide === 'left' ? [0, 0, 0] : [0, Math.PI, 0]} 
+                        position={hingeSide === 'left' ? [hingeArmZPos, toMeters(yPosition-height/2), toMeters(1)] : [-hingeArmZPos, toMeters(yPosition+height/2), toMeters(0)]} 
+                        rotation={hingeSide === 'left' ? [0, 0, 0] : [0, 0, Math.PI]}
                     />
                 )
-            })} */}
+            })}
 			<group
 				ref={hingeRef}
 				position={hingePos}>
