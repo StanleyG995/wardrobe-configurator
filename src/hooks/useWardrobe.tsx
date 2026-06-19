@@ -15,8 +15,7 @@ export const useWardrobe = () => {
 
     const [compartmentsConfig, setCompartmentsConfig] = useState<Record<number, Omit<SegmentData, 'id'>>>({
         0: { type: 'shelves', shelves: [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()], doorPosition: 'left' },
-        1: { type: 'hanger', shelves: [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()], doorPosition: 'left' },
-        2: { type: 'empty', shelves: [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()], doorPosition: 'left' },
+        1: { type: 'hanger', shelves: [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()], doorPosition: 'right' },
     })
 
     const [ViewportOptions, setViewportOptions] = useState<ViewportOptionsProps>({
