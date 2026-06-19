@@ -6,7 +6,7 @@ import Board from "@/components/scene/wardrobe/Board"
 import { DoorProps } from "@/types/WardrobeProps"
 import { toMeters } from "@/helpers/unitConverter"
 import DoorHandle from "@/components/scene/wardrobe/DoorHandle"
-import HingeArm from "@/components/scene/wardrobe/HingeArm"
+import HingeCup from "@/components/scene/wardrobe/HingeCup"
 
 const Door = ({
 	width,
@@ -23,7 +23,7 @@ const Door = ({
 	const targetRotation = isOpen ? Math.PI / 2.09 : 0
 	const hingePos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)] : [toMeters(width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)]
 	const handlePos: [number, number, number] = handleSide === 'left' ? [toMeters(width-50), 0, toMeters(boardThickness+12),] : [toMeters(-width+50), 0, toMeters(boardThickness+12),]
-	const targetHingePositionX = isOpen ? toMeters(12+boardThickness) : 0
+	const targetHingePositionX = isOpen ? toMeters(boardThickness) : 0
 	const targetHingePositionZ = isOpen ? toMeters(6) : 0
 
 	useFrame(() => {
@@ -31,17 +31,17 @@ const Door = ({
 			hingeRef.current.rotation.y = MathUtils.lerp(
 				hingeRef.current.rotation.y,
 				hingeSide === 'left' ? -targetRotation : targetRotation,
-				0.1
+				0.03
 			)
 			hingeRef.current.position.x = MathUtils.lerp(
 				hingeRef.current.position.x,
 				hingeSide === 'left' ? hingePos[0]+targetHingePositionX : hingePos[0]-targetHingePositionX,
-				0.1
+				0.03
 			)
 			hingeRef.current.position.z = MathUtils.lerp(
 				hingeRef.current.position.z,
 				hingePos[2]+targetHingePositionZ,
-				0.1
+				0.03
 			)
 		}
 	})
@@ -54,7 +54,7 @@ const Door = ({
 				position={handlePos}
 				rotation={[0, -Math.PI / 2, 0]}
 			/>
-			<HingeArm/>
+			<HingeCup/>
 			
 			<Board
 				name='door'

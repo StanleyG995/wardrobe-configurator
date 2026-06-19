@@ -1,7 +1,7 @@
 import type { WardrobeData } from "@/types/WardrobeProps"
 import Board from "@/components/scene/wardrobe/Board"
 import { toMeters } from "@/helpers/unitConverter"
-import HingeCup from "@/components/scene/wardrobe/HingeCup"
+import HingeArm from "@/components/scene/wardrobe/HingeArm"
 
 const WardrobeInterior = ({
 	width,
@@ -43,7 +43,7 @@ const WardrobeInterior = ({
 							z={5}
 							rotation={[0, 0, 0]}
 						/>
-						<HingeCup/>
+						<HingeArm/>
 						</>
 					)
 				})}
