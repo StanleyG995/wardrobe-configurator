@@ -1,5 +1,5 @@
 "use client"
-import { useRef, useMemo } from "react"
+import { useRef, useMemo, useLayoutEffect } from "react"
 import { useFrame } from "@react-three/fiber"
 import { MathUtils, Group } from "three"
 import Board from "@/components/scene/wardrobe/Board"
@@ -21,6 +21,7 @@ const Door = ({
 }: DoorProps) => {
     const hingeCupRef = useRef<Group>(null)
     
+
     const prevStates = useRef({ width, height, depth, topOffset, hingeSide })
     const shouldBypassLerpRef = useRef(false)
 
@@ -62,9 +63,26 @@ const Door = ({
 
 const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
 
+
+    useLayoutEffect(() => {
+        if (hingeCupRef.current) {
+            const currentTargetRotation = hingeSide === 'left' ? -targetRotation : targetRotation
+            const destX = hingeSide === 'left' ? hingePos[0]+targetHingePositionX : hingePos[0]-targetHingePositionX
+            const destZ = hingePos[2]+targetHingePositionZ
+
+       
+            hingeCupRef.current.rotation.y = currentTargetRotation
+            hingeCupRef.current.position.x = destX
+            hingeCupRef.current.position.z = destZ
+            
+       
+            shouldBypassLerpRef.current = true
+        }
+    }, [width, height, depth, topOffset, hingeSide])
+
     useFrame(() => {
         if (hingeCupRef.current) {
-          
+            
             const stateChanged = 
                 prevStates.current.width !== width ||
                 prevStates.current.height !== height ||
@@ -81,6 +99,7 @@ const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
             const destX = hingeSide === 'left' ? hingePos[0]+targetHingePositionX : hingePos[0]-targetHingePositionX
             const destZ = hingePos[2]+targetHingePositionZ
 
+          
             if (shouldBypassLerpRef.current) {
                 hingeCupRef.current.rotation.y = currentTargetRotation
                 hingeCupRef.current.position.x = destX
@@ -89,6 +108,7 @@ const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
                 return
             }
 
+         
             const rotationDiff = Math.abs(hingeCupRef.current.rotation.y - currentTargetRotation)
             const positionXDiff = Math.abs(hingeCupRef.current.position.x - destX)
 
@@ -97,7 +117,7 @@ const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
                 hingeCupRef.current.position.x = destX
                 hingeCupRef.current.position.z = destZ
             } else {
-                // NORMALNA ANIMACJA
+                
                 hingeCupRef.current.rotation.y = MathUtils.lerp(
                     hingeCupRef.current.rotation.y,
                     currentTargetRotation,
