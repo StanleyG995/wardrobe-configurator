@@ -4,6 +4,13 @@ import { WardrobeData, SegmentData, WardrobeDimensions } from '../types/Wardrobe
 import { ViewportOptionsProps } from '@/types/RenderProps'
 import { calculateWardrobePrice } from '@/helpers/price'
 
+
+const DEFAULT_SEGMENT_CONFIG: Omit<SegmentData, 'id'> = {
+    type: 'shelves',
+    shelves: [],
+    doorPosition: 'right'
+};
+
 export const useWardrobe = () => {
     const [wardrobe, setWardrobe] = useState<WardrobeDimensions>({
         width: 1000,
@@ -29,24 +36,21 @@ export const useWardrobe = () => {
 
     const [activeSegmentIdx, setActiveSegmentIdx] = useState<number | null>(null)
 
-    const handleDoorPositionChange = (segmentIndex: number) => {
-    setCompartmentsConfig(prev => {
-        const currentSegment = prev[segmentIndex] || { 
-            type: 'shelves', 
-            shelves: [], 
-            doorPosition: 'left' 
-        };
-        const nextPosition = currentSegment.doorPosition === 'left' ? 'right' : 'left';
 
-        return {
-            ...prev,
-            [segmentIndex]: {
-                ...currentSegment,
-                doorPosition: nextPosition
-            }
-        };
-    });
-};
+    const handleDoorPositionChange = (segmentIndex: number) => {
+        setCompartmentsConfig(prev => {
+            const currentSegment = prev[segmentIndex] || { ...DEFAULT_SEGMENT_CONFIG };
+            const nextPosition = currentSegment.doorPosition === 'left' ? 'right' : 'left';
+
+            return {
+                ...prev,
+                [segmentIndex]: {
+                    ...currentSegment,
+                    doorPosition: nextPosition
+                }
+            };
+        });
+    };
 
     const handleUpdate = (name: string, value: number) => {
         setWardrobe(prev => ({ ...prev, [name]: value }))
@@ -94,7 +98,7 @@ export const useWardrobe = () => {
 
     const segments = useMemo<SegmentData[]>(() => {
         return Array.from({ length: targetSegmentCount }).map((_, index) => {
-            const config = compartmentsConfig[index] || { type: 'shelves', shelves: [], doorPosition: 'right' };
+            const config = compartmentsConfig[index] || { ...DEFAULT_SEGMENT_CONFIG };
             return {
                 id: `segment-${index}`,
                 ...config
@@ -104,8 +108,8 @@ export const useWardrobe = () => {
 
 
     const addShelfToSegment = (segmentIndex: number) => {
-        const currentSegment = compartmentsConfig[segmentIndex];
-        if (!currentSegment || currentSegment.type !== 'shelves') return;
+        const currentSegment = compartmentsConfig[segmentIndex] || { ...DEFAULT_SEGMENT_CONFIG };
+        if (currentSegment.type !== 'shelves') return;
 
         const minShelfGap = 450;
         const usableHeight =
@@ -116,13 +120,16 @@ export const useWardrobe = () => {
             (usableHeight - wardrobe.boardThickness) / (currentSegment.shelves.length + 1);
 
         if (potentialGap > minShelfGap) {
-            setCompartmentsConfig(prev => ({
-                ...prev,
-                [segmentIndex]: {
-                    ...prev[segmentIndex],
-                    shelves: [...prev[segmentIndex].shelves, crypto.randomUUID()]
-                }
-            }));
+            setCompartmentsConfig(prev => {
+                const current = prev[segmentIndex] || { ...DEFAULT_SEGMENT_CONFIG };
+                return {
+                    ...prev,
+                    [segmentIndex]: {
+                        ...current,
+                        shelves: [...current.shelves, crypto.randomUUID()]
+                    }
+                };
+            });
         }
     };
 
@@ -141,14 +148,17 @@ export const useWardrobe = () => {
     };
 
     const changeSegmentType = (segmentIndex: number, newType: 'shelves' | 'hanger' | 'empty') => {
-        setCompartmentsConfig(prev => ({
-            ...prev,
-            [segmentIndex]: {
-                ...prev[segmentIndex],
-                type: newType,       
-                shelves: [],
-            }
-        }));
+        setCompartmentsConfig(prev => {
+            const current = prev[segmentIndex] || { ...DEFAULT_SEGMENT_CONFIG };
+            return {
+                ...prev,
+                [segmentIndex]: {
+                    ...current,
+                    type: newType,       
+                    shelves: [],
+                }
+            };
+        });
     };
 
     const wardrobePrice = useMemo(() => {
