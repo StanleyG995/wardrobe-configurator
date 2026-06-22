@@ -23,7 +23,9 @@ const Door = ({
 	const targetRotation = isOpen ? Math.PI / 2.09 : 0
 	const hingePos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)] : [toMeters(width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)]
 	const handlePos: [number, number, number] = handleSide === 'left' ? [toMeters(width-50), 0, toMeters(boardThickness+12),] : [toMeters(-width+50), 0, toMeters(boardThickness+12),]
-	const hingeArmPos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width/2 + boardThickness/2), toMeters(height/2+topOffset), 0] : [toMeters(width/2 - boardThickness/2), toMeters(height/2+topOffset), 0]
+	const hingeArmPos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width/2 + boardThickness+boardThickness/3), toMeters(height/2+topOffset), toMeters(depth)] : [toMeters(width/2 - boardThickness-boardThickness/3), toMeters(height/2+topOffset), toMeters(depth)]
+
+	const hingeArmOffset=18
 	
 	const targetHingePositionX = isOpen ? toMeters(boardThickness) : 0
 	const targetHingePositionZ = isOpen ? toMeters(6) : 0
@@ -83,7 +85,7 @@ const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
                 return (
                     <HingeArm
                         key={`arm-${index}`}
-                        position={hingeSide === 'left' ? [0, toMeters(yPosition-height/2), 0] : [0, toMeters(yPosition-height/2), 0]}
+                        position={hingeSide === 'left' ? [0, toMeters(yPosition-height/2), -toMeters(depth/2+hingeArmOffset)] : [0, toMeters(yPosition-height/2), -toMeters(depth/2+hingeArmOffset)]}
                         scale={hingeSide === 'left' ? [1, 1, 1] : [-1, 1, 1]}
                     />
                 )
