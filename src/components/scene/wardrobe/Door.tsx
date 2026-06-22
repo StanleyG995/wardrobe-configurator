@@ -20,7 +20,6 @@ const Door = ({
     topOffset
 }: DoorProps) => {
     const hingeCupRef = useRef<Group>(null)
-    
 
     const prevStates = useRef({ width, height, depth, topOffset, hingeSide })
     const shouldBypassLerpRef = useRef(false)
