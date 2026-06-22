@@ -10,78 +10,117 @@ import HingeCup from "@/components/scene/wardrobe/HingeCup"
 import HingeArm from "@/components/scene/wardrobe/HingeArm"
 
 const Door = ({
-	width,
-	height,
-	depth,
-	boardThickness,
-	isOpen,
-	hingeSide,
-	handleSide,
-	topOffset
+    width,
+    height,
+    depth,
+    boardThickness,
+    isOpen,
+    hingeSide,
+    handleSide,
+    topOffset
 }: DoorProps) => {
-	const hingeCupRef = useRef<Group>(null)
-	const targetRotation = isOpen ? Math.PI / 2.09 : 0
-	const hingePos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)] : [toMeters(width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)]
-	const handlePos: [number, number, number] = handleSide === 'left' ? [toMeters(width-50), 0, toMeters(boardThickness+12),] : [toMeters(-width+50), 0, toMeters(boardThickness+12),]
-	const hingeArmPos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width/2 + boardThickness+boardThickness/3), toMeters(height/2+topOffset), toMeters(depth)] : [toMeters(width/2 - boardThickness-boardThickness/3), toMeters(height/2+topOffset), toMeters(depth)]
+    const hingeCupRef = useRef<Group>(null)
+    
+    const prevStates = useRef({ width, height, depth, topOffset, hingeSide })
+    const shouldBypassLerpRef = useRef(false)
 
-	const hingeArmOffset=18
-	
-	const targetHingePositionX = isOpen ? toMeters(boardThickness) : 0
-	const targetHingePositionZ = isOpen ? toMeters(6) : 0
+    const targetRotation = isOpen ? Math.PI / 2.09 : 0
+    const hingePos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)] : [toMeters(width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)]
+    const handlePos: [number, number, number] = handleSide === 'left' ? [toMeters(width-50), 0, toMeters(boardThickness+12),] : [toMeters(-width+50), 0, toMeters(boardThickness+12),]
+    const hingeArmPos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width/2 + boardThickness+boardThickness/3), toMeters(height/2+topOffset), toMeters(depth)] : [toMeters(width/2 - boardThickness-boardThickness/3), toMeters(height/2+topOffset), toMeters(depth)]
 
-	const hingeZPos: number = handleSide === 'left' ? toMeters(26) : toMeters(-26)
+    const hingeArmOffset=18
+    
+    const targetHingePositionX = isOpen ? toMeters(boardThickness) : 0
+    const targetHingePositionZ = isOpen ? toMeters(6) : 0
 
-	const getHingePositionsY = (height: number): number[] => {
-		const edgeOffset = 100;
-		
-		let count = 2;
-		if (height >= 1000 && height < 1600) count = 3;
-		else if (height >= 1600 && height < 2100) count = 4;
-		else if (height >= 2100) count = 5;
+    const hingeZPos: number = handleSide === 'left' ? toMeters(26) : toMeters(-26)
 
-		const positions: number[] = [];
-		
-		if (count === 2) {
-			return [edgeOffset, height - edgeOffset];
-		}
+    const getHingePositionsY = (height: number): number[] => {
+        const edgeOffset = 100;
+        
+        let count = 2;
+        if (height >= 1000 && height < 1600) count = 3;
+        else if (height >= 1600 && height < 2100) count = 4;
+        else if (height >= 2100) count = 5;
 
-		const availableSpace = height - (edgeOffset * 2);
-		const step = availableSpace / (count - 1);
+        const positions: number[] = [];
+        
+        if (count === 2) {
+            return [edgeOffset, height - edgeOffset];
+        }
 
-		for (let i = 0; i < count; i++) {
-			positions.push(edgeOffset + (i * step));
-		}
+        const availableSpace = height - (edgeOffset * 2);
+        const step = availableSpace / (count - 1);
 
-		return positions;
-	};
+        for (let i = 0; i < count; i++) {
+            positions.push(edgeOffset + (i * step));
+        }
+
+        return positions;
+    };
 
 const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
 
-	useFrame(() => {
-		if (hingeCupRef.current) {
-			hingeCupRef.current.rotation.y = MathUtils.lerp(
-				hingeCupRef.current.rotation.y,
-				hingeSide === 'left' ? -targetRotation : targetRotation,
-				0.03
-			)
-			hingeCupRef.current.position.x = MathUtils.lerp(
-				hingeCupRef.current.position.x,
-				hingeSide === 'left' ? hingePos[0]+targetHingePositionX : hingePos[0]-targetHingePositionX,
-				0.03
-			)
-			hingeCupRef.current.position.z = MathUtils.lerp(
-				hingeCupRef.current.position.z,
-				hingePos[2]+targetHingePositionZ,
-				0.03
-			)
-		}
-	})
-	
-	return (
-		<group>
-			<group position={hingeArmPos}>
-			{hingePositionsY.map((yPosition, index) => {
+    useFrame(() => {
+        if (hingeCupRef.current) {
+          
+            const stateChanged = 
+                prevStates.current.width !== width ||
+                prevStates.current.height !== height ||
+                prevStates.current.depth !== depth ||
+                prevStates.current.topOffset !== topOffset ||
+                prevStates.current.hingeSide !== hingeSide
+
+            if (stateChanged) {
+                shouldBypassLerpRef.current = true
+                prevStates.current = { width, height, depth, topOffset, hingeSide }
+            }
+
+            const currentTargetRotation = hingeSide === 'left' ? -targetRotation : targetRotation
+            const destX = hingeSide === 'left' ? hingePos[0]+targetHingePositionX : hingePos[0]-targetHingePositionX
+            const destZ = hingePos[2]+targetHingePositionZ
+
+            if (shouldBypassLerpRef.current) {
+                hingeCupRef.current.rotation.y = currentTargetRotation
+                hingeCupRef.current.position.x = destX
+                hingeCupRef.current.position.z = destZ
+                shouldBypassLerpRef.current = false
+                return
+            }
+
+            const rotationDiff = Math.abs(hingeCupRef.current.rotation.y - currentTargetRotation)
+            const positionXDiff = Math.abs(hingeCupRef.current.position.x - destX)
+
+            if (rotationDiff < 0.001 && positionXDiff < 0.0001) {
+                hingeCupRef.current.rotation.y = currentTargetRotation
+                hingeCupRef.current.position.x = destX
+                hingeCupRef.current.position.z = destZ
+            } else {
+                // NORMALNA ANIMACJA
+                hingeCupRef.current.rotation.y = MathUtils.lerp(
+                    hingeCupRef.current.rotation.y,
+                    currentTargetRotation,
+                    0.03
+                )
+                hingeCupRef.current.position.x = MathUtils.lerp(
+                    hingeCupRef.current.position.x,
+                    destX,
+                    0.03
+                )
+                hingeCupRef.current.position.z = MathUtils.lerp(
+                    hingeCupRef.current.position.z,
+                    destZ,
+                    0.03
+                )
+            }
+        }
+    })
+    
+    return (
+        <group>
+            <group position={hingeArmPos}>
+            {hingePositionsY.map((yPosition, index) => {
                 return (
                     <HingeArm
                         key={`arm-${index}`}
@@ -90,38 +129,38 @@ const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
                     />
                 )
             })}
-			</group>
-			<group
-				ref={hingeCupRef}
-				position={hingePos}>
-				<DoorHandle
-					position={handlePos}
-					rotation={[0, -Math.PI / 2, 0]}
-				/>
-				{hingePositionsY.map((yPosition, index) => (
-					<group key={index}>
-					<HingeCup 
-					position={[hingeZPos, toMeters(yPosition-height/2), toMeters(-3)]} 
-					scale={hingeSide === 'left' ? [1, 1, 1] : [-1, 1, 1]}
-					rotation={[Math.PI/2,0,0]}
-			/>
-			
-			</group>
-		))}
-				
-				<Board
-					name='door'
-					w={width}
-					h={height}
-					d={boardThickness}
-					x={hingeSide === 'left' ? width / 2 : -width / 2}
-					y={0}
-					z={boardThickness / 2}
-					rotation={[0, 0, 0]}
-				/>
-			</group>
-		</group>
-	)
+            </group>
+            <group
+                ref={hingeCupRef}
+                position={hingePos}>
+                <DoorHandle
+                    position={handlePos}
+                    rotation={[0, -Math.PI / 2, 0]}
+                />
+                {hingePositionsY.map((yPosition, index) => (
+                    <group key={index}>
+                    <HingeCup 
+                    position={[hingeZPos, toMeters(yPosition-height/2), toMeters(-3)]} 
+                    scale={hingeSide === 'left' ? [1, 1, 1] : [-1, 1, 1]}
+                    rotation={[Math.PI/2,0,0]}
+            />
+            
+            </group>
+        ))}
+                
+                <Board
+                    name='door'
+                    w={width}
+                    h={height}
+                    d={boardThickness}
+                    x={hingeSide === 'left' ? width / 2 : -width / 2}
+                    y={0}
+                    z={boardThickness / 2}
+                    rotation={[0, 0, 0]}
+                />
+            </group>
+        </group>
+    )
 }
 
 export default Door

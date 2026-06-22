@@ -84,7 +84,7 @@ const Render = ({
 						resolution={512}
 					/>
 					<OrbitControls
-						target={[0, toMeters(wardrobe.height / 2), 0]}
+						target={[0, 1, 0]}
 						maxPolarAngle={Math.PI / 1.8}
 						minDistance={0.5}
 						maxDistance={10}
