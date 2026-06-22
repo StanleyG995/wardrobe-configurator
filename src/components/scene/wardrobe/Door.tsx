@@ -20,7 +20,6 @@ const Door = ({
 	topOffset
 }: DoorProps) => {
 	const hingeRef = useRef<Group>(null)
-	const doorHeight = height-topOffset
 	const targetRotation = isOpen ? Math.PI / 2.09 : 0
 	const hingePos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)] : [toMeters(width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)]
 	const handlePos: [number, number, number] = handleSide === 'left' ? [toMeters(width-50), 0, toMeters(boardThickness+12),] : [toMeters(-width+50), 0, toMeters(boardThickness+12),]
@@ -30,9 +29,6 @@ const Door = ({
 	const targetHingePositionZ = isOpen ? toMeters(6) : 0
 
 	const hingeZPos: number = handleSide === 'left' ? toMeters(26) : toMeters(-26)
-	const hingeCupRotation: [number, number, number] = handleSide === 'left' ? [Math.PI/2,Math.PI,Math.PI] : [Math.PI/2,0,Math.PI]
-
-	const hingeArmZPos: number = handleSide === 'left' ? toMeters(-width/2 + boardThickness/2 - 4) : toMeters(-width + width/2 - boardThickness/2 + 12)
 
 	const getHingePositionsY = (height: number): number[] => {
 		const edgeOffset = 100;
@@ -86,8 +82,8 @@ const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
                 return (
                     <HingeArm
                         key={`arm-${index}`}
-                        position={hingeSide === 'left' ? [hingeArmZPos, toMeters(yPosition-height/2), toMeters(1)] : [-hingeArmZPos, toMeters(yPosition+height/2), toMeters(0)]} 
-                        rotation={hingeSide === 'left' ? [0, 0, 0] : [0, 0, Math.PI]}
+                        position={hingeSide === 'left' ? [toMeters(-width/2 + boardThickness/2), toMeters(yPosition-height/2), toMeters(1)] : [toMeters(width/2 - boardThickness/2), toMeters(yPosition-height/2), toMeters(1)]}
+                        scale={hingeSide === 'left' ? [1, 1, 1] : [-1, 1, 1]}
                     />
                 )
             })}
@@ -102,7 +98,8 @@ const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
 					<group key={index}>
 					<HingeCup 
 					position={[hingeZPos, toMeters(yPosition-height/2), toMeters(-3)]} 
-					rotation={hingeCupRotation}
+					scale={hingeSide === 'left' ? [1, 1, 1] : [-1, 1, 1]}
+					rotation={[Math.PI/2,0,0]}
 			/>
 			
 			</group>

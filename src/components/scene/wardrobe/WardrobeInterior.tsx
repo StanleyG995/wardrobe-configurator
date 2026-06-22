@@ -1,7 +1,6 @@
 import type { WardrobeData } from "@/types/WardrobeProps"
 import Board from "@/components/scene/wardrobe/Board"
 import { toMeters } from "@/helpers/unitConverter"
-import HingeArm from "@/components/scene/wardrobe/HingeArm"
 
 const WardrobeInterior = ({
 	width,
@@ -19,7 +18,7 @@ const WardrobeInterior = ({
 	const compartmentWidth = totalInnerWidth / segmentCount
 	const topBayHeight = 1900
 	const topBayBreakpoint = 2200
-	
+
 	return (
 		<>
 			{hasDividers &&
@@ -31,7 +30,7 @@ const WardrobeInterior = ({
 						idx * boardThickness +
 						boardThickness / 2
 
-					return (<>
+					return (
 						<Board
 							key={`divider-${idx}`}
 							name={`wardrobe-divider-${idx}`}
@@ -43,8 +42,6 @@ const WardrobeInterior = ({
 							z={5}
 							rotation={[0, 0, 0]}
 						/>
-						
-						</>
 					)
 				})}
 
@@ -56,23 +53,27 @@ const WardrobeInterior = ({
 					compartmentWidth / 2
 				const hangerRodHeight = height < 2000 ? 1600 : 1800
 
-
 				return (
 					<group key={segment.id} position={[toMeters(segmentX), 0, 0]}>
-						{(height > 2200) && <Board
-							name={`top-shelf-${segment.id}`}
-							key={`top-shelf-${segment.id}`}
-							w={compartmentWidth}
-							h={boardThickness}
-							d={depth - boardThickness - 10}
-							x={0}
-							y={topBayHeight}
-							z={0}
-							rotation = {[0,0,0,]}
-						/>}
+						{height > 2200 && (
+							<Board
+								name={`top-shelf-${segment.id}`}
+								key={`top-shelf-${segment.id}`}
+								w={compartmentWidth}
+								h={boardThickness}
+								d={depth - boardThickness - 10}
+								x={0}
+								y={topBayHeight}
+								z={0}
+								rotation={[0, 0, 0]}
+							/>
+						)}
 						{segment.type === "shelves" &&
 							segment.shelves.map((shelfId, shelfIdx) => {
-								const availableHeight = (height < topBayBreakpoint) ? height : height-(height-topBayHeight)
+								const availableHeight =
+									height < topBayBreakpoint
+										? height
+										: height - (height - topBayHeight)
 								const spacing = availableHeight / (segment.shelves.length + 1)
 								const currentY = boardThickness + spacing * (shelfIdx + 1)
 
