@@ -23,7 +23,7 @@ const Door = ({
 	const targetRotation = isOpen ? Math.PI / 2.09 : 0
 	const hingePos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)] : [toMeters(width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)]
 	const handlePos: [number, number, number] = handleSide === 'left' ? [toMeters(width-50), 0, toMeters(boardThickness+12),] : [toMeters(-width+50), 0, toMeters(boardThickness+12),]
-	const hingeArmPos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width/2 + boardThickness/2), toMeters(height/2+topOffset), toMeters(1)] : [toMeters(width/2 - boardThickness/2), toMeters(height/2+topOffset), toMeters(1)]
+	const hingeArmPos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width/2 + boardThickness/2), toMeters(height/2+topOffset), 0] : [toMeters(width/2 - boardThickness/2), toMeters(height/2+topOffset), 0]
 	
 	const targetHingePositionX = isOpen ? toMeters(boardThickness) : 0
 	const targetHingePositionZ = isOpen ? toMeters(6) : 0
