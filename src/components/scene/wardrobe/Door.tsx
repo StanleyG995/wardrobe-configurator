@@ -19,7 +19,8 @@ const Door = ({
 	handleSide,
 	topOffset
 }: DoorProps) => {
-	const hingeRef = useRef<Group>(null)
+	const hingeCupRef = useRef<Group>(null)
+	const hingeArmRef = useRef<Group>(null)
 	const targetRotation = isOpen ? Math.PI / 2.09 : 0
 	const hingePos: [number, number, number] = hingeSide === 'left' ? [toMeters(-width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)] : [toMeters(width / 2), toMeters(height/2+topOffset), toMeters(depth / 2)]
 	const handlePos: [number, number, number] = handleSide === 'left' ? [toMeters(width-50), 0, toMeters(boardThickness+12),] : [toMeters(-width+50), 0, toMeters(boardThickness+12),]
@@ -57,19 +58,19 @@ const Door = ({
 const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
 
 	useFrame(() => {
-		if (hingeRef.current) {
-			hingeRef.current.rotation.y = MathUtils.lerp(
-				hingeRef.current.rotation.y,
+		if (hingeCupRef.current) {
+			hingeCupRef.current.rotation.y = MathUtils.lerp(
+				hingeCupRef.current.rotation.y,
 				hingeSide === 'left' ? -targetRotation : targetRotation,
 				0.03
 			)
-			hingeRef.current.position.x = MathUtils.lerp(
-				hingeRef.current.position.x,
+			hingeCupRef.current.position.x = MathUtils.lerp(
+				hingeCupRef.current.position.x,
 				hingeSide === 'left' ? hingePos[0]+targetHingePositionX : hingePos[0]-targetHingePositionX,
 				0.03
 			)
-			hingeRef.current.position.z = MathUtils.lerp(
-				hingeRef.current.position.z,
+			hingeCupRef.current.position.z = MathUtils.lerp(
+				hingeCupRef.current.position.z,
 				hingePos[2]+targetHingePositionZ,
 				0.03
 			)
@@ -78,6 +79,9 @@ const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
 	
 	return (
 		<group>
+			<group
+			ref={hingeArmRef}
+			position={hingePos}>
 			{hingePositionsY.map((yPosition, index) => {
                 return (
                     <HingeArm
@@ -87,8 +91,9 @@ const hingePositionsY = useMemo(() => getHingePositionsY(height), [height])
                     />
                 )
             })}
+			</group>
 			<group
-				ref={hingeRef}
+				ref={hingeCupRef}
 				position={hingePos}>
 				<DoorHandle
 					position={handlePos}
