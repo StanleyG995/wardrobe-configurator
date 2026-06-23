@@ -8,4 +8,6 @@ export interface DimensionProps {
   linePositionStart: [number, number, number];
   linePositionEnd: [number, number, number];
   onUpdate: (name: string, value: number) => void;
+	axis: "x" | "y" | "z"
+
 }

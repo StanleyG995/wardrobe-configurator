@@ -1,12 +1,12 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useCallback } from "react"
 import { Html, Line } from "@react-three/drei"
 import { DimensionProps } from "@/types/DimensionProps"
 
-interface ExtendedDimensionProps extends DimensionProps {
-	axis?: "x" | "y" | "z"
-}
+const LINE_COLOR = "black"
+const LINE_WIDTH = 1
+const CAP_SIZE = 0.05
 
 function DimensionLabel({
 	name,
@@ -15,14 +15,13 @@ function DimensionLabel({
 	label,
 	linePositionStart,
 	linePositionEnd,
-	axis = "z",
+	axis,
 	onUpdate,
 	min,
 	max,
-}: ExtendedDimensionProps) {
+}: DimensionProps) {
 	const [sX, sY, sZ] = linePositionStart
 	const [eX, eY, eZ] = linePositionEnd
-	const size = 0.05
 
 	const inputRef = useRef<HTMLInputElement>(null)
 
@@ -41,26 +40,29 @@ function DimensionLabel({
 		}
 	}
 
-	const getCapPoints = (
-		x: number,
-		y: number,
-		z: number
-	): [[number, number, number], [number, number, number]] => {
-		if (axis === "x")
+	const getCapPoints = useCallback(
+		(
+			x: number,
+			y: number,
+			z: number
+		): [[number, number, number], [number, number, number]] => {
+			if (axis === "x")
+				return [
+					[x + CAP_SIZE, y, z],
+					[x - CAP_SIZE, y, z],
+				]
+			if (axis === "y")
+				return [
+					[x, y + CAP_SIZE, z],
+					[x, y - CAP_SIZE, z],
+				]
 			return [
-				[x + size, y, z],
-				[x - size, y, z],
+				[x, y, z + CAP_SIZE],
+				[x, y, z - CAP_SIZE],
 			]
-		if (axis === "y")
-			return [
-				[x, y + size, z],
-				[x, y - size, z],
-			]
-		return [
-			[x, y, z + size],
-			[x, y, z - size],
-		]
-	}
+		},
+		[axis]
+	)
 
 	const stopPropagation = (e: React.MouseEvent | React.PointerEvent) => {
 		e.stopPropagation()
@@ -73,7 +75,7 @@ function DimensionLabel({
 					onPointerDown={stopPropagation}
 					onMouseDown={stopPropagation}
 					onPointerUp={stopPropagation}
-					className='bg-black/60 backdrop-blur-md text-white px-2 flex flex-row justify-center py-1 rounded border border-white/20 text-[10px] text-[clamp(10px,1vw,14px)] max-w-[200px] focus-within:border-blue-600 focus-within:border-2 hover:border-blue-600 hover:border-2' >
+					className='bg-black/60 backdrop-blur-md text-white px-2 flex flex-row justify-center py-1 rounded border border-white/20 text-[10px] text-[clamp(10px,1vw,14px)] max-w-[200px] focus-within:border-blue-600 focus-within:border-2 hover:border-blue-600 hover:border-2'>
 					{label}:{" "}
 					<input
 						ref={inputRef}
@@ -81,10 +83,18 @@ function DimensionLabel({
 						type='number'
 						key={value}
 						defaultValue={value}
-						className='w-12 bg-transparent  outline-none border-none p-0 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+						className='w-12 bg-transparent outline-none border-none p-0 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
 						onBlur={handleValidateAndSubmit}
 						onKeyDown={e => {
-							if (e.key === "Enter") e.currentTarget.blur()
+							if (e.key === "Enter") {
+								e.currentTarget.blur()
+							}
+							if (e.key === "Escape") {
+								if (inputRef.current) {
+									inputRef.current.value = value.toString()
+								}
+								e.currentTarget.blur()
+							}
 						}}
 					/>{" "}
 					mm
@@ -92,12 +102,20 @@ function DimensionLabel({
 			</Html>
 
 			<Line
-				color='black'
+				lineWidth={LINE_WIDTH}
+				color={LINE_COLOR}
 				points={[linePositionStart, linePositionEnd]}
-				lineWidth={1}
 			/>
-			<Line color='black' points={getCapPoints(sX, sY, sZ)} lineWidth={1} />
-			<Line color='black' points={getCapPoints(eX, eY, eZ)} lineWidth={1} />
+			<Line
+				lineWidth={LINE_WIDTH}
+				color={LINE_COLOR}
+				points={getCapPoints(sX, sY, sZ)}
+			/>
+			<Line
+				lineWidth={LINE_WIDTH}
+				color={LINE_COLOR}
+				points={getCapPoints(eX, eY, eZ)}
+			/>
 		</group>
 	)
 }
