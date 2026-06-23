@@ -1,33 +1,28 @@
 "use client"
 
-import { useLoader } from '@react-three/fiber'
-import { useMemo } from 'react'
-import * as THREE from 'three'
+import * as THREE from "three"
+import { useTexture } from "@react-three/drei"
+
+const FLOOR_SCALE: [number, number, number] = [10, 10, 1]
+const FLOOR_POSITION: [number, number, number] = [0, -0.001, 0]
+const FLOOR_ROTATION: [number, number, number] = [-Math.PI / 2, 0, 0]
+const TEXTURE_REPEAT: [number, number] = [10, 10]
 
 const Floor = () => {
-    const baseTexture = useLoader(THREE.TextureLoader, "/floor.png")
-
-    const floorTexture = useMemo(() => {
-        if (!baseTexture) return null
-        
-        const cloned = baseTexture.clone()
-        cloned.wrapS = THREE.RepeatWrapping
-        cloned.wrapT = THREE.RepeatWrapping
-        cloned.repeat.set(10, 10)
-        cloned.colorSpace = THREE.SRGBColorSpace
-        cloned.needsUpdate = true
-        
-        return cloned
-    }, [baseTexture])
-
-    if (!floorTexture) return null
+   
+    const floorTexture = useTexture("/floor.png", (texture) => {
+        texture.wrapS = THREE.RepeatWrapping
+        texture.wrapT = THREE.RepeatWrapping
+        texture.repeat.set(...TEXTURE_REPEAT)
+        texture.colorSpace = THREE.SRGBColorSpace
+    })
 
     return (
         <mesh
             name='floor'
-            scale={[10, 10, 1]}
-            position={[0, -0.001, 0]}
-            rotation={[-Math.PI / 2, 0, 0]}
+            scale={FLOOR_SCALE}
+            position={FLOOR_POSITION}
+            rotation={FLOOR_ROTATION}
             receiveShadow
         >
             <planeGeometry />
@@ -35,5 +30,7 @@ const Floor = () => {
         </mesh>
     )
 }
+
+useTexture.preload("/floor.png")
 
 export default Floor
