@@ -5,9 +5,9 @@ import { Canvas } from "@react-three/fiber"
 
 import { OrbitControls, ContactShadows, Environment } from "@react-three/drei"
 
-import DimensionLabel from "./scene/DimensionLabel"
-import Floor from "./scene/Floor"
-import HumanScale from "./scene/HumanScale"
+import DimensionLabel from "./scene/environment/DimensionLabel"
+import Floor from "./scene/environment/Floor"
+import HumanScale from "./scene/environment/HumanScale"
 import ViewportControls from "./ui/ViewportControls"
 
 import WardrobeHitbox from "./scene/wardrobe/WardrobeHitbox"

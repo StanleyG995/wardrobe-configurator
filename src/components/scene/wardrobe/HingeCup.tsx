@@ -1,8 +1,6 @@
 import * as THREE from "three"
-import React from "react"
 import { useGLTF } from "@react-three/drei"
 import { ThreeElements } from "@react-three/fiber"
-import { toMeters } from '@/helpers/unitConverter'
 
 function HingeCup(props: ThreeElements["group"]) {
 	const { nodes } = useGLTF("/models/hinge-cup.glb")
