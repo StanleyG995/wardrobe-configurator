@@ -8,11 +8,23 @@ import * as THREE from 'three'
 
 const GAP_VALUE = 0.7
 const TILE_SIZE = 1
-const MATERIAL_ROUGHNESS = 0.6
 const MATERIAL_METALNESS = 0.0
+const FALLBACK_PIXEL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
-const Board = ({ name, w, h, d, x, y, z, rotation }: BoardProps) => {
-    const texture = useLoader(THREE.TextureLoader, '/dark-wood.webp')
+const Board = ({ 
+    name, 
+    w, 
+    h, 
+    d, 
+    x, 
+    y, 
+    z, 
+    rotation,
+    textureUrl,
+    colorHex = '#ffffff',
+    roughness = 0.6
+}: BoardProps) => {
+    const texture = useLoader(THREE.TextureLoader, textureUrl || FALLBACK_PIXEL)
 
     const gap = toMeters(GAP_VALUE)
     const width = toMeters(w) - gap
@@ -26,31 +38,35 @@ const Board = ({ name, w, h, d, x, y, z, rotation }: BoardProps) => {
     ] as [number, number, number], [x, y, z])
 
     const materialsArray = useMemo(() => {
-        const createTiledMaterial = (sX: number, sY: number) => {
-            const clonedTexture = texture.clone()
-            clonedTexture.wrapS = THREE.RepeatWrapping
-            clonedTexture.wrapT = THREE.RepeatWrapping
-            clonedTexture.repeat.set(sX / TILE_SIZE, sY / TILE_SIZE)
-            clonedTexture.needsUpdate = true
-    
-            return new THREE.MeshStandardMaterial({ 
-                map: clonedTexture,
+        const createMaterial = (sX: number, sY: number) => {
+            const matOptions: THREE.MeshStandardMaterialParameters = {
+                color: new THREE.Color(colorHex),
                 metalness: MATERIAL_METALNESS,
-                roughness: MATERIAL_ROUGHNESS  
-            })
+                roughness: roughness
+            }
+
+            if (textureUrl) {
+                const clonedTexture = texture.clone()
+                clonedTexture.wrapS = THREE.RepeatWrapping
+                clonedTexture.wrapT = THREE.RepeatWrapping
+                clonedTexture.repeat.set(sX / TILE_SIZE, sY / TILE_SIZE)
+                clonedTexture.needsUpdate = true
+                matOptions.map = clonedTexture
+            }
+
+            return new THREE.MeshStandardMaterial(matOptions)
         }
 
         return [
-            createTiledMaterial(depth, height), // Right
-            createTiledMaterial(depth, height), // Left
-            createTiledMaterial(width, depth),  // Top
-            createTiledMaterial(width, depth),  // Bottom
-            createTiledMaterial(width, height), // Front
-            createTiledMaterial(width, height), // Back
+            createMaterial(depth, height),
+            createMaterial(depth, height),
+            createMaterial(width, depth),
+            createMaterial(width, depth),
+            createMaterial(width, height),
+            createMaterial(width, height),
         ]
-    }, [width, height, depth, texture])
+    }, [width, height, depth, texture, textureUrl, colorHex, roughness])
 
-    // CRITICAL: Czyszczenie pamięci GPU przy zmianie wymiarów lub unmouncie komponentu
     useEffect(() => {
         return () => {
             materialsArray.forEach((material) => {

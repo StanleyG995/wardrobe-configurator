@@ -15,6 +15,8 @@ const WardrobeCase = ({
     const sideX = width / 2 - halfThickness
     const centerY = height / 2
 
+    const caseMaterial = '/dark-wood.webp'
+
     return (
         <group position={[0, 0.001, 0]}>
             <Board
@@ -26,6 +28,7 @@ const WardrobeCase = ({
                 y={halfThickness}
                 z={0}
                 rotation={[0, 0, 0]}
+                textureUrl={caseMaterial}
             />
 
             <Board
@@ -37,6 +40,7 @@ const WardrobeCase = ({
                 y={height - halfThickness}
                 z={0}
                 rotation={[0, 0, 0]}
+                textureUrl={caseMaterial}
             />
 
             <Board
@@ -48,6 +52,7 @@ const WardrobeCase = ({
                 y={centerY}
                 z={0}
                 rotation={[0, 0, 0]}
+                textureUrl={caseMaterial}
             />
 
             <Board
@@ -59,6 +64,7 @@ const WardrobeCase = ({
                 y={centerY}
                 z={0}
                 rotation={[0, 0, 0]}
+                textureUrl={caseMaterial}
             />
 
             <Board

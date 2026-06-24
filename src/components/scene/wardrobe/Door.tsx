@@ -67,6 +67,8 @@ const Door = ({
     const isLeftHinge = hingeSide === 'left'
     const isLeftHandle = handleSide === 'left'
 
+    const doorMaterial = ''
+
     const staticGeometry = useMemo(() => {
         const hingePos: [number, number, number] = [
             toMeters(isLeftHinge ? -width / 2 : width / 2),
@@ -207,6 +209,7 @@ const Door = ({
                     y={0}
                     z={boardThickness / 2}
                     rotation={[0, 0, 0]}
+                    textureUrl = {doorMaterial}
                 />
             </group>
         </group>
