@@ -4,22 +4,26 @@ import { useState, useEffect } from "react"
 import { toMeters } from "@/helpers/unitConverter"
 import type { HitboxProps } from "@/types/WardrobeProps"
 
+const HITBOX_COLOR = "#2b7fff"
+const ACTIVE_OPACITY = 0.4
+const INACTIVE_OPACITY = 0
 
 function WardrobeHitbox({
 	wardrobe,
 	activeSegmentIdx,
 	setActiveSegmentIdx,
 }: HitboxProps) {
-	const segments = wardrobe.segments || []
+	const { segments = [], width, height, depth, boardThickness } = wardrobe
+
 	const segmentCount = segments.length > 0 ? segments.length : 1
 	const hasDividers = segmentCount > 1
 
-	const totalInnerWidth =
-		wardrobe.width -
-		2 * wardrobe.boardThickness -
-		(hasDividers ? (segmentCount - 1) * wardrobe.boardThickness : 0)
+	const totalInnerWidth = width - 2 * boardThickness - (hasDividers ? (segmentCount - 1) * boardThickness : 0)
+
 	const compartmentWidth = totalInnerWidth / segmentCount
-	const innerHeight = wardrobe.height - 2 * wardrobe.boardThickness
+	const innerHeight = height - 2 * boardThickness
+	const startX = -width / 2 + boardThickness
+	const centerY = toMeters(boardThickness + innerHeight / 2)
 
 	const [hovered, setHovered] = useState(false)
 
@@ -36,20 +40,15 @@ function WardrobeHitbox({
 			onPointerOver={() => setHovered(true)}
 			onPointerOut={() => setHovered(false)}>
 			{segments.map((segment, idx) => {
-				const startX = -wardrobe.width / 2 + wardrobe.boardThickness
 				const segmentX =
 					startX +
-					idx * (compartmentWidth + wardrobe.boardThickness) +
+					idx * (compartmentWidth + boardThickness) +
 					compartmentWidth / 2
 
 				return (
 					<mesh
 						key={`hitbox-${segment.id}`}
-						position={[
-							toMeters(segmentX),
-							toMeters(wardrobe.boardThickness + innerHeight / 2),
-							0,
-						]}
+						position={[toMeters(segmentX), centerY, 0]}
 						onClick={e => {
 							e.stopPropagation()
 							setActiveSegmentIdx(idx)
@@ -58,13 +57,15 @@ function WardrobeHitbox({
 							args={[
 								toMeters(compartmentWidth),
 								toMeters(innerHeight),
-								toMeters(wardrobe.depth),
+								toMeters(depth),
 							]}
 						/>
 						<meshBasicMaterial
-							color='#2b7fff'
+							color={HITBOX_COLOR}
 							transparent
-							opacity={idx === activeSegmentIdx ? 0.4 : 0}
+							opacity={
+								idx === activeSegmentIdx ? ACTIVE_OPACITY : INACTIVE_OPACITY
+							}
 						/>
 					</mesh>
 				)
