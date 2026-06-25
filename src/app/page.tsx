@@ -28,8 +28,8 @@ export default function Home() {
             
             <div className="z-10 w-full lg:w-96 flex flex-col border-b lg:border-r border-white/50 bg-gradient-to-b from-[#042554] to-[#0C1D36] backdrop-blur-xl p-10 gap-4 text-white overflow-y-auto">
                 <Sidebar
-                    wardrobe={wardrobe}
-                    onUpdate={handleUpdate}
+                    
+                    
                     onAddShelf={addShelfToSegment}    
                     onRemoveShelf={removeShelfFromSegment}
                     onChangeSegmentType={changeSegmentType}
@@ -45,7 +45,7 @@ export default function Home() {
                     onUpdate={handleUpdate}
                     onToggleUpdate={handleViewportToggle}
                     onToggleGender={handleViewportGenderToggle}
-                    wardrobe={wardrobe}
+            
                     activeSegmentIdx={activeSegmentIdx}
                     setActiveSegmentIdx={setActiveSegmentIdx} 
                     dimensions={ViewportOptions.dimensions} 
