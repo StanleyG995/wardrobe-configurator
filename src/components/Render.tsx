@@ -19,8 +19,9 @@ import WardrobeDoors from "@/components/scene/wardrobe/WardrobeDoors"
 import * as THREE from "three"
 import { toMeters } from "../helpers/unitConverter"
 
+import { useWardrobeStore } from "@/store/useWardrobeStore"
+
 const Render = ({
-	wardrobe,
 	activeSegmentIdx,
 	setActiveSegmentIdx,
 	onUpdate,
@@ -33,7 +34,10 @@ const Render = ({
 	floor,
 	doorRotation,
 	onToggleDoors,
-}: RenderProps & ViewportButtonProps) => {
+}: Omit<RenderProps & ViewportButtonProps, 'wardrobe'>) => {
+
+	const wardrobe = useWardrobeStore((state) => state.wardrobe)
+
 	return (
 		<>
 			<ViewportControls

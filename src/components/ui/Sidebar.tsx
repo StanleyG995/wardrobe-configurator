@@ -1,18 +1,22 @@
 "use client"
 
 import type { WardrobeProps } from "@/types/WardrobeProps"
+import { useWardrobeStore } from "@/store/useWardrobeStore"
 
 const Sidebar = ({
-	onUpdate,
 	onAddShelf,
 	onRemoveShelf,
 	onChangeSegmentType,
-	wardrobe,
 	activeSegmentIdx,
 	setActiveSegmentIdx,
 	price,
 	onToggleDoorPosition,
-}: WardrobeProps) => {
+}: Omit<WardrobeProps, 'wardrobe' | 'onUpdate'>) => {
+
+	const wardrobe = useWardrobeStore((state) => state.wardrobe)
+    const updateDimension = useWardrobeStore((state) => state.updateDimension)
+	console.log("Aktualna szerokość w sklepie:", wardrobe.width)
+
 	if (activeSegmentIdx !== null) {
 		const activeSegment = wardrobe.segments?.[activeSegmentIdx]
 
@@ -100,7 +104,7 @@ const Sidebar = ({
 					max='2400'
 					min='500'
 					value={wardrobe.width}
-					onChange={e => onUpdate(e.target.name, parseFloat(e.target.value))}
+					onChange={e => updateDimension('width', parseFloat(e.target.value))}
 				/>
 			</div>
 
@@ -116,7 +120,7 @@ const Sidebar = ({
 					max='2700'
 					min='1800'
 					value={wardrobe.height}
-					onChange={e => onUpdate(e.target.name, parseFloat(e.target.value))}
+					onChange={e => updateDimension('height', parseFloat(e.target.value))}
 				/>
 			</div>
 
@@ -132,7 +136,7 @@ const Sidebar = ({
 					max='700'
 					min='450'
 					value={wardrobe.depth}
-					onChange={e => onUpdate(e.target.name, parseFloat(e.target.value))}
+					onChange={e => updateDimension('depth', parseFloat(e.target.value))}
 				/>
 			</div>
 
