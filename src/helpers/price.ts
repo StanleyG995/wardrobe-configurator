@@ -1,3 +1,5 @@
+import { SegmentData } from "@/types/WardrobeProps";
+
 const PRICE_LIST = {
     m2_plate: 150,
     shelf_item: 45,
@@ -5,7 +7,7 @@ const PRICE_LIST = {
     margin: 1.25
   };
   
-  export function calculateWardrobePrice(width, height, depth, segments) {
+  export function calculateWardrobePrice(width:number, height:number, depth:number, segments: SegmentData[]) {
 
     if (!segments || !Array.isArray(segments)) return 0;
   
