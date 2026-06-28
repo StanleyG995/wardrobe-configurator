@@ -1,7 +1,7 @@
 "use client"
 
 import Sidebar from "@/components/ui/Sidebar"
-import Render from "@/components/Render"
+import Render from "@/components/scene/Render"
 
 
 export default function Home() {

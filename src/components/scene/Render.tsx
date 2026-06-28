@@ -4,15 +4,15 @@ import { Canvas } from "@react-three/fiber"
 
 import { OrbitControls, ContactShadows, Environment } from "@react-three/drei"
 
-import Floor from "./scene/environment/Floor"
-import HumanScale from "./scene/environment/HumanScale"
-import ViewportControls from "./ui/ViewportControls"
+import Floor from "./environment/Floor"
+import HumanScale from "./environment/HumanScale"
+import ViewportControls from "../ui/ViewportControls"
 
 import WardrobeCase from "@/components/scene/wardrobe/WardrobeCase"
 import WardrobeDoors from "@/components/scene/wardrobe/WardrobeDoors"
-import WardrobeHitbox from "./scene/wardrobe/WardrobeHitbox"
+import WardrobeHitbox from "./wardrobe/WardrobeHitbox"
 import WardrobeInterior from "@/components/scene/wardrobe/WardrobeInterior"
-import WardrobeLabels from "./scene/wardrobe/WardrobeLabels"
+import WardrobeLabels from "./wardrobe/WardrobeLabels"
 
 import * as THREE from "three"
 
