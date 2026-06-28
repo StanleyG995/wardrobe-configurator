@@ -4,34 +4,31 @@ import { Canvas } from "@react-three/fiber"
 
 import { OrbitControls, ContactShadows, Environment } from "@react-three/drei"
 
-import WardrobeLabels from "./scene/wardrobe/WardrobeLabels"
 import Floor from "./scene/environment/Floor"
 import HumanScale from "./scene/environment/HumanScale"
 import ViewportControls from "./ui/ViewportControls"
 
-import WardrobeHitbox from "./scene/wardrobe/WardrobeHitbox"
 import WardrobeCase from "@/components/scene/wardrobe/WardrobeCase"
-import WardrobeInterior from "@/components/scene/wardrobe/WardrobeInterior"
 import WardrobeDoors from "@/components/scene/wardrobe/WardrobeDoors"
-
+import WardrobeHitbox from "./scene/wardrobe/WardrobeHitbox"
+import WardrobeInterior from "@/components/scene/wardrobe/WardrobeInterior"
+import WardrobeLabels from "./scene/wardrobe/WardrobeLabels"
 
 import * as THREE from "three"
-import { toMeters } from "../helpers/unitConverter"
 
 import { useWardrobeStore } from "@/store/useWardrobeStore"
 
 const Render = () => {
 
-	const wardrobe = useWardrobeStore((state) => state.wardrobe)
 	const setActiveSegmentIdx = useWardrobeStore((state) => state.setActiveSegmentIdx)
-	const { floorVisible, humanScaleVisible, dimensionsVisible } = useWardrobeStore((state) => state.viewportOptions)
+	const { floorVisible, humanScaleVisible, dimensionsVisible, doorsVisible } = useWardrobeStore((state) => state.viewportOptions)
 
 	return (
 		<>
 			<ViewportControls/>
 			<Canvas
 				shadows={{ type: THREE.PCFShadowMap }}
-				camera={{ position: [0, 1, 2] }}
+				camera={{ position: [0, 1.4, 2.5] }}
 				onPointerMissed={() => {
 					setActiveSegmentIdx(null)
 				}}>
@@ -81,7 +78,7 @@ const Render = () => {
 					<WardrobeCase/>
 					<WardrobeInterior/>
 					<WardrobeHitbox/>
-					<WardrobeDoors/>
+					{doorsVisible && <WardrobeDoors/>}
 				</group>
 			</Canvas>
 		</>

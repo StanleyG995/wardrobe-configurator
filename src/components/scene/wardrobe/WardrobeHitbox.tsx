@@ -6,7 +6,7 @@ import { toMeters } from "@/helpers/unitConverter"
 import { useWardrobeStore } from "@/store/useWardrobeStore"
 
 const HITBOX_COLOR = "#2b7fff"
-const ACTIVE_OPACITY = 0.4
+const ACTIVE_OPACITY = 0.6
 const INACTIVE_OPACITY = 0
 
 function WardrobeHitbox({}) {

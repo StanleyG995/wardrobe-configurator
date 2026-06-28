@@ -13,8 +13,8 @@ function HingeArm(props: ThreeElements["group"]) {
 		<group {...props} dispose={null}>
 			<mesh geometry={handleMesh.geometry} rotation={[Math.PI/2, Math.PI, Math.PI/2]}>
 				<meshStandardMaterial
-					color='#f7f7f7'
-					metalness={0.8}
+					color='#fafafa'
+					metalness={0.7}
 					roughness={0.1}
 				/>
 			</mesh>

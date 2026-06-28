@@ -13,8 +13,8 @@ function HingeCup(props: ThreeElements["group"]) {
 		<group {...props} dispose={null}>
 			<mesh geometry={handleMesh.geometry}>
 				<meshStandardMaterial
-					color='#f7f7f7'
-					metalness={0.8}
+					color='#fafafa'
+					metalness={0.7}
 					roughness={0.1}
 				/>
 			</mesh>

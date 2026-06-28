@@ -23,7 +23,6 @@ export interface ViewportOptionsProps {
   doorsOpen: boolean;
   doorsVisible: boolean;
   floorVisible: boolean;
-  doorRotation?: number[];
 }
 
 export interface WardrobeState {

@@ -27,12 +27,11 @@ export const useWardrobeStore = create<WardrobeState>()(
 
       viewportOptions: {
         dimensionsVisible: true,
-        humanScaleVisible: true,
+        humanScaleVisible: false,
         humanScaleGender: "male",
         doorsOpen: true,
         doorsVisible: true,
         floorVisible: true,
-        doorRotation: [0, 0, 0],
       },
 
       updateDimension: (key, value) =>
