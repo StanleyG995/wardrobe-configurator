@@ -1,6 +1,6 @@
 "use client";
 
-import { FaUndo, FaRedo } from "react-icons/fa";
+import { MdUndo, MdRedo } from "react-icons/md";
 
 import { useStore } from "zustand";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
@@ -27,7 +27,7 @@ const HistoryControls = () => {
             : "cursor-not-allowed border-neutral-700 bg-neutral-800/80 text-neutral-500"
         }`}
       >
-        <FaUndo />
+        <MdUndo className="text-[20px]" />
       </button>
 
       <button
@@ -40,7 +40,7 @@ const HistoryControls = () => {
             : "cursor-not-allowed border-neutral-700 bg-neutral-800/80 text-neutral-500"
         }`}
       >
-        <FaRedo />
+        <MdRedo className="text-[20px]" />
       </button>
     </div>
   );
