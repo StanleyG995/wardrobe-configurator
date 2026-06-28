@@ -40,4 +40,5 @@ export interface WardrobeState {
   addShelfToSegment: (segmentIndex: number) => void;
   removeShelfFromSegment: (segmentIndex: number) => void;
   changeSegmentType: (segmentIndex: number, newType: "shelves" | "hanger" | "empty") => void;
+  setHandleType: (type: 'straight' | 'long' | 'modern' | 'none') => void;
 }

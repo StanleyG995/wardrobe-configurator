@@ -35,6 +35,15 @@ export const useWardrobeStore = create<WardrobeState>()(
         floorVisible: true,
       },
 
+      setHandleType: (type) =>
+        set((state) => ({
+          ...state,
+          wardrobe: {
+            ...state.wardrobe,
+            handleType: type,
+          },
+        })),
+
       updateDimension: (key, value) =>
         set((state) => {
           const nextDimensions = {

@@ -13,6 +13,7 @@ const Sidebar = () => {
     addShelfToSegment,
     removeShelfFromSegment,
     handleDoorPositionChange,
+	setHandleType,
   } = useWardrobeStore((state) => state);
 
   const activeSegment =
@@ -80,6 +81,16 @@ const Sidebar = () => {
           Thickness: <strong>{wardrobe.boardThickness} mm</strong>
         </span>
       </div>
+
+	<select
+ 	 value={wardrobe.handleType}
+  	onChange={(e) => setHandleType(e.target.value as "straight" | "long" | "none")}
+  	className="border border-white/20 rounded p-2 w-full bg-neutral-900 text-white"
+>
+  <option value="straight">Straight Handle</option>
+  <option value="long">Long Design Handle</option>
+  <option value="none">No Handles (Push-to-open)</option>
+</select>
 
       <hr className="my-2 border-white/40" />
 
