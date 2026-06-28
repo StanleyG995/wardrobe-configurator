@@ -22,6 +22,6 @@ function HingeCup(props: ThreeElements["group"]) {
 	)
 }
 
-useGLTF.preload("/models/handle-cup.glb")
+useGLTF.preload("/models/hinge-cup.glb")
 
 export default HingeCup
