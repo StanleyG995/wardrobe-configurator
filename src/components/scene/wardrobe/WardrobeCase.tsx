@@ -12,7 +12,7 @@ const WardrobeCase = () => {
     const centerY = height / 2
 
     const currentCaseMaterial = caseMaterial
-    const backBoardMaterial = '/textures/wood_backboard.jpg'
+    const backBoardMaterial = '/backboard.webp'
     
     return (
         <group position={[0, 0.001, 0]}>

@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber"
 
 import { OrbitControls, ContactShadows, Environment } from "@react-three/drei"
 
-import DimensionLabel from "./scene/environment/DimensionLabel"
+import WardrobeLabels from "./scene/wardrobe/WardrobeLabels"
 import Floor from "./scene/environment/Floor"
 import HumanScale from "./scene/environment/HumanScale"
 import ViewportControls from "./ui/ViewportControls"
@@ -24,7 +24,7 @@ const Render = () => {
 
 	const wardrobe = useWardrobeStore((state) => state.wardrobe)
 	const setActiveSegmentIdx = useWardrobeStore((state) => state.setActiveSegmentIdx)
-	
+	const { floorVisible, humanScaleVisible, dimensionsVisible } = useWardrobeStore((state) => state.viewportOptions)
 
 	return (
 		<>
@@ -75,9 +75,7 @@ const Render = () => {
 				<group name='viewport'>
 					{floorVisible && <Floor />}
 					{humanScaleVisible && <HumanScale />}
-					{dimensionsVisible && (
-						
-					)}
+					{dimensionsVisible && <WardrobeLabels />}
 				</group>
 				<group name='wardrobe'>
 					<WardrobeCase/>

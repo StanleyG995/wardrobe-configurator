@@ -6,6 +6,7 @@ import { useWardrobeStore } from "@/store/useWardrobeStore"
 
 const WardrobeLabels = () => {
 	const wardrobe = useWardrobeStore((state) => state.wardrobe)
+    const handleUpdateDimension = useWardrobeStore((state) => state.updateDimension)
     return(
 <group name='dimensions'>
 							<DimensionLabel
@@ -26,7 +27,7 @@ const WardrobeLabels = () => {
 								]}
 								label='W'
 								axis='z'
-								onUpdate={onUpdate}
+								onUpdate={handleUpdateDimension}
 							/>
 							<DimensionLabel
 								min={1800}
@@ -46,7 +47,7 @@ const WardrobeLabels = () => {
 								]}
 								label='H'
 								axis='x'
-								onUpdate={onUpdate}
+								onUpdate={handleUpdateDimension}
 							/>
 							<DimensionLabel
 								min={450}
@@ -66,6 +67,8 @@ const WardrobeLabels = () => {
 								]}
 								label='D'
 								axis='x'
-								onUpdate={onUpdate}
+								onUpdate={handleUpdateDimension}
 							/>
 						</group>)}
+
+export default WardrobeLabels

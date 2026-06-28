@@ -7,7 +7,7 @@ export interface DimensionProps {
   label: string;
   linePositionStart: [number, number, number];
   linePositionEnd: [number, number, number];
-  onUpdate: (name: string, value: number) => void;
+  onUpdate: (key: "width" | "height" | "depth", value: number) => void
 	axis: "x" | "y" | "z"
 
 }
