@@ -1,27 +1,15 @@
-import {Material, DoorMaterial } from "@/types/WardrobeProps";
+import {Material, DoorMaterial, MaterialConfig } from "@/types/WardrobeProps";
 
-export const CASE_MATERIAL_TEXTURES: Record<Material['material'], string | undefined> = {
-  "dark-wood": "/textures/dark-wood.webp",
-  "light-wood": "/textures/light-wood.webp",
-  'white': undefined,
-  'black': undefined,
-  'graphite': undefined,
+export const CASE_MATERIALS: Record<Material['material'], MaterialConfig> = {
+  "white":      { color: "#f5f5f5", metalness: 1.0, roughness: 0.6 },
+  "black":      { color: "#1a1a1a", metalness: 1.0, roughness: 0.6 },
+  "graphite":   { color: "#4e6070", metalness: 1.0, roughness: 0.6 },
+  "gray":   { color: "#4e6070", metalness: 1.0, roughness: 0.6 },
+  "light-wood": { color: "#ffffff", textureUrl: "/textures/light-wood.webp", metalness: 1.0, roughness: 0.4 },
+  "dark-wood":  { color: "#ffffff", textureUrl: "/textures/dark-wood.webp", metalness: 1.0, roughness: 0.4 },
 };
 
-export const MATERIAL_COLORS: Record<DoorMaterial['material'], string> = {
-  "white": "#f5f5f5",
-  "black": "#1a1a1a",
-  "graphite": "#4e6070",
-  "dark-wood": "#ffffff", 
-  "light-wood": "#ffffff",
-  "glass": "#e0f2f1",
-};
-
-export const DOOR_MATERIAL_TEXTURES: Record<DoorMaterial['material'], string | undefined> = {
-  "dark-wood": "/textures/dark-wood.webp",
-  "light-wood": "/textures/light-wood.webp",
-  'white': undefined,
-  'black': undefined,
-  'graphite': undefined,
-  'glass': undefined,
+export const DOOR_MATERIALS: Record<DoorMaterial['material'], MaterialConfig> = {
+  ...CASE_MATERIALS,
+  "glass":      { color: "#e0f2f1", metalness: 1.0, roughness: 0.0 },
 };

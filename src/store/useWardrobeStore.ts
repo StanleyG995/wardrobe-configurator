@@ -46,6 +46,15 @@ export const useWardrobeStore = create<WardrobeState>()(
           },
         })),
 
+      setMaterial: (materialType: 'caseMaterial' | 'doorMaterial', materialValue: string) =>
+        set((state) => ({
+          ...state,
+          wardrobe: {
+            ...state.wardrobe,
+            [materialType]: materialValue,
+          },
+        })), 
+
       updateDimension: (key, value) =>
         set((state) => {
           const nextDimensions = {

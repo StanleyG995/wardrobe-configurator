@@ -3,7 +3,7 @@
 import Board from "@/components/scene/wardrobe/Board"
 import { useWardrobeStore } from "@/store/useWardrobeStore"
 
-import { CASE_MATERIAL_TEXTURES, MATERIAL_COLORS } from "@/config/Materials"
+import { CASE_MATERIALS } from "@/config/Materials"
 
 const WardrobeCase = () => {
     const { dimensions: { width, height, depth }, boardThickness, backBoardThickness, caseMaterial,  } = useWardrobeStore((state) => state.wardrobe)
@@ -12,8 +12,7 @@ const WardrobeCase = () => {
     const innerHeight = height - 2 * boardThickness
     const sideX = width / 2 - halfThickness
     const centerY = height / 2
-    const currentCaseMaterial = CASE_MATERIAL_TEXTURES[caseMaterial as keyof typeof CASE_MATERIAL_TEXTURES]
-    const resolvedColorHex = MATERIAL_COLORS[caseMaterial as keyof typeof MATERIAL_COLORS];
+    const resolvedMaterial = CASE_MATERIALS[caseMaterial as keyof typeof CASE_MATERIALS]
     
     const backBoardMaterial = '/textures/backboard.webp'
     
@@ -28,8 +27,7 @@ const WardrobeCase = () => {
                 y={halfThickness}
                 z={0}
                 rotation={[0, 0, 0]}
-                textureUrl={currentCaseMaterial}
-                colorHex={resolvedColorHex}
+                material={{ textureUrl: resolvedMaterial.textureUrl, colorHex: resolvedMaterial.color, roughness: resolvedMaterial.roughness, metalness: resolvedMaterial.metalness }}
             />
 
             <Board
@@ -41,8 +39,7 @@ const WardrobeCase = () => {
                 y={height - halfThickness}
                 z={0}
                 rotation={[0, 0, 0]}
-                textureUrl={currentCaseMaterial}
-                colorHex={resolvedColorHex}
+                material={{ textureUrl: resolvedMaterial.textureUrl, colorHex: resolvedMaterial.color, roughness: resolvedMaterial.roughness, metalness: resolvedMaterial.metalness }}
             />
 
             <Board
@@ -54,8 +51,7 @@ const WardrobeCase = () => {
                 y={centerY}
                 z={0}
                 rotation={[0, 0, 0]}
-                textureUrl={currentCaseMaterial}
-                colorHex={resolvedColorHex}
+                material={{ textureUrl: resolvedMaterial.textureUrl, colorHex: resolvedMaterial.color, roughness: resolvedMaterial.roughness, metalness: resolvedMaterial.metalness }}
             />
 
             <Board
@@ -67,8 +63,7 @@ const WardrobeCase = () => {
                 y={centerY}
                 z={0}
                 rotation={[0, 0, 0]}
-                textureUrl={currentCaseMaterial}
-                colorHex={resolvedColorHex}
+                material={{ textureUrl: resolvedMaterial.textureUrl, colorHex: resolvedMaterial.color, roughness: resolvedMaterial.roughness, metalness: resolvedMaterial.metalness }}
             />
 
             <Board
@@ -80,7 +75,7 @@ const WardrobeCase = () => {
                 y={centerY}
                 z={-(depth / 2) + backBoardThickness}
                 rotation={[0, 0, 0]}
-                textureUrl={backBoardMaterial}
+                material={{ textureUrl: backBoardMaterial, colorHex: '#8B4513', roughness: 0.5, metalness: 0.5 }}
             />
         </group>
     )

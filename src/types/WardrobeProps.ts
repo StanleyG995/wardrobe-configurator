@@ -3,11 +3,18 @@ export interface HandleType {
 }
 
 export interface Material {
-    material: 'dark-wood' | 'light-wood' | 'white' | 'black' | 'graphite';
+    material: 'dark-wood' | 'light-wood' | 'white' | 'black' | 'graphite' | 'gray';
 }
 
 export interface DoorMaterial {
     material: Material["material"] | 'glass';
+}
+
+export interface MaterialConfig {
+    textureUrl?: string;
+    color?: string;
+    metalness: number;
+    roughness: number;
 }
 
 export interface Wardrobe {
@@ -53,4 +60,5 @@ export interface WardrobeState {
   removeShelfFromSegment: (segmentIndex: number) => void;
   changeSegmentType: (segmentIndex: number, newType: "shelves" | "hanger" | "empty") => void;
   setHandleType: (type: 'straight' | 'long' | 'modern' | 'none') => void;
+  setMaterial: (materialType: 'caseMaterial' | 'doorMaterial', materialValue: string) => void;
 }

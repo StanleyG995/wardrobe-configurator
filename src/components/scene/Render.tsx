@@ -37,7 +37,7 @@ const Render = () => {
           setActiveSegmentIdx(null);
         }}
       >
-        <Environment preset="studio" environmentIntensity={0.06} />
+        <Environment preset="apartment" environmentIntensity={0.4} />
         <group name="scene">
           <ambientLight intensity={0.2} />
           <directionalLight

@@ -7,7 +7,10 @@ export interface BoardProps {
 	y: number;
 	z: number;
 	rotation: [number, number, number];
-	textureUrl?: string;
-    colorHex?: string;
-    roughness?: number;
+	material: {
+		textureUrl?: string;
+		colorHex?: string;
+		roughness?: number;
+		metalness?: number;
+	};
 }

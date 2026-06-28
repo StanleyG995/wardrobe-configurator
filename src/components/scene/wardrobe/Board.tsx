@@ -8,7 +8,6 @@ import * as THREE from 'three'
 
 const GAP_VALUE = 0.7
 const TILE_SIZE = 1
-const MATERIAL_METALNESS = 0.0
 const FALLBACK_PIXEL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
 const Board = ({ 
@@ -20,11 +19,9 @@ const Board = ({
     y, 
     z, 
     rotation,
-    textureUrl,
-    colorHex = '#ffffff',
-    roughness = 0.6
+    material,
 }: BoardProps) => {
-    const texture = useLoader(THREE.TextureLoader, textureUrl || FALLBACK_PIXEL)
+    const texture = useLoader(THREE.TextureLoader, material.textureUrl || FALLBACK_PIXEL)
 
     const gap = toMeters(GAP_VALUE)
     const width = toMeters(w) - gap
@@ -40,12 +37,12 @@ const Board = ({
     const materialsArray = useMemo(() => {
         const createMaterial = (sX: number, sY: number) => {
             const matOptions: THREE.MeshStandardMaterialParameters = {
-                color: new THREE.Color(colorHex),
-                metalness: MATERIAL_METALNESS,
-                roughness: roughness
+                color: material.colorHex || '#ffffff',
+                metalness: material.metalness,
+                roughness: material.roughness,
             }
 
-            if (textureUrl) {
+            if (material.textureUrl) {
                 const clonedTexture = texture.clone()
                 clonedTexture.wrapS = THREE.RepeatWrapping
                 clonedTexture.wrapT = THREE.RepeatWrapping
@@ -65,7 +62,7 @@ const Board = ({
             createMaterial(width, height),
             createMaterial(width, height),
         ]
-    }, [width, height, depth, texture, textureUrl, colorHex, roughness])
+    }, [width, height, depth, texture, material])
 
     useEffect(() => {
         return () => {

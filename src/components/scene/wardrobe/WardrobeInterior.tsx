@@ -3,7 +3,7 @@
 import Board from "@/components/scene/wardrobe/Board"
 import { toMeters } from "@/helpers/unitConverter"
 
-import { CASE_MATERIAL_TEXTURES, MATERIAL_COLORS } from "@/config/Materials"
+import { CASE_MATERIALS } from "@/config/Materials"
 
 import { useWardrobeStore } from "@/store/useWardrobeStore"
 
@@ -25,8 +25,7 @@ const ROD_ROUGHNESS = 0.2
 const WardrobeInterior = () => {
     
     const { dimensions: { width, height, depth }, boardThickness, segments, caseMaterial } = useWardrobeStore((state) => state.wardrobe)
-    const currentCaseMaterial = CASE_MATERIAL_TEXTURES[caseMaterial as keyof typeof CASE_MATERIAL_TEXTURES]
-    const resolvedColorHex = MATERIAL_COLORS[caseMaterial as keyof typeof MATERIAL_COLORS];
+    const resolvedMaterial = CASE_MATERIALS[caseMaterial as keyof typeof CASE_MATERIALS]
 
     const segmentCount = segments.length > 0 ? segments.length : 1
     const hasDividers = segmentCount > 1
@@ -61,8 +60,7 @@ const WardrobeInterior = () => {
                             y={height / 2}
                             z={DIVIDER_Z_POSITION}
                             rotation={[0, 0, 0]}
-                            textureUrl={currentCaseMaterial}
-                            colorHex={resolvedColorHex}
+                            material={{ textureUrl: resolvedMaterial.textureUrl, colorHex: resolvedMaterial.color, roughness: resolvedMaterial.roughness, metalness: resolvedMaterial.metalness }}
                         />
                     )
                 })}
@@ -90,6 +88,7 @@ const WardrobeInterior = () => {
                                 y={TOP_BAY_HEIGHT}
                                 z={0}
                                 rotation={[0, 0, 0]}
+                                material={{ textureUrl: resolvedMaterial.textureUrl, colorHex: resolvedMaterial.color, roughness: resolvedMaterial.roughness, metalness: resolvedMaterial.metalness }}
                             />
                         )}
 
@@ -114,6 +113,7 @@ const WardrobeInterior = () => {
                                         y={currentY}
                                         z={0}
                                         rotation={[0, 0, 0]}
+                                        material={{ textureUrl: resolvedMaterial.textureUrl, colorHex: resolvedMaterial.color, roughness: resolvedMaterial.roughness, metalness: resolvedMaterial.metalness }}
                                     />
                                 )
                             })}

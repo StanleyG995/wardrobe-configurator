@@ -13,6 +13,7 @@ const Sidebar = () => {
     addShelfToSegment,
     removeShelfFromSegment,
     handleDoorPositionChange,
+    setMaterial,
 	setHandleType,
   } = useWardrobeStore((state) => state);
 
@@ -91,6 +92,32 @@ const Sidebar = () => {
   <option value="long">Long Design Handle</option>
   <option value="none">No Handles (Push-to-open)</option>
 </select>
+
+<select
+ 	 value={wardrobe.caseMaterial}
+  	onChange={(e) => setMaterial('caseMaterial', e.target.value)}
+  	className="border border-white/20 rounded p-2 w-full bg-neutral-900 text-white"
+>
+  <option value="dark-wood">Dark Wood</option>
+  <option value="light-wood">Light Wood</option>
+  <option value="white">White</option>
+  <option value="black">Black</option>
+  <option value="graphite">Graphite</option>
+</select>
+
+<select
+ 	 value={wardrobe.doorMaterial}
+  	onChange={(e) => setMaterial('doorMaterial', e.target.value)}
+  	className="border border-white/20 rounded p-2 w-full bg-neutral-900 text-white"
+>
+  <option value="dark-wood">Dark Wood</option>
+  <option value="light-wood">Light Wood</option>
+  <option value="white">White</option>
+  <option value="black">Black</option>
+  <option value="graphite">Graphite</option>
+  <option value="glass">Glass</option>
+</select>
+
 
       <hr className="my-2 border-white/40" />
 
