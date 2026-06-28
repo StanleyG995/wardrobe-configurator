@@ -3,7 +3,7 @@
 import Board from "@/components/scene/wardrobe/Board"
 import { toMeters } from "@/helpers/unitConverter"
 
-import { CASE_MATERIALS } from "@/config/Materials"
+import { MATERIALS } from "@/config/Materials"
 
 import { useWardrobeStore } from "@/store/useWardrobeStore"
 
@@ -25,7 +25,7 @@ const ROD_ROUGHNESS = 0.2
 const WardrobeInterior = () => {
     
     const { dimensions: { width, height, depth }, boardThickness, segments, caseMaterial } = useWardrobeStore((state) => state.wardrobe)
-    const resolvedMaterial = CASE_MATERIALS[caseMaterial as keyof typeof CASE_MATERIALS]
+    const resolvedMaterial = MATERIALS[caseMaterial as keyof typeof MATERIALS]
 
     const segmentCount = segments.length > 0 ? segments.length : 1
     const hasDividers = segmentCount > 1

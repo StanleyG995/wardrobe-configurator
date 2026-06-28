@@ -6,10 +6,6 @@ export interface Material {
     material: 'dark-wood' | 'light-wood' | 'white' | 'black' | 'graphite' | 'gray';
 }
 
-export interface DoorMaterial {
-    material: Material["material"] | 'glass';
-}
-
 export interface MaterialConfig {
     textureUrl?: string;
     color?: string;
@@ -32,7 +28,7 @@ export interface Wardrobe {
     doorPosition: "left" | "right";
   }[];
   caseMaterial: Material["material"];
-  doorMaterial: DoorMaterial["material"];
+  doorMaterial: Material["material"];
   handleType: HandleType["handleType"];
 }
 

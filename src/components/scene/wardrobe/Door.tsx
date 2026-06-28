@@ -12,11 +12,11 @@ import DoorHandle from "@/components/scene/wardrobe/DoorHandle";
 import HingeCup from "@/components/scene/wardrobe/HingeCup";
 import HingeArm from "@/components/scene/wardrobe/HingeArm";
 
-import { DOOR_MATERIALS } from "@/config/Materials";
+import { MATERIALS } from "@/config/Materials";
 
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 
-const DOOR_ROTATION_ANGLE = Math.PI / 2.09;
+const ROTATION_ANGLE = Math.PI / 2.09;
 const LERP_FACTOR = 0.03;
 const HINGE_ARM_OFFSET = 18;
 
@@ -78,7 +78,7 @@ const Door = ({
 
   const doorMaterial = useWardrobeStore((state) => state.wardrobe.doorMaterial);
 
-  const resolvedMaterial = DOOR_MATERIALS[doorMaterial as keyof typeof DOOR_MATERIALS];
+  const resolvedMaterial = MATERIALS[doorMaterial as keyof typeof MATERIALS];
 
   const staticGeometry = useMemo(() => {
     const hingePos: [number, number, number] = [
@@ -156,7 +156,7 @@ const Door = ({
         prevStates.current = { width, height, depth, topOffset, hingeSide };
       }
 
-      const targetRotation = isOpen ? DOOR_ROTATION_ANGLE : 0;
+      const targetRotation = isOpen ? ROTATION_ANGLE : 0;
       const currentTargetRotation = isLeftHinge
         ? -targetRotation
         : targetRotation;
