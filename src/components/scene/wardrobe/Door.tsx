@@ -3,12 +3,14 @@
 import { useRef, useMemo, useLayoutEffect } from "react"
 import { useFrame } from "@react-three/fiber"
 import { MathUtils, Group } from "three"
-import Board from "@/components/scene/wardrobe/Board"
+
 import { toMeters } from "@/helpers/unitConverter"
+import { DoorProps } from "@/types/DoorProps"
+
+import Board from "@/components/scene/wardrobe/Board"
 import DoorHandle from "@/components/scene/wardrobe/DoorHandle"
 import HingeCup from "@/components/scene/wardrobe/HingeCup"
 import HingeArm from "@/components/scene/wardrobe/HingeArm"
-import { DoorProps } from "@/types/DoorProps"
 
 const DOOR_ROTATION_ANGLE = Math.PI / 2.09
 const LERP_FACTOR = 0.03
