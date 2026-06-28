@@ -62,7 +62,6 @@ const Door = ({
   hingeSide,
   handleSide,
   topOffset,
-  onClick,
 }: DoorProps) => {
   const { handleViewportToggle } = useWardrobeStore((state) => state);
 
@@ -228,7 +227,7 @@ const Door = ({
           document.body.style.cursor = "pointer";
           e.stopPropagation();
         }}
-        onPointerOut={(e) => {
+        onPointerOut={() => {
           document.body.style.cursor = "auto";
         }}
         onClick={(e) => {
