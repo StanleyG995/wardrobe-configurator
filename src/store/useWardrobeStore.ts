@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { temporal } from "zundo";
-import { calculateWardrobePrice } from "@/helpers/priceCalculator"; // Dopasuj ścieżkę do swojego projektu
+import { calculateWardrobePrice } from "@/helpers/priceCalculator";
 
 import type { WardrobeState } from "@/types/WardrobeProps";
 
@@ -36,7 +36,6 @@ export const useWardrobeStore = create<WardrobeState>()(
 
       updateDimension: (key, value) =>
         set((state) => {
-         
           const nextDimensions = {
             ...state.wardrobe.dimensions,
             [key]: value,
@@ -44,7 +43,6 @@ export const useWardrobeStore = create<WardrobeState>()(
 
           let nextSegments = [...state.wardrobe.segments];
 
-        
           if (key === "width") {
             const targetSegmentCount =
               value < 700 ? 1 : value < 1400 ? 2 : value < 2100 ? 3 : value < 2800 ? 4 : 5;
@@ -56,11 +54,10 @@ export const useWardrobeStore = create<WardrobeState>()(
                 id: `segment-${currentCount + i}-${crypto.randomUUID().slice(0, 4)}`,
                 type: "shelves" as const,
                 shelves: [],
-                doorPosition: 'right' as const,
+                doorPosition: "right" as const,
               }));
               nextSegments = [...nextSegments, ...segmentsToAdd];
             } else if (targetSegmentCount < currentCount) {
-             
               nextSegments = nextSegments.slice(0, targetSegmentCount);
             }
           }
@@ -126,7 +123,7 @@ export const useWardrobeStore = create<WardrobeState>()(
             if (idx !== segmentIndex) return seg;
             return {
               ...seg,
-                doorPosition: seg.doorPosition === "left" ? "right" : "left" as "left" | "right",
+              doorPosition: (seg.doorPosition === "left" ? "right" : "left") as "left" | "right",
             };
           });
           const nextPrice = calculateWardrobePrice(
@@ -144,7 +141,8 @@ export const useWardrobeStore = create<WardrobeState>()(
             },
           };
         }),
-        addShelfToSegment: (segmentIndex) =>
+
+      addShelfToSegment: (segmentIndex) =>
         set((state) => {
           const currentSegment = state.wardrobe.segments[segmentIndex];
           if (!currentSegment || currentSegment.type !== "shelves") return state;
@@ -243,10 +241,9 @@ export const useWardrobeStore = create<WardrobeState>()(
           };
         }),
     }),
-    
-
     {
       partialize: (state) => ({ wardrobe: state.wardrobe }),
-    },
-  ),
+    }
+  )
+
 );

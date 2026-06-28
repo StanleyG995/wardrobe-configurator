@@ -1,5 +1,5 @@
 export interface DimensionProps {
-  name: string,
+  name: "width" | "height" | "depth",
   position: [number, number, number];
   value: number;
   min: number;
