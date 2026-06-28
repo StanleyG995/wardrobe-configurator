@@ -1,47 +1,43 @@
-export interface SegmentData {
+export interface Wardrobe {
+  dimensions: {
+    width: number;
+    height: number;
+    depth: number;
+  };
+  boardThickness: number;
+  backBoardThickness: number;
+  segments: {
     id: string;
-    type: 'shelves' | 'hanger' | 'empty';
+    type: "shelves" | "hanger" | "empty";
     shelves: string[];
-    doorPosition: 'left' | 'right';
+    doorPosition: "left" | "right";
+  }[];
+  caseMaterial: string;
+  doorMaterial: string;
 }
 
-export interface WardrobeDimensions {
-    width: number;
-    height: number;
-    depth: number;
-    boardThickness: number;
-    backBoardThickness: number;
+export interface ViewportOptionsProps {
+  dimensionsVisible: boolean;
+  humanScaleVisible: boolean;
+  humanScaleGender: "male" | "female";
+  doorsOpen: boolean;
+  doorsVisible: boolean;
+  floorVisible: boolean;
+  doorRotation?: number[];
 }
 
-export interface WardrobeData extends WardrobeDimensions {
-    segments: SegmentData[];
-}
-
-export interface WardrobeProps {
-    wardrobe: WardrobeData;
-    price: number;
-    onUpdate: (name: string, value: number) => void;
-    onAddShelf: (idx: number) => void;
-    onRemoveShelf: (idx: number) => void;
-    onChangeSegmentType: (segmentIndex: number, type: "shelves" | "hanger" | "empty") => void;
-    activeSegmentIdx: number | null;
-    setActiveSegmentIdx: (idx: number | null) => void;
-    onToggleDoorPosition: (idx: number) => void;
-}
-
-export interface DoorProps {
-    width: number;
-    height: number;
-    depth: number;
-    boardThickness: number;
-    isOpen: boolean;
-    hingeSide: 'left' | 'right';
-    handleSide: 'left' | 'right';
-    topOffset: number;
-} 
-
-export interface HitboxProps {
-    wardrobe: WardrobeData; 
-    activeSegmentIdx: number | null;
-    setActiveSegmentIdx: (idx: number | null) => void;
+export interface WardrobeState {
+  wardrobe: Wardrobe;
+  viewportOptions: ViewportOptionsProps;
+  price: number;
+  activeSegmentIdx: number | null;
+  updateDimension: (key: keyof Wardrobe["dimensions"], value: number) => void;
+  setActiveSegmentIdx: (idx: number | null) => void;
+  handleViewportToggle: (name: keyof ViewportOptionsProps) => void;
+  handleViewportGenderToggle: () => void;
+  toggleOpenDoors: () => void;
+  handleDoorPositionChange: (segmentIndex: number) => void;
+  addShelfToSegment: (segmentIndex: number) => void;
+  removeShelfFromSegment: (segmentIndex: number) => void;
+  changeSegmentType: (segmentIndex: number, newType: "shelves" | "hanger" | "empty") => void;
 }

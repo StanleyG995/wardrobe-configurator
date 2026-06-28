@@ -1,6 +1,7 @@
 'use client';
 
-import type { HumanScaleProps } from "@/types/RenderProps"
+import { useWardrobeStore } from '@/store/useWardrobeStore';
+
 import { useRef } from "react"
 import { useFrame } from "@react-three/fiber"
 import { Image as DreiImage, Line, Html, useTexture } from "@react-three/drei"
@@ -16,7 +17,10 @@ const LINE_COLOR = "black"
 const LINE_WIDTH = 1
 const COMPONENT_POSITION: [number, number, number] = [0, 0, 1.4]
 
-const HumanScale = ({ gender, dimensions }: HumanScaleProps) => {
+const HumanScale = () => {
+
+    const { humanScaleGender, dimensionsVisible } = useWardrobeStore((state) => state.viewportOptions)
+
     const groupRef = useRef<THREE.Group>(null)
 
     const maleHeight = toMeters(MALE_HEIGHT_MM)
@@ -25,7 +29,7 @@ const HumanScale = ({ gender, dimensions }: HumanScaleProps) => {
     const femaleHeight = toMeters(FEMALE_HEIGHT_MM)
     const femaleWidth = femaleHeight * ASPECT_RATIO
 
-    const currentHeight = gender === "male" ? maleHeight : femaleHeight
+    const currentHeight = humanScaleGender === "male" ? maleHeight : femaleHeight
 
     useFrame(({ camera }) => {
         if (!groupRef.current) return
@@ -44,7 +48,7 @@ const HumanScale = ({ gender, dimensions }: HumanScaleProps) => {
                 position={[0, maleHeight / 2, 0]}
                 transparent
                 opacity={0.8}
-                visible={gender === "male"} 
+                visible={humanScaleGender === "male"} 
             />
 
             <DreiImage
@@ -53,10 +57,10 @@ const HumanScale = ({ gender, dimensions }: HumanScaleProps) => {
                 position={[0, femaleHeight / 2, 0]}
                 transparent
                 opacity={0.8}
-                visible={gender === "female"}
+                visible={humanScaleGender === "female"}
             />
 
-            {dimensions && (
+            {dimensionsVisible && (
                 <group>
                     <Html position={[DIMENSION_OFFSET, currentHeight / 2, 0]} center>
                         <div className='bg-black/60 whitespace-nowrap backdrop-blur-md text-white px-2 flex flex-row justify-center py-1 rounded border border-white/20 text-[10px] text-[clamp(10px,1vw,14px)] max-w-[200px]'>
