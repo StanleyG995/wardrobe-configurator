@@ -21,6 +21,7 @@ export const useWardrobeStore = create<WardrobeState>()(
         ],
         caseMaterial: "/dark-wood.webp",
         doorMaterial: "",
+        handleType: "none",
       },
       price: 0,
       activeSegmentIdx: null,

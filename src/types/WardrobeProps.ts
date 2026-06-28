@@ -14,6 +14,7 @@ export interface Wardrobe {
   }[];
   caseMaterial: string;
   doorMaterial: string;
+  handleType: 'straight' | 'long' | 'modern' | 'none'
 }
 
 export interface ViewportOptionsProps {

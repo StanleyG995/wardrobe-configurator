@@ -4,9 +4,10 @@ import { Canvas } from "@react-three/fiber";
 
 import { OrbitControls, ContactShadows, Environment } from "@react-three/drei";
 
-import Floor from "./environment/Floor";
-import HumanScale from "./environment/HumanScale";
-import ViewportControls from "../ui/ViewportControls";
+import Floor from "@/components/scene/environment/Floor";
+import HumanScale from "@/components/scene/environment/HumanScale";
+import ViewportControls from "@/components/ui/ViewportControls";
+import HistoryControls from "@/components/ui/HistoryControls";
 
 import WardrobeCase from "@/components/scene/wardrobe/WardrobeCase";
 import WardrobeDoors from "@/components/scene/wardrobe/WardrobeDoors";
@@ -28,6 +29,7 @@ const Render = () => {
   return (
     <>
       <ViewportControls />
+	  <HistoryControls />
       <Canvas
         shadows={{ type: THREE.PCFShadowMap }}
         camera={{ position: [0, 1.4, 2.5] }}
