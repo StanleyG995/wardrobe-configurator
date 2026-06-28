@@ -5,7 +5,7 @@ import { useWardrobeStore } from "@/store/useWardrobeStore"
 const Sidebar = () => {
 
 	const wardrobe = useWardrobeStore((state) => state.wardrobe)
-    const { updateDimension, activeSegmentIdx, setActiveSegmentIdx, price, changeSegmentType, addShelfToSegment, removeShelfFromSegment } = useWardrobeStore((state) => state)
+    const { updateDimension, activeSegmentIdx, setActiveSegmentIdx, price, changeSegmentType, addShelfToSegment, removeShelfFromSegment, handleDoorPositionChange } = useWardrobeStore((state) => state)
 
 	if (activeSegmentIdx !== null) {
 		const activeSegment = wardrobe.segments?.[activeSegmentIdx]
@@ -64,7 +64,7 @@ const Sidebar = () => {
 					</div>
 				)}
 				<hr className='border-white/10 my-4' />
-				<button onClick={() => onToggleDoorPosition(activeSegmentIdx)}
+				<button onClick={() => handleDoorPositionChange(activeSegmentIdx)}
 					className='w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-[14px] py-2.5 rounded-md cursor-pointer transition-all'>Change door position: <strong>{activeSegment.doorPosition}</strong></button>
 				<button
 					onClick={() => setActiveSegmentIdx(null)}
@@ -84,7 +84,7 @@ const Sidebar = () => {
 			</div>
 			<div className='pb-2 flex flex-row align-center justify-start gap-4'>
 				<label htmlFor='width' className='w-full'>
-					Width: <strong>{wardrobe.width} mm</strong>
+					Width: <strong>{wardrobe.dimensions.width} mm</strong>
 				</label>
 				<input
 					name='width'
@@ -93,14 +93,14 @@ const Sidebar = () => {
 					className='w-full rounded-lg cursor-pointer accent-blue-600'
 					max='2400'
 					min='500'
-					value={wardrobe.width}
+					value={wardrobe.dimensions.width}
 					onChange={e => updateDimension('width', parseFloat(e.target.value))}
 				/>
 			</div>
 
 			<div className='pb-2 flex flex-row align-center justify-start gap-4'>
 				<label htmlFor='height' className='w-full'>
-					Height: <strong>{wardrobe.height} mm</strong>
+					Height: <strong>{wardrobe.dimensions.height} mm</strong>
 				</label>
 				<input
 					name='height'
@@ -109,14 +109,14 @@ const Sidebar = () => {
 					className='w-full rounded-lg cursor-pointer accent-blue-600'
 					max='2700'
 					min='1800'
-					value={wardrobe.height}
+					value={wardrobe.dimensions.height}
 					onChange={e => updateDimension('height', parseFloat(e.target.value))}
 				/>
 			</div>
 
 			<div className='pb-3 flex flex-row align-center justify-start gap-4'>
 				<label htmlFor='depth' className='w-full'>
-					Depth: <strong>{wardrobe.depth} mm</strong>
+					Depth: <strong>{wardrobe.dimensions.depth} mm</strong>
 				</label>
 				<input
 					name='depth'
@@ -125,7 +125,7 @@ const Sidebar = () => {
 					className='w-full rounded-lg cursor-pointer accent-blue-600'
 					max='700'
 					min='450'
-					value={wardrobe.depth}
+					value={wardrobe.dimensions.depth}
 					onChange={e => updateDimension('depth', parseFloat(e.target.value))}
 				/>
 			</div>
