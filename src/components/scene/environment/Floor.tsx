@@ -29,6 +29,6 @@ const Floor = () => {
 	)
 }
 
-useTexture.preload("/floor.png")
+useTexture.preload("/floor.webp")
 
 export default Floor

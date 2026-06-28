@@ -33,6 +33,9 @@ const HEIGHT_BREAKPOINT_5 = 2100;
 const ROTATION_THRESHOLD = 0.001;
 const POSITION_THRESHOLD = 0.0001;
 
+const MIRROR_DEPTH_OFFSET = 100;
+const MIRROR_DEPTH = 7;
+
 const getHingePositionsY = (height: number): number[] => {
   let count = 2;
   if (height >= HEIGHT_BREAKPOINT_3 && height < HEIGHT_BREAKPOINT_4) count = 3;
@@ -64,6 +67,7 @@ const Door = ({
   hingeSide,
   handleSide,
   topOffset,
+  mirror,
 }: DoorProps) => {
   const { handleViewportToggle } = useWardrobeStore((state) => state);
 
@@ -265,8 +269,27 @@ const Door = ({
           y={0}
           z={boardThickness / 2}
           rotation={[0, 0, 0]}
-          material={{ textureUrl: resolvedMaterial.textureUrl, colorHex: resolvedMaterial.color, roughness: resolvedMaterial.roughness, metalness: resolvedMaterial.metalness }}
+          material={{
+            textureUrl: resolvedMaterial.textureUrl,
+            colorHex: resolvedMaterial.color,
+            roughness: resolvedMaterial.roughness,
+            metalness: resolvedMaterial.metalness,
+          }}
         />
+
+        {mirror && (
+          <Board
+            name="mirror"
+            w={width -(2 * MIRROR_DEPTH_OFFSET)}
+            h={height - (2 * MIRROR_DEPTH_OFFSET)}
+            d={(MIRROR_DEPTH)}
+            x={isLeftHinge ? width / 2 : -width / 2}
+            y={1}
+            z={boardThickness + MIRROR_DEPTH}
+            rotation={[0, 0, 0]}
+            material={{ colorHex: "#ffffff", roughness: 0, metalness: 1 }}
+          />
+        )}
       </group>
     </group>
   );

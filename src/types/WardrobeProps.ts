@@ -26,6 +26,7 @@ export interface Wardrobe {
     type: "shelves" | "hanger" | "empty";
     shelves: string[];
     doorPosition: "left" | "right";
+    mirror: boolean,
   }[];
   caseMaterial: Material["material"];
   doorMaterial: Material["material"];
@@ -57,4 +58,5 @@ export interface WardrobeState {
   changeSegmentType: (segmentIndex: number, newType: "shelves" | "hanger" | "empty") => void;
   setHandleType: (type: 'straight' | 'long' | 'modern' | 'none') => void;
   setMaterial: (materialType: 'caseMaterial' | 'doorMaterial', materialValue: string) => void;
+  toggleDoorMirror: (segmentIndex: number) => void
 }

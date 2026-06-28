@@ -15,6 +15,7 @@ const Sidebar = () => {
     handleDoorPositionChange,
     setMaterial,
 	setHandleType,
+  toggleDoorMirror
   } = useWardrobeStore((state) => state);
 
   const activeSegment =
@@ -212,6 +213,14 @@ const Sidebar = () => {
           >
             Change door position: <strong>{activeSegment.doorPosition}</strong>
           </button>
+
+          <button
+            onClick={() => toggleDoorMirror(activeSegmentIdx)}
+            className="w-full cursor-pointer rounded-md border border-white/20 bg-white/10 py-2.5 text-[14px] text-white transition-all hover:bg-white/20"
+          >
+            Has mirror: <strong>{activeSegment.mirror ? 'Yes' : 'No'}</strong>
+          </button>
+
         </div>
       )}
     </div>

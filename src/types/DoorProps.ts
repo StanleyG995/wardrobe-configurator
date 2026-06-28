@@ -9,5 +9,5 @@ export interface DoorProps {
                     hingeSide: 'left' | 'right';
                     handleSide: 'left' | 'right';
                     topOffset: number;
-                    
+                    mirror: boolean;
                 }

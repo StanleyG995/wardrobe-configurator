@@ -2,8 +2,6 @@ import { create } from "zustand";
 import { temporal } from "zundo";
 import { calculateWardrobePrice } from "@/helpers/priceCalculator";
 
-
-
 import type { WardrobeState } from "@/types/WardrobeProps";
 
 export const useWardrobeStore = create<WardrobeState>()(
@@ -18,11 +16,23 @@ export const useWardrobeStore = create<WardrobeState>()(
         boardThickness: 18,
         backBoardThickness: 5,
         segments: [
-          { id: "1", type: "shelves", shelves: [], doorPosition: "left" },
-          { id: "2", type: "hanger", shelves: [], doorPosition: "right" },
+          {
+            id: "1",
+            type: "shelves",
+            shelves: [],
+            doorPosition: "left",
+            mirror: false,
+          },
+          {
+            id: "2",
+            type: "hanger",
+            shelves: [],
+            doorPosition: "right",
+            mirror: true,
+          },
         ],
-        caseMaterial: 'dark-wood',
-        doorMaterial: 'dark-wood',
+        caseMaterial: "dark-wood",
+        doorMaterial: "dark-wood",
         handleType: "straight",
       },
       price: 0,
@@ -32,7 +42,7 @@ export const useWardrobeStore = create<WardrobeState>()(
         dimensionsVisible: true,
         humanScaleVisible: false,
         humanScaleGender: "male",
-        doorsOpen: true,
+        doorsOpen: false,
         doorsVisible: true,
         floorVisible: true,
       },
@@ -46,14 +56,17 @@ export const useWardrobeStore = create<WardrobeState>()(
           },
         })),
 
-      setMaterial: (materialType: 'caseMaterial' | 'doorMaterial', materialValue: string) =>
+      setMaterial: (
+        materialType: "caseMaterial" | "doorMaterial",
+        materialValue: string,
+      ) =>
         set((state) => ({
           ...state,
           wardrobe: {
             ...state.wardrobe,
             [materialType]: materialValue,
           },
-        })), 
+        })),
 
       updateDimension: (key, value) =>
         set((state) => {
@@ -86,6 +99,7 @@ export const useWardrobeStore = create<WardrobeState>()(
                 type: "shelves" as const,
                 shelves: [],
                 doorPosition: "right" as const,
+                mirror: false,
               }));
               nextSegments = [...nextSegments, ...segmentsToAdd];
             } else if (targetSegmentCount < currentCount) {
@@ -277,6 +291,25 @@ export const useWardrobeStore = create<WardrobeState>()(
             },
           };
         }),
+
+      toggleDoorMirror: (segmentIndex) => {
+        set((state) => {
+          const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
+            if (idx !== segmentIndex) return seg;
+            return {
+              ...seg,
+              mirror: !seg.mirror,
+            };
+          });
+          return {
+            ...state,
+            wardrobe: {
+              ...state.wardrobe,
+              segments: updatedSegments,
+            },
+          };
+        });
+      },
     }),
     {
       partialize: (state) => ({ wardrobe: state.wardrobe }),
