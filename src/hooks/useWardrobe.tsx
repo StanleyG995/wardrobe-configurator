@@ -1,15 +1,8 @@
 'use client';
 import { useState, useMemo } from "react"
 import { WardrobeData, SegmentData, WardrobeDimensions } from '../types/WardrobeProps'
-import { ViewportOptionsProps } from '@/types/RenderProps'
-import { calculateWardrobePrice } from '@/helpers/price'
+import { calculateWardrobePrice } from '@/helpers/priceCalculator'
 
-
-const DEFAULT_SEGMENT_CONFIG: Omit<SegmentData, 'id'> = {
-    type: 'shelves',
-    shelves: [],
-    doorPosition: 'right'
-};
 
 export const useWardrobe = () => {
    
@@ -92,24 +85,7 @@ export const useWardrobe = () => {
         return calculateWardrobePrice(wardrobe.width, wardrobe.height, wardrobe.depth, segments);
       }, [wardrobe.width, wardrobe.height, wardrobe.depth, segments]);
 
-    const fullWardrobeData: WardrobeData = {
-        ...wardrobe,
-        segments
-    };
+    
 
-    return { 
-        wardrobe: fullWardrobeData, 
-        handleUpdate, 
-        addShelfToSegment, 
-        removeShelfFromSegment, 
-        changeSegmentType,
-        activeSegmentIdx,
-        setActiveSegmentIdx,
-        wardrobePrice,
-        handleViewportToggle,
-        handleViewportGenderToggle,
-        ViewportOptions,
-        handleDoorsToggle,
-        handleDoorPositionChange, 
-    }
+    
 }

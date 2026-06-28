@@ -3,24 +3,19 @@
 import React from "react"
 import Door from "@/components/scene/wardrobe/Door"
 import { toMeters } from "@/helpers/unitConverter"
-import { WardrobeData } from "@/types/WardrobeProps"
 
-interface WardrobeDoorsProps extends WardrobeData {
-    isOpen: boolean
-}
+import { useWardrobeStore } from "@/store/useWardrobeStore"
+
+
 
 const TOP_BAY_DOORS_BREAKPOINT = 2300
 const TOP_BAY_HEIGHT = 1900
 const DEFAULT_HINGE_SIDE = "left"
 
-const WardrobeDoors = ({
-    width,
-    height,
-    depth,
-    boardThickness,
-    segments,
-    isOpen,
-}: WardrobeDoorsProps) => {
+const WardrobeDoors = () => {
+    const { dimensions: { width, height, depth }, boardThickness, segments } = useWardrobeStore((state) => state.wardrobe)
+    const { doorsOpen: isOpen } = useWardrobeStore((state) => state.viewportOptions)
+
     const segmentCount = segments.length > 0 ? segments.length : 1
     const compartmentWidth = width / segmentCount
     const startX = -width / 2

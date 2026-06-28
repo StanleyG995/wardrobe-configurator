@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { temporal } from "zundo";
+import { calculateWardrobePrice } from "@/helpers/priceCalculator"; // Dopasuj ścieżkę do swojego projektu
 
 export interface Wardrobe {
   dimensions: {
@@ -26,6 +27,7 @@ export interface ViewportOptionsProps {
   doorsOpen: boolean;
   doorsVisible: boolean;
   floorVisible: boolean;
+  doorRotation?: number[];
 }
 
 export interface WardrobeState {
@@ -38,6 +40,7 @@ export interface WardrobeState {
   handleViewportToggle: (name: keyof ViewportOptionsProps) => void;
   handleViewportGenderToggle: () => void;
   toggleOpenDoors: () => void;
+  handleDoorPositionChange: (segmentIndex: number) => void;
 }
 
 export const useWardrobeStore = create<WardrobeState>()(
@@ -68,48 +71,55 @@ export const useWardrobeStore = create<WardrobeState>()(
         doorsOpen: true,
         doorsVisible: true,
         floorVisible: true,
+        doorRotation: [0, 0, 0],
       },
 
-      updateDimension: (key: keyof Wardrobe["dimensions"], value: number) =>
-        set((state) => ({
-          wardrobe: {
-            ...state.wardrobe,
-            dimensions: {
-              ...state.wardrobe.dimensions,
-              [key]: value,
+      updateDimension: (key, value) =>
+        set((state) => {
+          const nextDimensions = {
+            ...state.wardrobe.dimensions,
+            [key]: value,
+          };
+          const nextPrice = calculateWardrobePrice(
+            nextDimensions.width,
+            nextDimensions.height,
+            nextDimensions.depth,
+            state.wardrobe.segments
+          );
+          return {
+            ...state,
+            price: nextPrice,
+            wardrobe: {
+              ...state.wardrobe,
+              dimensions: nextDimensions,
             },
-          },
+          };
+        }),
+
+      setActiveSegmentIdx: (idx) =>
+        set(() => ({
+          activeSegmentIdx: idx,
         })),
 
-      setActiveSegmentIdx: (idx: number | null) =>
-        set((state) => ({
-          wardrobe: {
-            ...state.wardrobe,
-            activeSegmentIdx: idx,
-          },
-        })),
-
-      handleViewportToggle: (name: keyof ViewportOptionsProps) => {
+      handleViewportToggle: (name) =>
         set((state) => ({
           ...state,
-
           viewportOptions: {
             ...state.viewportOptions,
             [name]: !state.viewportOptions[name],
           },
-        }));
-      },
+        })),
+
       handleViewportGenderToggle: () =>
         set((state) => ({
           ...state,
           viewportOptions: {
             ...state.viewportOptions,
             humanScaleGender:
-              state.viewportOptions.humanScaleGender === "male"
-                ? "female"
-                : "male",
+              state.viewportOptions.humanScaleGender === "male" ? "female" : "male",
           },
         })),
+
       toggleOpenDoors: () =>
         set((state) => {
           const nextDoorsOpen = !state.viewportOptions.doorsOpen;
@@ -122,18 +132,25 @@ export const useWardrobeStore = create<WardrobeState>()(
             },
           };
         }),
-      handleDoorPositionChange: (segmentIndex: number) =>
+
+      handleDoorPositionChange: (segmentIndex) =>
         set((state) => {
           const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
             if (idx !== segmentIndex) return seg;
             return {
               ...seg,
-              doorPosition: seg.doorPosition === "left" ? "right" : "left",
+                doorPosition: seg.doorPosition === "left" ? "right" : "left" as "left" | "right",
             };
           });
-
+          const nextPrice = calculateWardrobePrice(
+            state.wardrobe.dimensions.width,
+            state.wardrobe.dimensions.height,
+            state.wardrobe.dimensions.depth,
+            updatedSegments
+          );
           return {
             ...state,
+            price: nextPrice,
             wardrobe: {
               ...state.wardrobe,
               segments: updatedSegments,

@@ -22,13 +22,11 @@ import { toMeters } from "../helpers/unitConverter"
 import { useWardrobeStore } from "@/store/useWardrobeStore"
 
 const Render = ({
-	activeSegmentIdx,
 	setActiveSegmentIdx,
 	onUpdate,
 	dimensions,
 	humanScale,
 	gender,
-	doorsOpen,
 	floor,
 	
 }: Omit<RenderProps & ViewportButtonProps, 'wardrobe'>) => {
@@ -154,15 +152,7 @@ const Render = ({
 					<WardrobeCase/>
 					<WardrobeInterior/>
 					<WardrobeHitbox/>
-					<WardrobeDoors
-						width={wardrobe.dimensions.width}
-						height={wardrobe.dimensions.height}
-						depth={wardrobe.dimensions.depth}
-						boardThickness={wardrobe.boardThickness}
-						isOpen={doorsOpen}
-						segments={wardrobe.segments}
-						backBoardThickness={wardrobe.backBoardThickness}
-					/>
+					<WardrobeDoors/>
 				</group>
 			</Canvas>
 		</>
