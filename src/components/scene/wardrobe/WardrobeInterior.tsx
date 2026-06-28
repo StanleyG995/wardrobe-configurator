@@ -1,8 +1,9 @@
 "use client"
 
-import type { WardrobeData } from "@/types/WardrobeProps"
 import Board from "@/components/scene/wardrobe/Board"
 import { toMeters } from "@/helpers/unitConverter"
+
+import { useWardrobeStore } from "@/store/useWardrobeStore"
 
 const TOP_BAY_HEIGHT = 1900
 const TOP_BAY_BREAKPOINT = 2200
@@ -19,13 +20,10 @@ const ROD_COLOR = "#cccccc"
 const ROD_METALNESS = 0.8
 const ROD_ROUGHNESS = 0.2
 
-const WardrobeInterior = ({
-    width,
-    height,
-    depth,
-    boardThickness,
-    segments,
-}: WardrobeData) => {
+const WardrobeInterior = () => {
+    
+    const { dimensions: { width, height, depth }, boardThickness, segments } = useWardrobeStore((state) => state.wardrobe)
+
     const segmentCount = segments.length > 0 ? segments.length : 1
     const hasDividers = segmentCount > 1
 

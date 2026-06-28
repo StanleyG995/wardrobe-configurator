@@ -1,47 +1,43 @@
 import { FaRuler, FaUser, FaDoorClosed, FaBorderAll } from "react-icons/fa6"
 import { IoMdMale, IoMdFemale } from "react-icons/io"
 
-import type { ViewportButtonProps } from "@/types/RenderProps"
+import { useWardrobeStore } from "@/store/useWardrobeStore"
 
-const ViewportControls = ({
-	onToggleUpdate,
-	onToggleGender,
-	onToggleDoors,
-	dimensions,
-	humanScale,
-	doorsOpen,
-	floor,
-	gender,
-}: ViewportButtonProps) => {
+const ViewportControls = () => {
+
+	const viewportOptions = useWardrobeStore((state) => state.viewportOptions);
+	const handleViewportToggle = useWardrobeStore((state) => state.handleViewportToggle)
+	const handleViewportGenderToggle = useWardrobeStore((state) => state.handleViewportGenderToggle)
+
 	return (
 		<div className='p-3 flex flex-col gap-3 w-[220px] absolute z-50'>
 			<button
-				onClick={() => onToggleUpdate("dimensions")}
+				onClick={() => handleViewportToggle("dimensionsVisible")}
 				className={
-					dimensions
+					viewportOptions.dimensionsVisible
 						? "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-400"
 						: "flex justify-start items-center border-[#ddd/ddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-black/50"
 				}>
 				<FaRuler className='text-[20px] mr-2' />
-				{dimensions ? "Hide" : "Show"} Dimensions
+				{viewportOptions.dimensionsVisible ? "Hide" : "Show"} Dimensions
 			</button>
 
 			<button
-				onClick={() => onToggleUpdate("humanScale")}
+				onClick={() => handleViewportToggle("humanScaleVisible")}
 				className={
-					humanScale
+					viewportOptions.humanScaleVisible
 						? "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-400"
 						: "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-black/50"
 				}>
 				<FaUser className='text-[20px] mr-2' />
-				{humanScale ? "Hide" : "Show"} human scale
+				{viewportOptions.humanScaleVisible ? "Hide" : "Show"} human scale
 			</button>
 
-			{humanScale && (
+			{viewportOptions.humanScaleVisible && (
 				<button
-					onClick={() => onToggleGender()}
+					onClick={() => handleViewportGenderToggle()}
 					className='ml-10 flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-blue-400'>
-					{gender === "male" ? (
+					{viewportOptions.humanScaleGender === "male" ? (
 						<>
 							<IoMdMale className='text-[20px] mr-2' /> Male
 						</>
@@ -53,24 +49,24 @@ const ViewportControls = ({
 				</button>
 			)}
 			<button
-				onClick={() => onToggleDoors()}
+				onClick={() => handleViewportToggle("doorsOpen")}
 				className={
-					doorsOpen
+					viewportOptions.doorsOpen
 						? "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-400"
 						: "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-black/50"
 				}>
 				<FaDoorClosed className='text-[20px] mr-2' />
-				{doorsOpen ? "Close" : "Open"} Doors
+				{viewportOptions.doorsOpen ? "Close" : "Open"} Doors
 			</button>
 			<button
-				onClick={() => onToggleUpdate("floor")}
+				onClick={() => handleViewportToggle("floorVisible")}
 				className={
-					floor
+					viewportOptions.floorVisible
 						? "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-400"
 						: "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-black/50"
 				}>
 				<FaBorderAll className='text-[20px] mr-2' />
-				{floor ? "Hide" : "Show"} Floor
+				{viewportOptions.floorVisible ? "Hide" : "Show"} Floor
 			</button>
 		</div>
 	)

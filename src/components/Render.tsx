@@ -25,32 +25,20 @@ const Render = ({
 	activeSegmentIdx,
 	setActiveSegmentIdx,
 	onUpdate,
-	onToggleUpdate,
-	onToggleGender,
 	dimensions,
 	humanScale,
 	gender,
 	doorsOpen,
 	floor,
-	doorRotation,
-	onToggleDoors,
+	
 }: Omit<RenderProps & ViewportButtonProps, 'wardrobe'>) => {
 
 	const wardrobe = useWardrobeStore((state) => state.wardrobe)
+	
 
 	return (
 		<>
-			<ViewportControls
-				dimensions={dimensions}
-				humanScale={humanScale}
-				gender={gender}
-				doorsOpen={doorsOpen}
-				doorRotation={doorRotation}
-				floor={floor}
-				onToggleUpdate={onToggleUpdate}
-				onToggleGender={onToggleGender}
-				onToggleDoors={onToggleDoors}
-			/>
+			<ViewportControls/>
 			<Canvas
 				shadows={{ type: THREE.PCFShadowMap }}
 				camera={{ position: [0, 1, 2] }}
@@ -103,17 +91,17 @@ const Render = ({
 								min={500}
 								max={2400}
 								name='width'
-								position={[0, 0, toMeters(wardrobe.depth / 2) + 0.3]}
-								value={wardrobe.width}
+								position={[0, 0, toMeters(wardrobe.dimensions.depth / 2) + 0.3]}
+								value={wardrobe.dimensions.width}
 								linePositionStart={[
-									toMeters(-wardrobe.width / 2),
+									toMeters(-wardrobe.dimensions.width / 2),
 									0,
-									toMeters(wardrobe.depth / 2) + 0.3,
+									toMeters(wardrobe.dimensions.depth / 2) + 0.3,
 								]}
 								linePositionEnd={[
-									toMeters(wardrobe.width / 2),
+									toMeters(wardrobe.dimensions.width / 2),
 									0,
-									toMeters(wardrobe.depth / 2) + 0.3,
+									toMeters(wardrobe.dimensions.depth / 2) + 0.3,
 								]}
 								label='W'
 								axis='z'
@@ -124,15 +112,15 @@ const Render = ({
 								max={2700}
 								name='height'
 								position={[
-									toMeters(wardrobe.width) / 2 + 0.3,
-									toMeters(wardrobe.height) / 2,
+									toMeters(wardrobe.dimensions.width) / 2 + 0.3,
+									toMeters(wardrobe.dimensions.height) / 2,
 									0,
 								]}
-								value={wardrobe.height}
-								linePositionStart={[toMeters(wardrobe.width) / 2 + 0.3, 0, 0]}
+								value={wardrobe.dimensions.height}
+								linePositionStart={[toMeters(wardrobe.dimensions.width) / 2 + 0.3, 0, 0]}
 								linePositionEnd={[
-									toMeters(wardrobe.width) / 2 + 0.3,
-									toMeters(wardrobe.height),
+									toMeters(wardrobe.dimensions.width) / 2 + 0.3,
+									toMeters(wardrobe.dimensions.height),
 									0,
 								]}
 								label='H'
@@ -143,17 +131,17 @@ const Render = ({
 								min={450}
 								max={700}
 								name='depth'
-								position={[toMeters(-wardrobe.width) / 2 - 0.3, 0, 0]}
-								value={wardrobe.depth}
+								position={[toMeters(-wardrobe.dimensions.width) / 2 - 0.3, 0, 0]}
+								value={wardrobe.dimensions.depth}
 								linePositionStart={[
-									toMeters(-wardrobe.width) / 2 - 0.3,
+									toMeters(-wardrobe.dimensions.width) / 2 - 0.3,
 									0,
-									toMeters(wardrobe.depth) / 2,
+									toMeters(wardrobe.dimensions.depth) / 2,
 								]}
 								linePositionEnd={[
-									toMeters(-wardrobe.width) / 2 - 0.3,
+									toMeters(-wardrobe.dimensions.width) / 2 - 0.3,
 									0,
-									toMeters(-wardrobe.depth) / 2,
+									toMeters(-wardrobe.dimensions.depth) / 2,
 								]}
 								label='D'
 								axis='x'
@@ -163,31 +151,13 @@ const Render = ({
 					)}
 				</group>
 				<group name='wardrobe'>
-					<WardrobeCase
-						width={wardrobe.width}
-						height={wardrobe.height}
-						depth={wardrobe.depth}
-						boardThickness={wardrobe.boardThickness}
-						backBoardThickness={wardrobe.backBoardThickness}
-					/>
-					<WardrobeInterior
-						width={wardrobe.width}
-						height={wardrobe.height}
-						depth={wardrobe.depth}
-						boardThickness={wardrobe.boardThickness}
-						backBoardThickness={wardrobe.backBoardThickness}
-						segments={wardrobe.segments}
-					/>
-					<WardrobeHitbox
-						wardrobe={wardrobe}
-						activeSegmentIdx={activeSegmentIdx}
-						setActiveSegmentIdx={setActiveSegmentIdx}
-					/>
-
+					<WardrobeCase/>
+					<WardrobeInterior/>
+					<WardrobeHitbox/>
 					<WardrobeDoors
-						width={wardrobe.width}
-						height={wardrobe.height}
-						depth={wardrobe.depth}
+						width={wardrobe.dimensions.width}
+						height={wardrobe.dimensions.height}
+						depth={wardrobe.dimensions.depth}
 						boardThickness={wardrobe.boardThickness}
 						isOpen={doorsOpen}
 						segments={wardrobe.segments}

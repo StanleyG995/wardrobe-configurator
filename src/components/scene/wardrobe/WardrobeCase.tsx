@@ -1,22 +1,19 @@
 "use client"
 
 import Board from "@/components/scene/wardrobe/Board"
-import type { WardrobeDimensions } from "@/types/WardrobeProps"
+import { useWardrobeStore } from "@/store/useWardrobeStore"
 
-const WardrobeCase = ({
-    width,
-    height,
-    depth,
-    boardThickness,
-    backBoardThickness,
-}: WardrobeDimensions) => {
+const WardrobeCase = () => {
+    const { dimensions: { width, height, depth }, boardThickness, backBoardThickness, caseMaterial } = useWardrobeStore((state) => state.wardrobe)
+
     const halfThickness = boardThickness / 2
     const innerHeight = height - 2 * boardThickness
     const sideX = width / 2 - halfThickness
     const centerY = height / 2
 
-    const caseMaterial = '/dark-wood.webp'
-
+    const currentCaseMaterial = caseMaterial
+    const backBoardMaterial = '/textures/wood_backboard.jpg'
+    
     return (
         <group position={[0, 0.001, 0]}>
             <Board
@@ -28,7 +25,7 @@ const WardrobeCase = ({
                 y={halfThickness}
                 z={0}
                 rotation={[0, 0, 0]}
-                textureUrl={caseMaterial}
+                textureUrl={currentCaseMaterial}
             />
 
             <Board
@@ -40,7 +37,7 @@ const WardrobeCase = ({
                 y={height - halfThickness}
                 z={0}
                 rotation={[0, 0, 0]}
-                textureUrl={caseMaterial}
+                textureUrl={currentCaseMaterial}
             />
 
             <Board
@@ -52,7 +49,7 @@ const WardrobeCase = ({
                 y={centerY}
                 z={0}
                 rotation={[0, 0, 0]}
-                textureUrl={caseMaterial}
+                textureUrl={currentCaseMaterial}
             />
 
             <Board
@@ -76,6 +73,7 @@ const WardrobeCase = ({
                 y={centerY}
                 z={-(depth / 2) + backBoardThickness}
                 rotation={[0, 0, 0]}
+                textureUrl={backBoardMaterial}
             />
         </group>
     )

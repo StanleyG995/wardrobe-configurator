@@ -2,18 +2,16 @@
 
 import { useState, useEffect } from "react"
 import { toMeters } from "@/helpers/unitConverter"
-import type { HitboxProps } from "@/types/WardrobeProps"
+
+import { useWardrobeStore } from "@/store/useWardrobeStore"
 
 const HITBOX_COLOR = "#2b7fff"
 const ACTIVE_OPACITY = 0.4
 const INACTIVE_OPACITY = 0
 
-function WardrobeHitbox({
-	wardrobe,
-	activeSegmentIdx,
-	setActiveSegmentIdx,
-}: HitboxProps) {
-	const { segments = [], width, height, depth, boardThickness } = wardrobe
+function WardrobeHitbox({}) {
+	const { segments = [], dimensions: { width, height, depth }, boardThickness } = useWardrobeStore((state) => state.wardrobe)
+	const { activeSegmentIdx, setActiveSegmentIdx } = useWardrobeStore((state) => state)
 
 	const segmentCount = segments.length > 0 ? segments.length : 1
 	const hasDividers = segmentCount > 1
