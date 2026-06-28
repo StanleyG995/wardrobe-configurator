@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { temporal } from "zundo";
 import { calculateWardrobePrice } from "@/helpers/priceCalculator";
 
+
+
 import type { WardrobeState } from "@/types/WardrobeProps";
 
 export const useWardrobeStore = create<WardrobeState>()(
@@ -19,9 +21,9 @@ export const useWardrobeStore = create<WardrobeState>()(
           { id: "1", type: "shelves", shelves: [], doorPosition: "left" },
           { id: "2", type: "hanger", shelves: [], doorPosition: "right" },
         ],
-        caseMaterial: "/dark-wood.webp",
-        doorMaterial: "",
-        handleType: "none",
+        caseMaterial: 'dark-wood',
+        doorMaterial: 'dark-wood',
+        handleType: "straight",
       },
       price: 0,
       activeSegmentIdx: null,
@@ -55,12 +57,22 @@ export const useWardrobeStore = create<WardrobeState>()(
 
           if (key === "width") {
             const targetSegmentCount =
-              value < 700 ? 1 : value < 1400 ? 2 : value < 2100 ? 3 : value < 2800 ? 4 : 5;
+              value < 700
+                ? 1
+                : value < 1400
+                  ? 2
+                  : value < 2100
+                    ? 3
+                    : value < 2800
+                      ? 4
+                      : 5;
 
             const currentCount = nextSegments.length;
 
             if (targetSegmentCount > currentCount) {
-              const segmentsToAdd = Array.from({ length: targetSegmentCount - currentCount }).map((_, i) => ({
+              const segmentsToAdd = Array.from({
+                length: targetSegmentCount - currentCount,
+              }).map((_, i) => ({
                 id: `segment-${currentCount + i}-${crypto.randomUUID().slice(0, 4)}`,
                 type: "shelves" as const,
                 shelves: [],
@@ -76,7 +88,7 @@ export const useWardrobeStore = create<WardrobeState>()(
             nextDimensions.width,
             nextDimensions.height,
             nextDimensions.depth,
-            nextSegments
+            nextSegments,
           );
 
           return {
@@ -110,7 +122,9 @@ export const useWardrobeStore = create<WardrobeState>()(
           viewportOptions: {
             ...state.viewportOptions,
             humanScaleGender:
-              state.viewportOptions.humanScaleGender === "male" ? "female" : "male",
+              state.viewportOptions.humanScaleGender === "male"
+                ? "female"
+                : "male",
           },
         })),
 
@@ -133,14 +147,15 @@ export const useWardrobeStore = create<WardrobeState>()(
             if (idx !== segmentIndex) return seg;
             return {
               ...seg,
-              doorPosition: (seg.doorPosition === "left" ? "right" : "left") as "left" | "right",
+              doorPosition: (seg.doorPosition === "left" ? "right" : "left") as
+                "left" | "right",
             };
           });
           const nextPrice = calculateWardrobePrice(
             state.wardrobe.dimensions.width,
             state.wardrobe.dimensions.height,
             state.wardrobe.dimensions.depth,
-            updatedSegments
+            updatedSegments,
           );
           return {
             ...state,
@@ -155,7 +170,8 @@ export const useWardrobeStore = create<WardrobeState>()(
       addShelfToSegment: (segmentIndex) =>
         set((state) => {
           const currentSegment = state.wardrobe.segments[segmentIndex];
-          if (!currentSegment || currentSegment.type !== "shelves") return state;
+          if (!currentSegment || currentSegment.type !== "shelves")
+            return state;
 
           const minShelfGap = 450;
           const usableHeight =
@@ -164,7 +180,8 @@ export const useWardrobeStore = create<WardrobeState>()(
             currentSegment.shelves.length * state.wardrobe.boardThickness;
 
           const potentialGap =
-            (usableHeight - state.wardrobe.boardThickness) / (currentSegment.shelves.length + 1);
+            (usableHeight - state.wardrobe.boardThickness) /
+            (currentSegment.shelves.length + 1);
 
           if (potentialGap <= minShelfGap) return state;
 
@@ -180,7 +197,7 @@ export const useWardrobeStore = create<WardrobeState>()(
             state.wardrobe.dimensions.width,
             state.wardrobe.dimensions.height,
             state.wardrobe.dimensions.depth,
-            updatedSegments
+            updatedSegments,
           );
 
           return {
@@ -196,7 +213,8 @@ export const useWardrobeStore = create<WardrobeState>()(
       removeShelfFromSegment: (segmentIndex) =>
         set((state) => {
           const currentSegment = state.wardrobe.segments[segmentIndex];
-          if (!currentSegment || currentSegment.shelves.length === 0) return state;
+          if (!currentSegment || currentSegment.shelves.length === 0)
+            return state;
 
           const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
             if (idx !== segmentIndex) return seg;
@@ -210,7 +228,7 @@ export const useWardrobeStore = create<WardrobeState>()(
             state.wardrobe.dimensions.width,
             state.wardrobe.dimensions.height,
             state.wardrobe.dimensions.depth,
-            updatedSegments
+            updatedSegments,
           );
 
           return {
@@ -238,7 +256,7 @@ export const useWardrobeStore = create<WardrobeState>()(
             state.wardrobe.dimensions.width,
             state.wardrobe.dimensions.height,
             state.wardrobe.dimensions.depth,
-            updatedSegments
+            updatedSegments,
           );
 
           return {
@@ -253,7 +271,6 @@ export const useWardrobeStore = create<WardrobeState>()(
     }),
     {
       partialize: (state) => ({ wardrobe: state.wardrobe }),
-    }
-  )
-
+    },
+  ),
 );

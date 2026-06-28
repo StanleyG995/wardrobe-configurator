@@ -3,16 +3,19 @@
 import Board from "@/components/scene/wardrobe/Board"
 import { useWardrobeStore } from "@/store/useWardrobeStore"
 
-const WardrobeCase = () => {
-    const { dimensions: { width, height, depth }, boardThickness, backBoardThickness, caseMaterial } = useWardrobeStore((state) => state.wardrobe)
+import { CASE_MATERIAL_TEXTURES, MATERIAL_COLORS } from "@/config/Materials"
 
+const WardrobeCase = () => {
+    const { dimensions: { width, height, depth }, boardThickness, backBoardThickness, caseMaterial,  } = useWardrobeStore((state) => state.wardrobe)
+    
     const halfThickness = boardThickness / 2
     const innerHeight = height - 2 * boardThickness
     const sideX = width / 2 - halfThickness
     const centerY = height / 2
-
-    const currentCaseMaterial = caseMaterial
-    const backBoardMaterial = '/backboard.webp'
+    const currentCaseMaterial = CASE_MATERIAL_TEXTURES[caseMaterial as keyof typeof CASE_MATERIAL_TEXTURES]
+    const resolvedColorHex = MATERIAL_COLORS[caseMaterial as keyof typeof MATERIAL_COLORS];
+    
+    const backBoardMaterial = '/textures/backboard.webp'
     
     return (
         <group position={[0, 0.001, 0]}>
@@ -26,6 +29,7 @@ const WardrobeCase = () => {
                 z={0}
                 rotation={[0, 0, 0]}
                 textureUrl={currentCaseMaterial}
+                colorHex={resolvedColorHex}
             />
 
             <Board
@@ -38,6 +42,7 @@ const WardrobeCase = () => {
                 z={0}
                 rotation={[0, 0, 0]}
                 textureUrl={currentCaseMaterial}
+                colorHex={resolvedColorHex}
             />
 
             <Board
@@ -50,6 +55,7 @@ const WardrobeCase = () => {
                 z={0}
                 rotation={[0, 0, 0]}
                 textureUrl={currentCaseMaterial}
+                colorHex={resolvedColorHex}
             />
 
             <Board
@@ -61,7 +67,8 @@ const WardrobeCase = () => {
                 y={centerY}
                 z={0}
                 rotation={[0, 0, 0]}
-                textureUrl={caseMaterial}
+                textureUrl={currentCaseMaterial}
+                colorHex={resolvedColorHex}
             />
 
             <Board

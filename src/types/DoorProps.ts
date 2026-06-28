@@ -1,4 +1,4 @@
-import { Mesh } from "three";
+
 
 export interface DoorProps {
                     width: number;
@@ -9,5 +9,5 @@ export interface DoorProps {
                     hingeSide: 'left' | 'right';
                     handleSide: 'left' | 'right';
                     topOffset: number;
-                    onClick: (e: Mesh) => void
+                    
                 }

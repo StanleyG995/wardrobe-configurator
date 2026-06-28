@@ -22,7 +22,8 @@ export function calculateWardrobePrice(
   const backPlate = wM * hM;
   const sidePlates = 2 * (hM * dM);
   const topBottomPlates = 2 * (wM * dM);
-  const internalDivisions = segments.length > 0 ? (segments.length - 1) * (hM * dM) : 0;
+  const internalDivisions =
+    segments.length > 0 ? (segments.length - 1) * (hM * dM) : 0;
 
   const totalPlateArea =
     backPlate + sidePlates + topBottomPlates + internalDivisions;

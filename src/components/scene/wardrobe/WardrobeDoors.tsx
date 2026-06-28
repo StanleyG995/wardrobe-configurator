@@ -13,7 +13,7 @@ const TOP_BAY_HEIGHT = 1900
 const DEFAULT_HINGE_SIDE = "left"
 
 const WardrobeDoors = () => {
-    const { dimensions: { width, height, depth }, boardThickness, segments } = useWardrobeStore((state) => state.wardrobe)
+    const { dimensions: { width, height, depth }, boardThickness, segments, doorMaterial } = useWardrobeStore((state) => state.wardrobe)
     const { doorsOpen: isOpen } = useWardrobeStore((state) => state.viewportOptions)
 
     const segmentCount = segments.length > 0 ? segments.length : 1
@@ -36,6 +36,7 @@ const WardrobeDoors = () => {
                     isOpen,
                     hingeSide: doorSide,
                     handleSide: doorSide,
+                    material: doorMaterial
                 }
 
                 return (

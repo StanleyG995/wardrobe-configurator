@@ -12,6 +12,8 @@ import DoorHandle from "@/components/scene/wardrobe/DoorHandle";
 import HingeCup from "@/components/scene/wardrobe/HingeCup";
 import HingeArm from "@/components/scene/wardrobe/HingeArm";
 
+import { DOOR_MATERIAL_TEXTURES, MATERIAL_COLORS } from "@/config/Materials";
+
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 
 const DOOR_ROTATION_ANGLE = Math.PI / 2.09;
@@ -74,7 +76,10 @@ const Door = ({
   const isLeftHinge = hingeSide === "left";
   const isLeftHandle = handleSide === "left";
 
-  const doorMaterial = "";
+  const doorMaterial = useWardrobeStore((state) => state.wardrobe.doorMaterial);
+  const resolvedTextureUrl =
+    DOOR_MATERIAL_TEXTURES[doorMaterial as keyof typeof DOOR_MATERIAL_TEXTURES];
+  const resolvedColorHex = MATERIAL_COLORS[doorMaterial as keyof typeof MATERIAL_COLORS];
 
   const staticGeometry = useMemo(() => {
     const hingePos: [number, number, number] = [
@@ -261,7 +266,8 @@ const Door = ({
           y={0}
           z={boardThickness / 2}
           rotation={[0, 0, 0]}
-          textureUrl={doorMaterial}
+          textureUrl={resolvedTextureUrl}
+          colorHex={resolvedColorHex}
         />
       </group>
     </group>

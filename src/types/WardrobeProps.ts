@@ -1,3 +1,15 @@
+export interface HandleType {
+    handleType: 'straight' | 'long' | 'modern' | 'none'; 
+}
+
+export interface Material {
+    material: 'dark-wood' | 'light-wood' | 'white' | 'black' | 'graphite';
+}
+
+export interface DoorMaterial {
+    material: Material["material"] | 'glass';
+}
+
 export interface Wardrobe {
   dimensions: {
     width: number;
@@ -12,9 +24,9 @@ export interface Wardrobe {
     shelves: string[];
     doorPosition: "left" | "right";
   }[];
-  caseMaterial: string;
-  doorMaterial: string;
-  handleType: 'straight' | 'long' | 'modern' | 'none'
+  caseMaterial: Material["material"];
+  doorMaterial: DoorMaterial["material"];
+  handleType: HandleType["handleType"];
 }
 
 export interface ViewportOptionsProps {

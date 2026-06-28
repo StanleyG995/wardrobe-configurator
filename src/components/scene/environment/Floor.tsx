@@ -9,7 +9,7 @@ const FLOOR_ROTATION: [number, number, number] = [-Math.PI / 2, 0, 0]
 const TEXTURE_REPEAT: [number, number] = [10, 10]
 
 const Floor = () => {
-	const floorTexture = useTexture("/floor.png", texture => {
+	const floorTexture = useTexture("/textures/floor.webp", texture => {
 		texture.wrapS = THREE.RepeatWrapping
 		texture.wrapT = THREE.RepeatWrapping
 		texture.repeat.set(...TEXTURE_REPEAT)
