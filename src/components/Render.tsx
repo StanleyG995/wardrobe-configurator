@@ -21,17 +21,10 @@ import { toMeters } from "../helpers/unitConverter"
 
 import { useWardrobeStore } from "@/store/useWardrobeStore"
 
-const Render = ({
-	setActiveSegmentIdx,
-	onUpdate,
-	dimensions,
-	humanScale,
-	gender,
-	floor,
-	
-}: Omit<RenderProps & ViewportButtonProps, 'wardrobe'>) => {
+const Render = () => {
 
 	const wardrobe = useWardrobeStore((state) => state.wardrobe)
+	const setActiveSegmentIdx = useWardrobeStore((state) => state.setActiveSegmentIdx)
 	
 
 	return (
@@ -82,7 +75,7 @@ const Render = ({
 				</group>
 				<group name='viewport'>
 					{floor && <Floor />}
-					{humanScale && <HumanScale gender={gender} dimensions={dimensions} />}
+					{humanScale && <HumanScale />}
 					{dimensions && (
 						<group name='dimensions'>
 							<DimensionLabel

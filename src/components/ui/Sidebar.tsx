@@ -1,21 +1,11 @@
 "use client"
 
-import type { WardrobeProps } from "@/types/WardrobeProps"
 import { useWardrobeStore } from "@/store/useWardrobeStore"
 
-const Sidebar = ({
-	onAddShelf,
-	onRemoveShelf,
-	onChangeSegmentType,
-	activeSegmentIdx,
-	setActiveSegmentIdx,
-	price,
-	onToggleDoorPosition,
-}: Omit<WardrobeProps, 'wardrobe' | 'onUpdate'>) => {
+const Sidebar = () => {
 
 	const wardrobe = useWardrobeStore((state) => state.wardrobe)
-    const updateDimension = useWardrobeStore((state) => state.updateDimension)
-	console.log("Aktualna szerokość w sklepie:", wardrobe.width)
+    const { updateDimension, activeSegmentIdx, setActiveSegmentIdx, price, changeSegmentType, addShelfToSegment, removeShelfFromSegment } = useWardrobeStore((state) => state)
 
 	if (activeSegmentIdx !== null) {
 		const activeSegment = wardrobe.segments?.[activeSegmentIdx]
@@ -41,7 +31,7 @@ const Sidebar = ({
 					<select
 						value={activeSegment?.type || "shelves"}
 						onChange={e =>
-							onChangeSegmentType(
+							changeSegmentType(
 								activeSegmentIdx,
 								e.target.value as "shelves" | "hanger" | "empty"
 							)
@@ -61,12 +51,12 @@ const Sidebar = ({
 						</label>
 						<div className='flex flex-row gap-2'>
 							<button
-								onClick={() => onRemoveShelf(activeSegmentIdx)}
+								onClick={() => removeShelfFromSegment(activeSegmentIdx)}
 								className='w-full bg-[#E04646] hover:bg-red-600 text-white text-[14px] px-3 py-2 rounded-md cursor-pointer transition-colors'>
 								- Remove Shelf
 							</button>
 							<button
-								onClick={() => onAddShelf(activeSegmentIdx)}
+								onClick={() => addShelfToSegment(activeSegmentIdx)}
 								className='w-full bg-[#2b7fff] hover:bg-blue-600 text-white text-[14px] px-3 py-2 rounded-md cursor-pointer transition-colors'>
 								+ Add Shelf
 							</button>
