@@ -1,4 +1,4 @@
-import { FaRuler, FaUser, FaDoorClosed, FaBorderAll } from "react-icons/fa6"
+import { FaRuler, FaUser, FaDoorClosed, FaBorderAll, FaDoorOpen } from "react-icons/fa6"
 import { IoMdMale, IoMdFemale } from "react-icons/io"
 
 import { useWardrobeStore } from "@/store/useWardrobeStore"
@@ -48,16 +48,31 @@ const ViewportControls = () => {
 					)}
 				</button>
 			)}
+
 			<button
-				onClick={() => handleViewportToggle("doorsOpen")}
+				onClick={() => handleViewportToggle("doorsVisible")}
 				className={
-					viewportOptions.doorsOpen
+					viewportOptions.doorsVisible
 						? "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-400"
 						: "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-black/50"
 				}>
 				<FaDoorClosed className='text-[20px] mr-2' />
+				{viewportOptions.doorsVisible ? "Hide" : "Show"} doors
+			</button>
+
+			{viewportOptions.doorsVisible && (
+				<button
+				onClick={() => handleViewportToggle("doorsOpen")}
+				className={
+					viewportOptions.doorsOpen
+						? 'ml-10 flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-400'
+						: 'ml-10 flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-black/50'
+				}>
+				<FaDoorOpen className='text-[20px] mr-2' />
 				{viewportOptions.doorsOpen ? "Close" : "Open"} Doors
 			</button>
+			)}
+			
 			<button
 				onClick={() => handleViewportToggle("floorVisible")}
 				className={
