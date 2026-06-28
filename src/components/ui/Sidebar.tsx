@@ -1,167 +1,183 @@
-"use client"
+"use client";
 
-import { useWardrobeStore } from "@/store/useWardrobeStore"
+import { useWardrobeStore } from "@/store/useWardrobeStore";
 
 const Sidebar = () => {
+  const wardrobe = useWardrobeStore((state) => state.wardrobe);
+  const {
+    updateDimension,
+    activeSegmentIdx,
+    setActiveSegmentIdx,
+    price,
+    changeSegmentType,
+    addShelfToSegment,
+    removeShelfFromSegment,
+    handleDoorPositionChange,
+  } = useWardrobeStore((state) => state);
 
-	const wardrobe = useWardrobeStore((state) => state.wardrobe)
-    const { updateDimension, activeSegmentIdx, setActiveSegmentIdx, price, changeSegmentType, addShelfToSegment, removeShelfFromSegment, handleDoorPositionChange } = useWardrobeStore((state) => state)
+  const activeSegment =
+    activeSegmentIdx !== null ? wardrobe.segments[activeSegmentIdx] : null;
 
-	if (activeSegmentIdx !== null) {
-		const activeSegment = wardrobe.segments?.[activeSegmentIdx]
+  return (
+    <div className="flex flex-col gap-1 text-white">
+      <div className="flex flex-col pb-2 text-[56px] text-blue-400">
+        <p className="text-[56px] leading-none font-[700]">
+          {price} <span className="text-[16px] text-blue-400">PLN</span>
+        </p>
+      </div>
+      <div className="align-center flex flex-row justify-start gap-4 pb-2">
+        <label htmlFor="width" className="w-full">
+          Width: <strong>{wardrobe.dimensions.width} mm</strong>
+        </label>
+        <input
+          name="width"
+          id="width"
+          type="range"
+          className="w-full cursor-pointer rounded-lg accent-blue-600"
+          max="2400"
+          min="500"
+          value={wardrobe.dimensions.width}
+          onChange={(e) => updateDimension("width", parseFloat(e.target.value))}
+        />
+      </div>
 
-		return (
-			<div className='flex flex-col gap-4 text-white animate-fade-in'>
-				<div className='pb-2 flex flex-col text-blue-400 text-[42px]'>
-					<p>
-						{price} <span className='text-blue-400/70 text-[16px]'>PLN</span>
-					</p>
-				</div>
-				<div className='flex flex-col gap-1 pb-2'>
-					<h2 className='text-[24px] font-bold text-blue-400'>
-						Bay {activeSegmentIdx + 1} Configuration
-					</h2>
-					<p className='text-[14px] text-white/50'>
-						Modyfying current section:
-					</p>
-				</div>
+      <div className="align-center flex flex-row justify-start gap-4 pb-2">
+        <label htmlFor="height" className="w-full">
+          Height: <strong>{wardrobe.dimensions.height} mm</strong>
+        </label>
+        <input
+          name="height"
+          id="height"
+          type="range"
+          className="w-full cursor-pointer rounded-lg accent-blue-600"
+          max="2700"
+          min="1800"
+          value={wardrobe.dimensions.height}
+          onChange={(e) =>
+            updateDimension("height", parseFloat(e.target.value))
+          }
+        />
+      </div>
 
-				<div className='flex flex-col gap-1'>
-					<label className='text-[14px] text-white font-medium'>Layout Type:</label>
-					<select
-						value={activeSegment?.type || "shelves"}
-						onChange={e =>
-							changeSegmentType(
-								activeSegmentIdx,
-								e.target.value as "shelves" | "hanger" | "empty"
-							)
-						}
-						className='border border-gray-300 rounded p-2 w-full bg-neutral-900 text-white outline-none'>
-						<option value='shelves'>Shelves</option>
-						<option value='hanger'>Hanger Rod</option>
-						<option value='empty'>Empty Space</option>
-					</select>
-				</div>
+      <div className="align-center flex flex-row justify-start gap-4 pb-3">
+        <label htmlFor="depth" className="w-full">
+          Depth: <strong>{wardrobe.dimensions.depth} mm</strong>
+        </label>
+        <input
+          name="depth"
+          id="depth"
+          type="range"
+          className="w-full cursor-pointer rounded-lg accent-blue-600"
+          max="700"
+          min="450"
+          value={wardrobe.dimensions.depth}
+          onChange={(e) => updateDimension("depth", parseFloat(e.target.value))}
+        />
+      </div>
 
-				{activeSegment?.type === "shelves" && (
-					<div className='flex flex-col gap-2 mt-1'>
-						<label className='text-[14px] text-white/70'>
-							Shelves in section:{" "}
-							<strong>{activeSegment.shelves.length}</strong>
-						</label>
-						<div className='flex flex-row gap-2'>
-							<button
-								onClick={() => removeShelfFromSegment(activeSegmentIdx)}
-								className='w-full bg-[#E04646] hover:bg-red-600 text-white text-[14px] px-3 py-2 rounded-md cursor-pointer transition-colors'>
-								- Remove Shelf
-							</button>
-							<button
-								onClick={() => addShelfToSegment(activeSegmentIdx)}
-								className='w-full bg-[#2b7fff] hover:bg-blue-600 text-white text-[14px] px-3 py-2 rounded-md cursor-pointer transition-colors'>
-								+ Add Shelf
-							</button>
-						</div>
-					</div>
-				)}
-				<hr className='border-white/10 my-4' />
-				<button onClick={() => handleDoorPositionChange(activeSegmentIdx)}
-					className='w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-[14px] py-2.5 rounded-md cursor-pointer transition-all'>Change door position: <strong>{activeSegment.doorPosition}</strong></button>
-				<button
-					onClick={() => setActiveSegmentIdx(null)}
-					className='w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-[14px] py-2.5 rounded-md cursor-pointer transition-all'>
-					← Back to General Dimensions
-				</button>
-			</div>
-		)
-	}
+      <div className="align-center flex flex-row justify-start gap-4 pb-4">
+        <span>
+          Thickness: <strong>{wardrobe.boardThickness} mm</strong>
+        </span>
+      </div>
 
-	return (
-		<div className='flex flex-col gap-4 text-white'>
-			<div className='pb-2 flex flex-col text-blue-400 text-[42px]'>
-				<p>
-					{price} <span className='text-blue-400/70 text-[16px]'>PLN</span>
-				</p>
-			</div>
-			<div className='pb-2 flex flex-row align-center justify-start gap-4'>
-				<label htmlFor='width' className='w-full'>
-					Width: <strong>{wardrobe.dimensions.width} mm</strong>
-				</label>
-				<input
-					name='width'
-					id='width'
-					type='range'
-					className='w-full rounded-lg cursor-pointer accent-blue-600'
-					max='2400'
-					min='500'
-					value={wardrobe.dimensions.width}
-					onChange={e => updateDimension('width', parseFloat(e.target.value))}
-				/>
-			</div>
+      <hr className="my-2 border-white/40" />
 
-			<div className='pb-2 flex flex-row align-center justify-start gap-4'>
-				<label htmlFor='height' className='w-full'>
-					Height: <strong>{wardrobe.dimensions.height} mm</strong>
-				</label>
-				<input
-					name='height'
-					id='height'
-					type='range'
-					className='w-full rounded-lg cursor-pointer accent-blue-600'
-					max='2700'
-					min='1800'
-					value={wardrobe.dimensions.height}
-					onChange={e => updateDimension('height', parseFloat(e.target.value))}
-				/>
-			</div>
+      <div className="flex flex-col gap-4">
+        <h3 className="text-sm font-semibold tracking-wider text-[#eeeeff] uppercase">
+          Internal Configuration
+        </h3>
+        <div className="height-[300px] flex w-full flex-row flex-nowrap">
+          {wardrobe.segments?.map((segment, idx) => (
+            <div
+              key={segment.id}
+              onClick={() => setActiveSegmentIdx(idx)}
+              className={
+                segment.id === activeSegment?.id
+                  ? "align-center flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-gray-200 bg-blue-500 p-2 transition-all"
+                  : "align-center flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-gray-200 bg-black/20 p-2 transition-all hover:bg-white/5"
+              }
+            >
+              <div className="flex flex-col">
+                <span
+                  className={
+                    segment.id === activeSegment?.id
+                      ? "font-semibold text-white"
+                      : "font-semibold text-blue-500"
+                  }
+                >
+                  Bay {idx + 1}
+                </span>
+              </div>
+              <span className="rounded bg-black/50 px-2 py-0.5 text-[14px] text-white/70">
+                {segment.type === "shelves"
+                  ? `${segment.shelves.length} shelves`
+                  : segment.type}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+      {activeSegmentIdx !== null && activeSegment && (
+        <div className="animate-fade-in flex flex-col gap-4 pt-3 text-white">
+          <div className="flex flex-col gap-1 pb-1">
+            <h2 className="text-[20px] font-bold text-blue-400">
+              Bay {activeSegmentIdx + 1} Configuration
+            </h2>
+          </div>
 
-			<div className='pb-3 flex flex-row align-center justify-start gap-4'>
-				<label htmlFor='depth' className='w-full'>
-					Depth: <strong>{wardrobe.dimensions.depth} mm</strong>
-				</label>
-				<input
-					name='depth'
-					id='depth'
-					type='range'
-					className='w-full rounded-lg cursor-pointer accent-blue-600'
-					max='700'
-					min='450'
-					value={wardrobe.dimensions.depth}
-					onChange={e => updateDimension('depth', parseFloat(e.target.value))}
-				/>
-			</div>
+          <div className="flex flex-col gap-1">
+            <label className="text-[14px] font-medium text-white">
+              Layout Type:
+            </label>
+            <select
+              value={activeSegment?.type || "shelves"}
+              onChange={(e) =>
+                changeSegmentType(
+                  activeSegmentIdx,
+                  e.target.value as "shelves" | "hanger" | "empty",
+                )
+              }
+              className="w-full rounded border border-gray-300 bg-neutral-900 p-2 text-white outline-none"
+            >
+              <option value="shelves">Shelves</option>
+              <option value="hanger">Hanger Rod</option>
+              <option value="empty">Empty Space</option>
+            </select>
+          </div>
 
-			<div className='pb-6 flex flex-row align-center justify-start gap-4'>
-				<span>Thickness: <strong>{wardrobe.boardThickness} mm</strong></span>
-			</div>
+          {activeSegment?.type === "shelves" && (
+            <div className="mt-1 flex flex-col gap-2">
+              <label className="text-[14px] text-white/70">
+                Shelves in section:{" "}
+                <strong>{activeSegment.shelves.length}</strong>
+              </label>
+              <div className="flex flex-row gap-2">
+                <button
+                  onClick={() => removeShelfFromSegment(activeSegmentIdx)}
+                  className="w-full cursor-pointer rounded-md bg-[#E04646] px-3 py-2 text-[14px] text-white transition-colors hover:bg-red-600"
+                >
+                  - Remove Shelf
+                </button>
+                <button
+                  onClick={() => addShelfToSegment(activeSegmentIdx)}
+                  className="w-full cursor-pointer rounded-md bg-[#2b7fff] px-3 py-2 text-[14px] text-white transition-colors hover:bg-blue-600"
+                >
+                  + Add Shelf
+                </button>
+              </div>
+            </div>
+          )}
+          <button
+            onClick={() => handleDoorPositionChange(activeSegmentIdx)}
+            className="w-full cursor-pointer rounded-md border border-white/20 bg-white/10 py-2.5 text-[14px] text-white transition-all hover:bg-white/20"
+          >
+            Change door position: <strong>{activeSegment.doorPosition}</strong>
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
 
-			<hr className='border-white/10 my-2' />
-
-			<div className='flex flex-col gap-4'>
-				<h3 className='font-semibold text-[#eeeeff] text-sm uppercase tracking-wider'>
-					Internal Configuration
-				</h3>
-
-				{wardrobe.segments?.map((segment, idx) => (
-					<div
-						key={segment.id}
-						onClick={() => setActiveSegmentIdx(idx)}
-						className='p-4 border border-gray-200 bg-black/10 hover:bg-white/5 rounded-lg flex justify-between items-center cursor-pointer transition-all'>
-						<div className='flex flex-col'>
-							<span className='font-semibold text-blue-500'>Bay {idx + 1}</span>
-							<span className='text-[14px] text-white/40'>
-								Click to configure
-							</span>
-						</div>
-						<span className='text-[14px] text-white/70 bg-black/50 px-2 py-0.5 rounded'>
-							{segment.type === "shelves"
-								? `${segment.shelves.length} shelves`
-								: segment.type}
-						</span>
-					</div>
-				))}
-			</div>
-		</div>
-	)
-}
-
-export default Sidebar
+export default Sidebar;

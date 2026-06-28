@@ -1,27 +1,23 @@
-import * as THREE from "three"
-import { useGLTF } from "@react-three/drei"
-import { ThreeElements } from "@react-three/fiber"
+import * as THREE from "three";
+import { useGLTF } from "@react-three/drei";
+import { ThreeElements } from "@react-three/fiber";
 
 function HingeCup(props: ThreeElements["group"]) {
-	const { nodes } = useGLTF("/models/hinge-cup.glb")
+  const { nodes } = useGLTF("/models/hinge-cup.glb");
 
-	const handleMesh = nodes.hingeCup as THREE.Mesh
+  const handleMesh = nodes.hingeCup as THREE.Mesh;
 
-	if (!handleMesh) return null
+  if (!handleMesh) return null;
 
-	return (
-		<group {...props} dispose={null}>
-			<mesh geometry={handleMesh.geometry}>
-				<meshStandardMaterial
-					color='#fafafa'
-					metalness={0.7}
-					roughness={0.1}
-				/>
-			</mesh>
-		</group>
-	)
+  return (
+    <group {...props} dispose={null}>
+      <mesh geometry={handleMesh.geometry}>
+        <meshStandardMaterial color="#fafafa" metalness={0.7} roughness={0.1} />
+      </mesh>
+    </group>
+  );
 }
 
-useGLTF.preload("/models/hinge-cup.glb")
+useGLTF.preload("/models/hinge-cup.glb");
 
-export default HingeCup
+export default HingeCup;
