@@ -1,16 +1,22 @@
 export interface BoardProps {
-	name: string;
-	w: number;
-	h: number;
-	d: number;
-	x: number;
-	y: number;
-	z: number;
-	rotation: [number, number, number];
-	material: {
-		textureUrl?: string;
-		colorHex?: string;
-		roughness?: number;
-		metalness?: number;
-	};
+  name: string;
+  w: number;
+  h: number;
+  d: number;
+  x: number;
+  y: number;
+  z: number;
+  rotation: [number, number, number];
+  material: {
+    textureUrl?: string;
+    colorHex?: string;
+    roughness?: number;
+    metalness?: number;
+  };
+  backMaterial?: {
+    textureUrl?: string;
+    colorHex?: string;
+    roughness?: number;
+    metalness?: number;
+  };
 }

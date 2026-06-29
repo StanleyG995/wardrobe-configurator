@@ -17,10 +17,16 @@ const WardrobeCase = () => {
   const innerHeight = height - 2 * boardThickness;
   const sideX = width / 2 - halfThickness;
   const centerY = height / 2;
-  const resolvedMaterial =
-    MATERIALS[caseMaterial as keyof typeof MATERIALS];
+  const resolvedMaterial = MATERIALS[caseMaterial as keyof typeof MATERIALS];
 
-  const backBoardMaterial = "/textures/backboard.webp";
+  const backBoardMaterial = {
+    backboard: {
+      color: "#ffffff",
+      textureUrl: "/textures/backboard.webp",
+      metalness: 1.0,
+      roughness: 0.4,
+    },
+  };
 
   return (
     <group position={[0, 0.001, 0]}>
@@ -102,9 +108,16 @@ const WardrobeCase = () => {
         z={-(depth / 2) + backBoardThickness}
         rotation={[0, 0, 0]}
         material={{
-          textureUrl: backBoardMaterial,
-          roughness: 0.5,
-          metalness: 0.5,
+          textureUrl: resolvedMaterial.textureUrl,
+          colorHex: resolvedMaterial.color,
+          roughness: resolvedMaterial.roughness,
+          metalness: resolvedMaterial.metalness,
+        }}
+        backMaterial={{
+          textureUrl: backBoardMaterial.backboard.textureUrl,
+          colorHex: backBoardMaterial.backboard.color,
+          roughness: backBoardMaterial.backboard.roughness,
+          metalness: backBoardMaterial.backboard.metalness,
         }}
       />
     </group>
