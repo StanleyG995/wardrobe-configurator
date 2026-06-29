@@ -15,7 +15,7 @@ function HandleStraight(props: ThreeElements["group"]) {
 			<mesh geometry={handleMesh.geometry}>
 				<meshStandardMaterial
 					color='#f7f7f7'
-					metalness={0.7}
+					metalness={0.8}
 					roughness={0.1}
 				/>
 			</mesh>
