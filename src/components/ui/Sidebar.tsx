@@ -2,6 +2,7 @@
 
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 import InputText from "@/components/ui/InputText";
+import InputRange from "@/components/ui/InputRange";
 
 const Sidebar = () => {
   const wardrobe = useWardrobeStore((state) => state.wardrobe);
@@ -21,6 +22,8 @@ const Sidebar = () => {
 
   const activeSegment =
     activeSegmentIdx !== null ? wardrobe.segments[activeSegmentIdx] : null;
+
+  const { pause, resume } = useWardrobeStore.temporal.getState();
 
   const handleUpdateDimension = useWardrobeStore(
     (state) => state.updateDimension,
@@ -55,15 +58,13 @@ const Sidebar = () => {
           />
           <span className="text-black-900">mm</span>
         </label>
-        <input
+        <InputRange
           name="width"
-          id="width-slider"
-          type="range"
-          className="accent-brand-500 w-full cursor-pointer rounded-lg"
-          max="2400"
-          min="500"
+          id="width-range"
+          min={500}
+          max={2400}
           value={wardrobe.dimensions.width}
-          onChange={(e) => updateDimension("width", parseFloat(e.target.value))}
+          onUpdate={(key, value) => updateDimension(key, value)}
         />
         <div className="flex flex-row justify-between gap-2">
           <span className="w-50 text-[14px]">500 mm</span>
@@ -83,22 +84,18 @@ const Sidebar = () => {
             id="height"
             min={1800}
             max={2600}
-            value={wardrobe.dimensions.width}
+            value={wardrobe.dimensions.height}
             onUpdate={handleUpdateDimension}
           />
           <span className="text-black-900">mm</span>
         </label>
-        <input
+        <InputRange
           name="height"
-          id="height-slider"
-          type="range"
-          className="accent-brand-500 w-full cursor-pointer rounded-lg"
-          max="2700"
-          min="1800"
+          id="height-range"
+          min={1800}
+          max={2600}
           value={wardrobe.dimensions.height}
-          onChange={(e) =>
-            updateDimension("height", parseFloat(e.target.value))
-          }
+          onUpdate={(key, value) => updateDimension(key, value)}
         />
         <div className="flex flex-row justify-between gap-2">
           <span className="w-50 text-[14px]">1800 mm</span>
@@ -123,15 +120,13 @@ const Sidebar = () => {
           />
           <span className="text-black-900"> mm</span>
         </label>
-        <input
+        <InputRange
           name="depth"
-          id="depth-slider"
-          type="range"
-          className="accent-brand-500 w-full cursor-pointer rounded-lg"
-          max="800"
-          min="400"
-          value={wardrobe.dimensions.depth}
-          onChange={(e) => updateDimension("depth", parseFloat(e.target.value))}
+          id="depth-range"
+          min={400}
+          max={800}
+          value={wardrobe.dimensions.width}
+          onUpdate={(key, value) => updateDimension(key, value)}
         />
         <div className="flex flex-row justify-between gap-2">
           <span className="w-50 text-[14px]">40 mm</span>
@@ -151,22 +146,22 @@ const Sidebar = () => {
               onClick={() => setActiveSegmentIdx(idx)}
               className={
                 segment.id === activeSegment?.id
-                  ? "align-center flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-black-800  p-2 transition-all transition-box border-b-[20px] border-b-brand-500"
-                  : "align-center flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-black-800  p-2 transition-all"
+                  ? "align-center border-black-800 transition-box border-b-brand-500 flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[20px] p-2 transition-all"
+                  : "align-center border-black-800 flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border p-2 transition-all"
               }
             >
               <div className="flex flex-col">
                 <span
                   className={
                     segment.id === activeSegment?.id
-                      ? "font-semibold text-black-800"
-                      : "font-semibold text-black-800"
+                      ? "text-black-800 font-semibold"
+                      : "text-black-800 font-semibold"
                   }
                 >
                   Bay {idx + 1}
                 </span>
               </div>
-              <span className="rounded bg-gray-200 border-1 border-gray-400 px-2 py-0.5 text-[14px] text-black-600">
+              <span className="text-black-600 rounded border-1 border-gray-400 bg-gray-200 px-2 py-0.5 text-[14px]">
                 {segment.type === "shelves"
                   ? `${segment.shelves.length} shelves`
                   : segment.type}

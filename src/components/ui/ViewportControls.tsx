@@ -47,7 +47,7 @@ const ViewportControls = () => {
       {viewportOptions.humanScaleVisible && (
         <button
           onClick={() => handleViewportGenderToggle()}
-          className={`${BTN_BASE} ${viewportOptions.dimensionsVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+          className={`${BTN_BASE} ${BTN_STYLES.active}`}
         >
           {viewportOptions.humanScaleGender === "male" ? (
             <>

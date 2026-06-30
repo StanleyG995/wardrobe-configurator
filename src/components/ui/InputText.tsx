@@ -1,7 +1,7 @@
 'use client'
 import { useRef } from 'react'
 
-export interface InputProps {
+export interface InputTextProps {
   id: "width" | "height" | "depth"
   name: "width" | "height" | "depth";
   classNames?: string;
@@ -12,7 +12,7 @@ export interface InputProps {
   onUpdate: (key: "width" | "height" | "depth", value: number) => void
 }
 
-const InputText = (InputData: InputProps) => {
+const InputText = (InputData: InputTextProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleValidateAndSubmit = () => {
