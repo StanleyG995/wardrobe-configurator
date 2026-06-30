@@ -313,6 +313,11 @@ export const useWardrobeStore = create<WardrobeState>()(
     }),
     {
       partialize: (state) => ({ wardrobe: state.wardrobe }),
+      limit: 100, 
+      handleSet: (handleSet) => (state) => {
+        
+        handleSet(state);}
     },
+    
   ),
 );
