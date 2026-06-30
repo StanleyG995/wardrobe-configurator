@@ -23,8 +23,8 @@ const HistoryControls = () => {
         title="Undo (Ctrl+Z)"
         className={`flex items-center justify-center rounded-lg border p-3 shadow-lg transition-all ${
           canUndo
-            ? "cursor-pointer border-blue-500 bg-[#2b7fff] text-white hover:bg-blue-600"
-            : "cursor-not-allowed border-neutral-700 bg-neutral-800/80 text-neutral-500"
+            ? "bg-brand-500 cursor-pointer border-blue-500 text-white hover:bg-blue-600"
+            : "bg-brand-300 cursor-not-allowed border-neutral-700 text-neutral-500"
         }`}
       >
         <MdUndo className="text-[20px]" />
@@ -36,8 +36,8 @@ const HistoryControls = () => {
         title="Redo (Ctrl+Y)"
         className={`flex items-center justify-center rounded-lg border p-3 shadow-lg transition-all ${
           canRedo
-            ? "cursor-pointer border-blue-500 bg-[#2b7fff] text-white hover:bg-blue-600"
-            : "cursor-not-allowed border-neutral-700 bg-neutral-800/80 text-neutral-500"
+            ? "bg-brand-500 cursor-pointer border-blue-500 text-white hover:bg-blue-600"
+            : "bg-brand-300 cursor-not-allowed border-neutral-700 text-neutral-500"
         }`}
       >
         <MdRedo className="text-[20px]" />

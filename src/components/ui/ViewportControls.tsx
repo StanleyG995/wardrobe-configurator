@@ -1,90 +1,93 @@
-import { FaRuler, FaUser, FaDoorClosed, FaBorderAll, FaDoorOpen } from "react-icons/fa6"
-import { IoMdMale, IoMdFemale } from "react-icons/io"
+import {
+  FaRuler,
+  FaUser,
+  FaDoorClosed,
+  FaBorderAll,
+  FaDoorOpen,
+} from "react-icons/fa6";
+import { IoMdMale, IoMdFemale } from "react-icons/io";
 
-import { useWardrobeStore } from "@/store/useWardrobeStore"
+import { useWardrobeStore } from "@/store/useWardrobeStore";
+
+const BTN_BASE =
+  "flex justify-start items-center border-1 border-black-800 text-[12px] py-2 px-3 gap-2 rounded-full cursor-pointer transition-colors duration-200 ";
+
+const BTN_STYLES = {
+  active: `${BTN_BASE} bg-black-800 text-gray-100`,
+  inactive: `${BTN_BASE} bg-none text-black-800`,
+};
 
 const ViewportControls = () => {
+  const viewportOptions = useWardrobeStore((state) => state.viewportOptions);
+  const handleViewportToggle = useWardrobeStore(
+    (state) => state.handleViewportToggle,
+  );
+  const handleViewportGenderToggle = useWardrobeStore(
+    (state) => state.handleViewportGenderToggle,
+  );
 
-	const viewportOptions = useWardrobeStore((state) => state.viewportOptions);
-	const handleViewportToggle = useWardrobeStore((state) => state.handleViewportToggle)
-	const handleViewportGenderToggle = useWardrobeStore((state) => state.handleViewportGenderToggle)
+  return (
+    <div className="absolute z-50 flex flex-row gap-3 p-3">
+      <button
+        onClick={() => handleViewportToggle("dimensionsVisible")}
+        className={`${BTN_BASE} ${viewportOptions.dimensionsVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+      >
+        <FaRuler className="mr-2 text-[20px]" />
+        {viewportOptions.dimensionsVisible ? "Hide" : "Show"} Dimensions
+      </button>
 
-	return (
-		<div className='p-3 flex flex-col gap-3 w-[220px] absolute z-50'>
-			<button
-				onClick={() => handleViewportToggle("dimensionsVisible")}
-				className={
-					viewportOptions.dimensionsVisible
-						? "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-400"
-						: "flex justify-start items-center border-[#ddd/ddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-black/50"
-				}>
-				<FaRuler className='text-[20px] mr-2' />
-				{viewportOptions.dimensionsVisible ? "Hide" : "Show"} Dimensions
-			</button>
+      <button
+        onClick={() => handleViewportToggle("humanScaleVisible")}
+        className={`${BTN_BASE} ${viewportOptions.humanScaleVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+      >
+        <FaUser className="mr-2 text-[20px]" />
+        {viewportOptions.humanScaleVisible ? "Hide" : "Show"} human scale
+      </button>
 
-			<button
-				onClick={() => handleViewportToggle("humanScaleVisible")}
-				className={
-					viewportOptions.humanScaleVisible
-						? "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-400"
-						: "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-black/50"
-				}>
-				<FaUser className='text-[20px] mr-2' />
-				{viewportOptions.humanScaleVisible ? "Hide" : "Show"} human scale
-			</button>
+      {viewportOptions.humanScaleVisible && (
+        <button
+          onClick={() => handleViewportGenderToggle()}
+          className={`${BTN_BASE} ${viewportOptions.dimensionsVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+        >
+          {viewportOptions.humanScaleGender === "male" ? (
+            <>
+              <IoMdMale className="mr-2 text-[20px]" /> Male
+            </>
+          ) : (
+            <>
+              <IoMdFemale className="mr-2 text-[20px]" /> Female
+            </>
+          )}
+        </button>
+      )}
 
-			{viewportOptions.humanScaleVisible && (
-				<button
-					onClick={() => handleViewportGenderToggle()}
-					className='ml-10 flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-blue-400'>
-					{viewportOptions.humanScaleGender === "male" ? (
-						<>
-							<IoMdMale className='text-[20px] mr-2' /> Male
-						</>
-					) : (
-						<>
-							<IoMdFemale className='text-[20px] mr-2' /> Female
-						</>
-					)}
-				</button>
-			)}
+      <button
+        onClick={() => handleViewportToggle("doorsVisible")}
+        className={`${BTN_BASE} ${viewportOptions.doorsVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+      >
+        <FaDoorClosed className="mr-2 text-[20px]" />
+        {viewportOptions.doorsVisible ? "Hide" : "Show"} doors
+      </button>
 
-			<button
-				onClick={() => handleViewportToggle("doorsVisible")}
-				className={
-					viewportOptions.doorsVisible
-						? "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-400"
-						: "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-black/50"
-				}>
-				<FaDoorClosed className='text-[20px] mr-2' />
-				{viewportOptions.doorsVisible ? "Hide" : "Show"} doors
-			</button>
+      {viewportOptions.doorsVisible && (
+        <button
+          onClick={() => handleViewportToggle("doorsOpen")}
+          className={`${BTN_BASE} ${viewportOptions.doorsOpen ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+        >
+          <FaDoorOpen className="mr-2 text-[20px]" />
+          {viewportOptions.doorsOpen ? "Close" : "Open"} Doors
+        </button>
+      )}
 
-			{viewportOptions.doorsVisible && (
-				<button
-				onClick={() => handleViewportToggle("doorsOpen")}
-				className={
-					viewportOptions.doorsOpen
-						? 'ml-10 flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-400'
-						: 'ml-10 flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-black/50'
-				}>
-				<FaDoorOpen className='text-[20px] mr-2' />
-				{viewportOptions.doorsOpen ? "Close" : "Open"} Doors
-			</button>
-			)}
-			
-			<button
-				onClick={() => handleViewportToggle("floorVisible")}
-				className={
-					viewportOptions.floorVisible
-						? "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-blue-500 hover:bg-blue-400"
-						: "flex justify-start items-center border-[#dddddd] text-white text-[14px] py-2.5 px-4 gap-2 rounded-md cursor-pointer bg-black/70 hover:bg-black/50"
-				}>
-				<FaBorderAll className='text-[20px] mr-2' />
-				{viewportOptions.floorVisible ? "Hide" : "Show"} Floor
-			</button>
-		</div>
-	)
-}
+      <button
+        onClick={() => handleViewportToggle("floorVisible")}
+        className={`${BTN_BASE} ${viewportOptions.floorVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+      >
+        <FaBorderAll className="mr-2 text-[20px]" />
+        {viewportOptions.floorVisible ? "Hide" : "Show"} Floor
+      </button>
+    </div>
+  );
+};
 
-export default ViewportControls
+export default ViewportControls;
