@@ -1,6 +1,8 @@
 "use client";
 
 import { useWardrobeStore } from "@/store/useWardrobeStore";
+import InputText from "@/components/ui/InputText";
+import InputRange from "@/components/ui/InputRange";
 
 const Sidebar = () => {
   const wardrobe = useWardrobeStore((state) => state.wardrobe);
@@ -14,118 +16,127 @@ const Sidebar = () => {
     removeShelfFromSegment,
     handleDoorPositionChange,
     setMaterial,
-	setHandleType,
-  toggleDoorMirror
+    setHandleType,
+    toggleDoorMirror,
   } = useWardrobeStore((state) => state);
 
   const activeSegment =
     activeSegmentIdx !== null ? wardrobe.segments[activeSegmentIdx] : null;
 
+  const handleUpdateDimension = useWardrobeStore(
+    (state) => state.updateDimension,
+  );
+
   return (
-    <div className="flex flex-col gap-1 text-white">
-      <div className="flex flex-col pb-2 text-[56px] text-blue-400">
-        <p className="text-[56px] leading-none font-[700]">
-          {price} <span className="text-[16px] text-blue-400">PLN</span>
+    <div className="text-black-500 flex flex-col gap-1">
+      <div className="text-black-800 flex flex-col pb-2">
+        <p className="text-black-600">Total price:</p>
+        <p className="text-[56px] leading-none font-[400]">
+          {price.toFixed(2)}{" "}
+          <span className="text-black-500 text-[16px] font-[400]">PLN</span>
         </p>
       </div>
-      <div className="align-center flex flex-row justify-start gap-4 pb-2">
-        <label htmlFor="width" className="w-full">
-          Width: <strong>{wardrobe.dimensions.width} mm</strong>
+
+      <div className="align-center flex flex-col justify-start gap-2 pb-2">
+        <h2 className="text-black-900 text-[24px] font-[600]">
+          Case dimensions:
+        </h2>
+        <label
+          htmlFor="width"
+          className="flex w-full flex-row items-center justify-start gap-2"
+        >
+          Width:{" "}
+          <InputText
+            name="width"
+            id="width"
+            min={500}
+            max={2400}
+            value={wardrobe.dimensions.width}
+            onUpdate={handleUpdateDimension}
+          />
+          <span className="text-black-900">mm</span>
         </label>
-        <input
+        <InputRange
           name="width"
-          id="width"
-          type="range"
-          className="w-full cursor-pointer rounded-lg accent-blue-600"
-          max="2400"
-          min="500"
+          id="width-range"
+          min={500}
+          max={2400}
           value={wardrobe.dimensions.width}
-          onChange={(e) => updateDimension("width", parseFloat(e.target.value))}
+          onUpdate={(key, value) => updateDimension(key, value)}
         />
+        <div className="flex flex-row justify-between gap-2">
+          <span className="w-50 text-[14px]">500 mm</span>
+
+          <span className="w-50 text-right text-[14px]">2400 mm</span>
+        </div>
       </div>
 
-      <div className="align-center flex flex-row justify-start gap-4 pb-2">
-        <label htmlFor="height" className="w-full">
-          Height: <strong>{wardrobe.dimensions.height} mm</strong>
+      <div className="align-center flex flex-col justify-start gap-2 pb-2">
+        <label
+          htmlFor="height"
+          className="flex w-full flex-row items-center justify-start gap-2"
+        >
+          Height:{" "}
+          <InputText
+            name="height"
+            id="height"
+            min={1800}
+            max={2600}
+            value={wardrobe.dimensions.height}
+            onUpdate={handleUpdateDimension}
+          />
+          <span className="text-black-900">mm</span>
         </label>
-        <input
+        <InputRange
           name="height"
-          id="height"
-          type="range"
-          className="w-full cursor-pointer rounded-lg accent-blue-600"
-          max="2700"
-          min="1800"
+          id="height-range"
+          min={1800}
+          max={2600}
           value={wardrobe.dimensions.height}
-          onChange={(e) =>
-            updateDimension("height", parseFloat(e.target.value))
-          }
+          onUpdate={(key, value) => updateDimension(key, value)}
         />
+        <div className="flex flex-row justify-between gap-2">
+          <span className="w-50 text-[14px]">1800 mm</span>
+
+          <span className="w-50 text-right text-[14px]">2700 mm</span>
+        </div>
       </div>
 
-      <div className="align-center flex flex-row justify-start gap-4 pb-3">
-        <label htmlFor="depth" className="w-full">
-          Depth: <strong>{wardrobe.dimensions.depth} mm</strong>
+      <div className="align-center flex flex-col justify-start gap-4 pb-2">
+        <label
+          htmlFor="depth"
+          className="flex w-full flex-row items-center justify-start gap-2"
+        >
+          Depth:{" "}
+          <InputText
+            name="depth"
+            id="depth"
+            min={400}
+            max={800}
+            value={wardrobe.dimensions.depth}
+            onUpdate={handleUpdateDimension}
+          />
+          <span className="text-black-900"> mm</span>
         </label>
-        <input
+        <InputRange
           name="depth"
-          id="depth"
-          type="range"
-          className="w-full cursor-pointer rounded-lg accent-blue-600"
-          max="700"
-          min="450"
-          value={wardrobe.dimensions.depth}
-          onChange={(e) => updateDimension("depth", parseFloat(e.target.value))}
+          id="depth-range"
+          min={400}
+          max={800}
+          value={wardrobe.dimensions.width}
+          onUpdate={(key, value) => updateDimension(key, value)}
         />
+        <div className="flex flex-row justify-between gap-2">
+          <span className="w-50 text-[14px]">40 mm</span>
+
+          <span className="w-50 text-right text-[14px]">80 mm</span>
+        </div>
       </div>
-
-      <div className="align-center flex flex-row justify-start gap-4 pb-4">
-        <span>
-          Thickness: <strong>{wardrobe.boardThickness} mm</strong>
-        </span>
-      </div>
-
-	<select
- 	 value={wardrobe.handleType}
-  	onChange={(e) => setHandleType(e.target.value as "straight" | "long" | "none")}
-  	className="border border-white/20 rounded p-2 w-full bg-neutral-900 text-white"
->
-  <option value="straight">Straight Handle</option>
-  <option value="long">Long Design Handle</option>
-  <option value="none">No Handles (Push-to-open)</option>
-</select>
-
-<select
- 	 value={wardrobe.caseMaterial}
-  	onChange={(e) => setMaterial('caseMaterial', e.target.value)}
-  	className="border border-white/20 rounded p-2 w-full bg-neutral-900 text-white"
->
-  <option value="dark-wood">Dark Wood</option>
-  <option value="light-wood">Light Wood</option>
-  <option value="white">White</option>
-  <option value="black">Black</option>
-  <option value="graphite">Graphite</option>
-</select>
-
-<select
- 	 value={wardrobe.doorMaterial}
-  	onChange={(e) => setMaterial('doorMaterial', e.target.value)}
-  	className="border border-white/20 rounded p-2 w-full bg-neutral-900 text-white"
->
-  <option value="dark-wood">Dark Wood</option>
-  <option value="light-wood">Light Wood</option>
-  <option value="white">White</option>
-  <option value="black">Black</option>
-  <option value="graphite">Graphite</option>
-  <option value="glass">Glass</option>
-</select>
-
-
-      <hr className="my-2 border-white/40" />
 
       <div className="flex flex-col gap-4">
-        <h3 className="text-sm font-semibold tracking-wider text-[#eeeeff] uppercase">
-          Internal Configuration
-        </h3>
+        <h2 className="text-black-900 text-[24px] font-[600]">
+          Segment configuration:
+        </h2>
         <div className="height-[300px] flex w-full flex-row flex-nowrap">
           {wardrobe.segments?.map((segment, idx) => (
             <div
@@ -133,22 +144,22 @@ const Sidebar = () => {
               onClick={() => setActiveSegmentIdx(idx)}
               className={
                 segment.id === activeSegment?.id
-                  ? "align-center flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-gray-200 bg-blue-500 p-2 transition-all"
-                  : "align-center flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-gray-200 bg-black/20 p-2 transition-all hover:bg-white/5"
+                  ? "align-center border-black-800 transition-box border-b-brand-500 flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[20px] p-2 transition-all"
+                  : "align-center border-black-800 flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border p-2 transition-all"
               }
             >
               <div className="flex flex-col">
                 <span
                   className={
                     segment.id === activeSegment?.id
-                      ? "font-semibold text-white"
-                      : "font-semibold text-blue-500"
+                      ? "text-black-800 font-semibold"
+                      : "text-black-800 font-semibold"
                   }
                 >
                   Bay {idx + 1}
                 </span>
               </div>
-              <span className="rounded bg-black/50 px-2 py-0.5 text-[14px] text-white/70">
+              <span className="text-black-600 rounded border-1 border-gray-400 bg-gray-200 px-2 py-0.5 text-[14px]">
                 {segment.type === "shelves"
                   ? `${segment.shelves.length} shelves`
                   : segment.type}
@@ -157,6 +168,43 @@ const Sidebar = () => {
           ))}
         </div>
       </div>
+
+      <select
+        value={wardrobe.handleType}
+        onChange={(e) =>
+          setHandleType(e.target.value as "straight" | "long" | "none")
+        }
+        className="w-full rounded border border-white/20 bg-neutral-900 p-2 text-white"
+      >
+        <option value="straight">Straight Handle</option>
+        <option value="long">Long Design Handle</option>
+        <option value="none">No Handles (Push-to-open)</option>
+      </select>
+
+      <select
+        value={wardrobe.caseMaterial}
+        onChange={(e) => setMaterial("caseMaterial", e.target.value)}
+        className="w-full rounded border border-white/20 bg-neutral-900 p-2 text-white"
+      >
+        <option value="dark-wood">Dark Wood</option>
+        <option value="light-wood">Light Wood</option>
+        <option value="white">White</option>
+        <option value="black">Black</option>
+        <option value="graphite">Graphite</option>
+      </select>
+
+      <select
+        value={wardrobe.doorMaterial}
+        onChange={(e) => setMaterial("doorMaterial", e.target.value)}
+        className="w-full rounded border border-white/20 bg-neutral-900 p-2 text-white"
+      >
+        <option value="dark-wood">Dark Wood</option>
+        <option value="light-wood">Light Wood</option>
+        <option value="white">White</option>
+        <option value="black">Black</option>
+        <option value="graphite">Graphite</option>
+        <option value="glass">Glass</option>
+      </select>
       {activeSegmentIdx !== null && activeSegment && (
         <div className="animate-fade-in flex flex-col gap-4 pt-3 text-white">
           <div className="flex flex-col gap-1 pb-1">
@@ -218,9 +266,8 @@ const Sidebar = () => {
             onClick={() => toggleDoorMirror(activeSegmentIdx)}
             className="w-full cursor-pointer rounded-md border border-white/20 bg-white/10 py-2.5 text-[14px] text-white transition-all hover:bg-white/20"
           >
-            Has mirror: <strong>{activeSegment.mirror ? 'Yes' : 'No'}</strong>
+            Has mirror: <strong>{activeSegment.mirror ? "Yes" : "No"}</strong>
           </button>
-
         </div>
       )}
     </div>

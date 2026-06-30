@@ -66,7 +66,7 @@ const WardrobeDoors = () => {
                                         {...baseDoorProps}
                                         height={height - TOP_BAY_HEIGHT + halfThickness}
                                         topOffset={topBayOffset}
-                                        mirror={segment.mirror}                                      
+                                        mirror={false}                                      
                                     />
                                 </group>
                             </>

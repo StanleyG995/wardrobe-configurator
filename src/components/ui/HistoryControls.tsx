@@ -21,10 +21,10 @@ const HistoryControls = () => {
         onClick={() => undo()}
         disabled={!canUndo}
         title="Undo (Ctrl+Z)"
-        className={`flex items-center justify-center rounded-lg border p-3 shadow-lg transition-all ${
+        className={`flex items-center justify-center rounded-full border p-3 shadow-lg transition-all ${
           canUndo
-            ? "cursor-pointer border-blue-500 bg-[#2b7fff] text-white hover:bg-blue-600"
-            : "cursor-not-allowed border-neutral-700 bg-neutral-800/80 text-neutral-500"
+            ? "rounded-full bg-black-800 hover:bg-brand-500 hover:border-brand-500 cursor-pointer border-black-800 text-gray-100"
+            : "rounde-full cursor-not-allowed border-gray-500 bg-gray-100 text-gray-400"
         }`}
       >
         <MdUndo className="text-[20px]" />
@@ -34,10 +34,10 @@ const HistoryControls = () => {
         onClick={() => redo()}
         disabled={!canRedo}
         title="Redo (Ctrl+Y)"
-        className={`flex items-center justify-center rounded-lg border p-3 shadow-lg transition-all ${
+        className={`flex items-center justify-center rounded-full border p-3 shadow-lg transition-all ${
           canRedo
-            ? "cursor-pointer border-blue-500 bg-[#2b7fff] text-white hover:bg-blue-600"
-            : "cursor-not-allowed border-neutral-700 bg-neutral-800/80 text-neutral-500"
+            ? "rounded-full bg-black-800 border-black-800 hover:bg-brand-500 hover:border-brand-500 cursor-pointer text-gray-100"
+            : "rounded-full cursor-not-allowed border-gray-500 bg-gray-100 text-gray-400"
         }`}
       >
         <MdRedo className="text-[20px]" />
