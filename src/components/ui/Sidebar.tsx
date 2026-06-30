@@ -40,7 +40,10 @@ const Sidebar = () => {
         <h2 className="text-black-900 text-[24px] font-[600]">
           Case dimensions:
         </h2>
-        <label htmlFor="width" className="items-center flex w-full flex-row justify-start gap-2">
+        <label
+          htmlFor="width"
+          className="flex w-full flex-row items-center justify-start gap-2"
+        >
           Width:{" "}
           <InputText
             name="width"
@@ -65,14 +68,14 @@ const Sidebar = () => {
         <div className="flex flex-row justify-between gap-2">
           <span className="w-50 text-[14px]">500 mm</span>
 
-          <span className="w-50 text-[14px] text-right">2400 mm</span>
+          <span className="w-50 text-right text-[14px]">2400 mm</span>
         </div>
       </div>
 
       <div className="align-center flex flex-col justify-start gap-2 pb-2">
         <label
           htmlFor="height"
-          className="items-center flex w-full flex-row justify-start gap-2"
+          className="flex w-full flex-row items-center justify-start gap-2"
         >
           Height:{" "}
           <InputText
@@ -100,12 +103,15 @@ const Sidebar = () => {
         <div className="flex flex-row justify-between gap-2">
           <span className="w-50 text-[14px]">1800 mm</span>
 
-          <span className="w-50 text-[14px] text-right">2700 mm</span>
+          <span className="w-50 text-right text-[14px]">2700 mm</span>
         </div>
       </div>
 
       <div className="align-center flex flex-col justify-start gap-4 pb-2">
-        <label htmlFor="depth" className="items-center flex w-full flex-row justify-start gap-2">
+        <label
+          htmlFor="depth"
+          className="flex w-full flex-row items-center justify-start gap-2"
+        >
           Depth:{" "}
           <InputText
             name="depth"
@@ -129,15 +135,15 @@ const Sidebar = () => {
         />
         <div className="flex flex-row justify-between gap-2">
           <span className="w-50 text-[14px]">40 mm</span>
-          
-          <span className="w-50 text-[14px] text-right">80 mm</span>
+
+          <span className="w-50 text-right text-[14px]">80 mm</span>
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
-        <h3 className="text-sm font-semibold tracking-wider text-[#eeeeff] uppercase">
-          Internal Configuration
-        </h3>
+        <h2 className="text-black-900 text-[24px] font-[600]">
+          Segment configuration:
+        </h2>
         <div className="height-[300px] flex w-full flex-row flex-nowrap">
           {wardrobe.segments?.map((segment, idx) => (
             <div
@@ -145,22 +151,22 @@ const Sidebar = () => {
               onClick={() => setActiveSegmentIdx(idx)}
               className={
                 segment.id === activeSegment?.id
-                  ? "align-center flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-gray-200 bg-blue-500 p-2 transition-all"
-                  : "align-center flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-gray-200 bg-black/20 p-2 transition-all hover:bg-white/5"
+                  ? "align-center flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-black-800  p-2 transition-all transition-box border-b-[20px] border-b-brand-500"
+                  : "align-center flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-black-800  p-2 transition-all"
               }
             >
               <div className="flex flex-col">
                 <span
                   className={
                     segment.id === activeSegment?.id
-                      ? "font-semibold text-white"
-                      : "font-semibold text-blue-500"
+                      ? "font-semibold text-black-800"
+                      : "font-semibold text-black-800"
                   }
                 >
                   Bay {idx + 1}
                 </span>
               </div>
-              <span className="rounded bg-black/50 px-2 py-0.5 text-[14px] text-white/70">
+              <span className="rounded bg-gray-200 border-1 border-gray-400 px-2 py-0.5 text-[14px] text-black-600">
                 {segment.type === "shelves"
                   ? `${segment.shelves.length} shelves`
                   : segment.type}
