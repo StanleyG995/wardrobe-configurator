@@ -23,8 +23,6 @@ const Sidebar = () => {
   const activeSegment =
     activeSegmentIdx !== null ? wardrobe.segments[activeSegmentIdx] : null;
 
-  const { pause, resume } = useWardrobeStore.temporal.getState();
-
   const handleUpdateDimension = useWardrobeStore(
     (state) => state.updateDimension,
   );

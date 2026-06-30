@@ -313,6 +313,9 @@ export const useWardrobeStore = create<WardrobeState>()(
     }),
     {
       partialize: (state) => ({ wardrobe: state.wardrobe }),
+      equality: (currentState, nextState) => {
+        return JSON.stringify(currentState.wardrobe) === JSON.stringify(nextState.wardrobe);
+      },
     },
     
   ),
