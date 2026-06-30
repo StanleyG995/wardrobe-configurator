@@ -10,11 +10,11 @@ import { IoMdMale, IoMdFemale } from "react-icons/io";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 
 const BTN_BASE =
-  "flex justify-start items-center border-1 border-black-800 text-[12px] py-2 px-3 gap-2 rounded-full cursor-pointer transition-colors duration-200 ";
+  "flex justify-start items-center border-1 border-black-800 text-[12px] py-2 px-3 gap-2 rounded-full cursor-pointer transition-colors duration-200 bg-blur-2";
 
 const BTN_STYLES = {
   active: `${BTN_BASE} bg-black-800 text-gray-100`,
-  inactive: `${BTN_BASE} bg-none text-black-800`,
+  inactive: `${BTN_BASE} bg-gray-100 text-black-800`,
 };
 
 const ViewportControls = () => {

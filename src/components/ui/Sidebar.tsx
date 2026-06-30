@@ -1,6 +1,7 @@
 "use client";
 
 import { useWardrobeStore } from "@/store/useWardrobeStore";
+import InputText from "@/components/ui/InputText";
 
 const Sidebar = () => {
   const wardrobe = useWardrobeStore((state) => state.wardrobe);
@@ -21,9 +22,14 @@ const Sidebar = () => {
   const activeSegment =
     activeSegmentIdx !== null ? wardrobe.segments[activeSegmentIdx] : null;
 
+  const handleUpdateDimension = useWardrobeStore(
+    (state) => state.updateDimension,
+  );
+
   return (
     <div className="text-black-500 flex flex-col gap-1">
-      <div className="text-black-800 flex flex-col pb-2 text-[56px]">
+      <div className="text-black-800 flex flex-col pb-2">
+        <p className="text-black-600">Total price:</p>
         <p className="text-[56px] leading-none font-[400]">
           {price.toFixed(2)}{" "}
           <span className="text-black-500 text-[16px] font-[400]">PLN</span>
@@ -31,6 +37,9 @@ const Sidebar = () => {
       </div>
 
       <div className="align-center flex flex-col justify-start gap-2 pb-2">
+        <h2 className="text-black-900 text-[24px] font-[600]">
+          Case dimensions:
+        </h2>
         <label htmlFor="width" className="w-full">
           Width:{" "}
           <span className="text-black-900">{wardrobe.dimensions.width} mm</span>
@@ -46,16 +55,17 @@ const Sidebar = () => {
           onChange={(e) => updateDimension("width", parseFloat(e.target.value))}
         />
         <div className="flex flex-row justify-between gap-2">
-          <span>500 mm</span>
-          <input
-            type="text"
-            className="text-black-800 border-black-800 rounded-full border-1 text-center"
+          <span className="w-50">500 mm</span>
+          <InputText
+            name="width"
+            id="width"
+            min={500}
+            max={2400}
             value={wardrobe.dimensions.width}
-            onChange={(e) =>
-              updateDimension("width", parseFloat(e.target.value))
-            }
+            onUpdate={handleUpdateDimension}
           />
-          <span>2400 mm</span>
+
+          <span className="w-50 text-right">2400 mm</span>
         </div>
       </div>
 
@@ -67,8 +77,8 @@ const Sidebar = () => {
           </span>
         </label>
         <input
-          name="heihgt"
-          id="heihgt"
+          name="height"
+          id="height"
           type="range"
           className="accent-brand-500 w-full cursor-pointer rounded-lg"
           max="2700"
@@ -79,16 +89,16 @@ const Sidebar = () => {
           }
         />
         <div className="flex flex-row justify-between gap-2">
-          <span>1800 mm</span>
-          <input
-            type="text"
-            className="text-black-800 border-black-800 rounded-full border-1 text-center"
-            value={wardrobe.dimensions.height}
-            onChange={(e) =>
-              updateDimension("height", parseFloat(e.target.value))
-            }
+          <span className="w-50">1800 mm</span>
+          <InputText
+            name="height"
+            id="height"
+            min={1800}
+            max={2600}
+            value={wardrobe.dimensions.width}
+            onUpdate={handleUpdateDimension}
           />
-          <span>2700 mm</span>
+          <span className="w-50 text-right">2700 mm</span>
         </div>
       </div>
 
@@ -102,22 +112,22 @@ const Sidebar = () => {
           id="depth"
           type="range"
           className="accent-brand-500 w-full cursor-pointer rounded-lg"
-          max="80"
-          min="40"
+          max="800"
+          min="400"
           value={wardrobe.dimensions.depth}
           onChange={(e) => updateDimension("depth", parseFloat(e.target.value))}
         />
         <div className="flex flex-row justify-between gap-2">
-          <span>40 mm</span>
-          <input
-            type="text"
-            className="text-black-800 border-black-800 rounded-full border-1 text-center"
+          <span className="w-50">40 mm</span>
+          <InputText
+            name="depth"
+            id="depth"
+            min={400}
+            max={800}
             value={wardrobe.dimensions.depth}
-            onChange={(e) =>
-              updateDimension("depth", parseFloat(e.target.value))
-            }
+            onUpdate={handleUpdateDimension}
           />
-          <span>80 mm</span>
+          <span className="w-50 text-right">80 mm</span>
         </div>
       </div>
 
