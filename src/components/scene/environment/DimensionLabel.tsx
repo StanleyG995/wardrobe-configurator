@@ -9,10 +9,10 @@ const LINE_WIDTH = 1
 const CAP_SIZE = 0.05
 
 const INPUT_BASE =
-  "flex justify-start items-center border-1 border-black-800 text-[12px] py-2 px-3 gap-2 rounded-full cursor-pointer transition-all duration-200 bg-blur-2 outline-none";
+  "flex justify-start items-center border-1 border-black-800 text-[12px] py-2 px-3 gap-1 rounded-full cursor-pointer transition-all duration-200 backdrop-blur-sm outline-none";
 
 const INPUT_STYLES = {
-  inactive: `${INPUT_BASE} bg-gray-100 text-black-800 focus-within:bg-black-800 focus-within:text-gray-100`,
+  inactive: `${INPUT_BASE} bg-gray-50/40 text-black-800 focus-within:bg-black-800 focus-within:text-gray-100`,
 };
 
 function DimensionLabel({
@@ -82,7 +82,7 @@ function DimensionLabel({
                     onPointerDown={stopPropagation}
                     onMouseDown={stopPropagation}
                     onPointerUp={stopPropagation}
-                    className={INPUT_STYLES.inactive}>
+                    className={`${INPUT_STYLES.inactive}`}>
                     
                     {label}:{" "}
                     <input
@@ -91,7 +91,7 @@ function DimensionLabel({
                         type='number'
                         key={value}
                         defaultValue={value}
-                        className='w-12 bg-transparent outline-none border-none p-0 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+                        className='px-2 bg-transparent outline-none border-none text-center w-12 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none '
                         onBlur={handleValidateAndSubmit}
                         onKeyDown={e => {
                             if (e.key === "Enter") {

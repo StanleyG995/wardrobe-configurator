@@ -40,22 +40,8 @@ const Sidebar = () => {
         <h2 className="text-black-900 text-[24px] font-[600]">
           Case dimensions:
         </h2>
-        <label htmlFor="width" className="w-full">
+        <label htmlFor="width" className="items-center flex w-full flex-row justify-start gap-2">
           Width:{" "}
-          <span className="text-black-900">{wardrobe.dimensions.width} mm</span>
-        </label>
-        <input
-          name="width"
-          id="width"
-          type="range"
-          className="accent-brand-500 w-full cursor-pointer rounded-lg"
-          max="2400"
-          min="500"
-          value={wardrobe.dimensions.width}
-          onChange={(e) => updateDimension("width", parseFloat(e.target.value))}
-        />
-        <div className="flex flex-row justify-between gap-2">
-          <span className="w-50">500 mm</span>
           <InputText
             name="width"
             id="width"
@@ -64,21 +50,44 @@ const Sidebar = () => {
             value={wardrobe.dimensions.width}
             onUpdate={handleUpdateDimension}
           />
+          <span className="text-black-900">mm</span>
+        </label>
+        <input
+          name="width"
+          id="width-slider"
+          type="range"
+          className="accent-brand-500 w-full cursor-pointer rounded-lg"
+          max="2400"
+          min="500"
+          value={wardrobe.dimensions.width}
+          onChange={(e) => updateDimension("width", parseFloat(e.target.value))}
+        />
+        <div className="flex flex-row justify-between gap-2">
+          <span className="w-50 text-[14px]">500 mm</span>
 
-          <span className="w-50 text-right">2400 mm</span>
+          <span className="w-50 text-[14px] text-right">2400 mm</span>
         </div>
       </div>
 
       <div className="align-center flex flex-col justify-start gap-2 pb-2">
-        <label htmlFor="heihgt" className="w-full">
+        <label
+          htmlFor="height"
+          className="items-center flex w-full flex-row justify-start gap-2"
+        >
           Height:{" "}
-          <span className="text-black-900">
-            {wardrobe.dimensions.height} mm
-          </span>
+          <InputText
+            name="height"
+            id="height"
+            min={1800}
+            max={2600}
+            value={wardrobe.dimensions.width}
+            onUpdate={handleUpdateDimension}
+          />
+          <span className="text-black-900">mm</span>
         </label>
         <input
           name="height"
-          id="height"
+          id="height-slider"
           type="range"
           className="accent-brand-500 w-full cursor-pointer rounded-lg"
           max="2700"
@@ -89,36 +98,15 @@ const Sidebar = () => {
           }
         />
         <div className="flex flex-row justify-between gap-2">
-          <span className="w-50">1800 mm</span>
-          <InputText
-            name="height"
-            id="height"
-            min={1800}
-            max={2600}
-            value={wardrobe.dimensions.width}
-            onUpdate={handleUpdateDimension}
-          />
-          <span className="w-50 text-right">2700 mm</span>
+          <span className="w-50 text-[14px]">1800 mm</span>
+
+          <span className="w-50 text-[14px] text-right">2700 mm</span>
         </div>
       </div>
 
       <div className="align-center flex flex-col justify-start gap-4 pb-2">
-        <label htmlFor="depth" className="w-full">
+        <label htmlFor="depth" className="items-center flex w-full flex-row justify-start gap-2">
           Depth:{" "}
-          <span className="text-black-900">{wardrobe.dimensions.depth} mm</span>
-        </label>
-        <input
-          name="depth"
-          id="depth"
-          type="range"
-          className="accent-brand-500 w-full cursor-pointer rounded-lg"
-          max="800"
-          min="400"
-          value={wardrobe.dimensions.depth}
-          onChange={(e) => updateDimension("depth", parseFloat(e.target.value))}
-        />
-        <div className="flex flex-row justify-between gap-2">
-          <span className="w-50">40 mm</span>
           <InputText
             name="depth"
             id="depth"
@@ -127,7 +115,22 @@ const Sidebar = () => {
             value={wardrobe.dimensions.depth}
             onUpdate={handleUpdateDimension}
           />
-          <span className="w-50 text-right">80 mm</span>
+          <span className="text-black-900"> mm</span>
+        </label>
+        <input
+          name="depth"
+          id="depth-slider"
+          type="range"
+          className="accent-brand-500 w-full cursor-pointer rounded-lg"
+          max="800"
+          min="400"
+          value={wardrobe.dimensions.depth}
+          onChange={(e) => updateDimension("depth", parseFloat(e.target.value))}
+        />
+        <div className="flex flex-row justify-between gap-2">
+          <span className="w-50 text-[14px]">40 mm</span>
+          
+          <span className="w-50 text-[14px] text-right">80 mm</span>
         </div>
       </div>
 
