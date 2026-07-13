@@ -35,7 +35,27 @@ export const useWardrobeStore = create<WardrobeState>()(
         doorMaterial: "dark-wood",
         handleType: "straight",
       },
-      price: 0,
+      price: calculateWardrobePrice(
+        1000,
+        2000,
+        600,
+        [
+          {
+            id: "1",
+            type: "shelves",
+            shelves: [],
+            doorPosition: "left",
+            mirror: false,
+          },
+          {
+            id: "2",
+            type: "hanger",
+            shelves: [],
+            doorPosition: "right",
+            mirror: true,
+          },
+        ]
+      ),
       activeSegmentIdx: null,
 
       viewportOptions: {

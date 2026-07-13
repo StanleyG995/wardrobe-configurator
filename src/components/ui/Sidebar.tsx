@@ -37,115 +37,182 @@ const Sidebar = () => {
         </p>
       </div>
 
-      <div className="align-center flex flex-col justify-start gap-2 pb-2">
-        <h2 className="text-black-900 text-[24px] font-[600]">
-          Case dimensions:
-        </h2>
-        <label
-          htmlFor="width"
-          className="flex w-full flex-row items-center justify-start gap-2"
-        >
-          Width:{" "}
-          <InputText
+      <h2 className="text-black-900 text-[24px] font-[600]">
+        Case dimensions:
+      </h2>
+      <div className="border-black-300 flex flex-col gap-2 border-b pb-6">
+        <div className="align-center flex flex-col justify-start gap-2 pb-2">
+          <label
+            htmlFor="width"
+            className="flex w-full flex-row items-center justify-start gap-2"
+          >
+            Width:{" "}
+            <InputText
+              name="width"
+              id="width"
+              min={500}
+              max={2400}
+              value={wardrobe.dimensions.width}
+              onUpdate={handleUpdateDimension}
+            />
+            <span className="text-black-900">mm</span>
+          </label>
+          <InputRange
             name="width"
-            id="width"
+            id="width-range"
             min={500}
             max={2400}
             value={wardrobe.dimensions.width}
-            onUpdate={handleUpdateDimension}
+            onUpdate={(key, value) => updateDimension(key, value)}
           />
-          <span className="text-black-900">mm</span>
-        </label>
-        <InputRange
-          name="width"
-          id="width-range"
-          min={500}
-          max={2400}
-          value={wardrobe.dimensions.width}
-          onUpdate={(key, value) => updateDimension(key, value)}
-        />
-        <div className="flex flex-row justify-between gap-2">
-          <span className="w-50 text-[14px]">500 mm</span>
+          <div className="flex flex-row justify-between gap-2">
+            <span className="w-50 text-[14px]">500 mm</span>
 
-          <span className="w-50 text-right text-[14px]">2400 mm</span>
+            <span className="w-50 text-right text-[14px]">2400 mm</span>
+          </div>
         </div>
-      </div>
 
-      <div className="align-center flex flex-col justify-start gap-2 pb-2">
-        <label
-          htmlFor="height"
-          className="flex w-full flex-row items-center justify-start gap-2"
-        >
-          Height:{" "}
-          <InputText
+        <div className="align-center flex flex-col justify-start gap-2 pb-2">
+          <label
+            htmlFor="height"
+            className="flex w-full flex-row items-center justify-start gap-2"
+          >
+            Height:{" "}
+            <InputText
+              name="height"
+              id="height"
+              min={1800}
+              max={2600}
+              value={wardrobe.dimensions.height}
+              onUpdate={handleUpdateDimension}
+            />
+            <span className="text-black-900">mm</span>
+          </label>
+          <InputRange
             name="height"
-            id="height"
+            id="height-range"
             min={1800}
             max={2600}
             value={wardrobe.dimensions.height}
-            onUpdate={handleUpdateDimension}
+            onUpdate={(key, value) => updateDimension(key, value)}
           />
-          <span className="text-black-900">mm</span>
-        </label>
-        <InputRange
-          name="height"
-          id="height-range"
-          min={1800}
-          max={2600}
-          value={wardrobe.dimensions.height}
-          onUpdate={(key, value) => updateDimension(key, value)}
-        />
-        <div className="flex flex-row justify-between gap-2">
-          <span className="w-50 text-[14px]">1800 mm</span>
+          <div className="flex flex-row justify-between gap-2">
+            <span className="w-50 text-[14px]">1800 mm</span>
 
-          <span className="w-50 text-right text-[14px]">2700 mm</span>
+            <span className="w-50 text-right text-[14px]">2700 mm</span>
+          </div>
         </div>
-      </div>
 
-      <div className="align-center flex flex-col justify-start gap-4 pb-2">
-        <label
-          htmlFor="depth"
-          className="flex w-full flex-row items-center justify-start gap-2"
-        >
-          Depth:{" "}
-          <InputText
+        <div className="align-center flex flex-col justify-start gap-4 ">
+          <label
+            htmlFor="depth"
+            className="flex w-full flex-row items-center justify-start gap-2"
+          >
+            Depth:{" "}
+            <InputText
+              name="depth"
+              id="depth"
+              min={400}
+              max={800}
+              value={wardrobe.dimensions.depth}
+              onUpdate={handleUpdateDimension}
+            />
+            <span className="text-black-900"> mm</span>
+          </label>
+          <InputRange
             name="depth"
-            id="depth"
+            id="depth-range"
             min={400}
             max={800}
-            value={wardrobe.dimensions.depth}
-            onUpdate={handleUpdateDimension}
+            value={wardrobe.dimensions.width}
+            onUpdate={(key, value) => updateDimension(key, value)}
           />
-          <span className="text-black-900"> mm</span>
-        </label>
-        <InputRange
-          name="depth"
-          id="depth-range"
-          min={400}
-          max={800}
-          value={wardrobe.dimensions.width}
-          onUpdate={(key, value) => updateDimension(key, value)}
-        />
-        <div className="flex flex-row justify-between gap-2">
-          <span className="w-50 text-[14px]">40 mm</span>
+          <div className="flex flex-row justify-between gap-2">
+            <span className="w-50 text-[14px]">40 mm</span>
 
-          <span className="w-50 text-right text-[14px]">80 mm</span>
+            <span className="w-50 text-right text-[14px]">80 mm</span>
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="border-black-300 flex flex-col gap-2 border-b pb-6">
+        <h2 className="text-black-900 text-[24px] font-[600]">
+          Materials & Handles:
+        </h2>
+
+        <label
+          htmlFor="handleType"
+          className="flex w-full flex-row items-center justify-start gap-2"
+        >
+          Handle Type:{" "}
+        </label>
+        <select
+          id="handleType"
+          value={wardrobe.handleType}
+          onChange={(e) =>
+            setHandleType(e.target.value as "straight" | "long" | "none")
+          }
+          className="w-full rounded border border-white/20 bg-neutral-900 p-2 text-white"
+        >
+          <option value="straight">Straight Handle</option>
+          <option value="long">Long Design Handle</option>
+          <option value="none">No Handles (Push-to-open)</option>
+        </select>
+
+        <label
+          htmlFor="caseMaterial"
+          className="flex w-full flex-row items-center justify-start gap-2"
+        >
+          Case Material:{" "}
+        </label>
+
+        <select
+          id="caseMaterial"
+          value={wardrobe.caseMaterial}
+          onChange={(e) => setMaterial("caseMaterial", e.target.value)}
+          className="w-full rounded border border-white/20 bg-neutral-900 p-2 text-white"
+        >
+          <option value="dark-wood">Dark Wood</option>
+          <option value="light-wood">Light Wood</option>
+          <option value="white">White</option>
+          <option value="black">Black</option>
+          <option value="graphite">Graphite</option>
+        </select>
+
+        <label
+          htmlFor="doorMaterial"
+          className="flex w-full flex-row items-center justify-start gap-2"
+        >
+          Door Material:{" "}
+        </label>
+        <select
+          id="doorMaterial"
+          value={wardrobe.doorMaterial}
+          onChange={(e) => setMaterial("doorMaterial", e.target.value)}
+          className="w-full rounded border border-white/20 bg-neutral-900 p-2 text-white"
+        >
+          <option value="dark-wood">Dark Wood</option>
+          <option value="light-wood">Light Wood</option>
+          <option value="white">White</option>
+          <option value="black">Black</option>
+          <option value="graphite">Graphite</option>
+          <option value="glass">Glass</option>
+        </select>
+      </div>
+
+      <div className="flex flex-col gap-2">
         <h2 className="text-black-900 text-[24px] font-[600]">
           Segment configuration:
         </h2>
-        <div className="height-[300px] flex w-full flex-row flex-nowrap">
+        <div className="height-[100px] flex w-full flex-row flex-nowrap">
           {wardrobe.segments?.map((segment, idx) => (
             <div
               key={segment.id}
               onClick={() => setActiveSegmentIdx(idx)}
               className={
                 segment.id === activeSegment?.id
-                  ? "align-center border-black-800 transition-box border-b-brand-500 flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[20px] p-2 transition-all"
-                  : "align-center border-black-800 flex h-[300px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border p-2 transition-all"
+                  ? "align-center border-black-800 transition-box border-b-brand-500 flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[20px] p-2 transition-all"
+                  : "align-center border-black-800 flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border p-2 transition-all"
               }
             >
               <div className="flex flex-col">
@@ -169,55 +236,23 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <select
-        value={wardrobe.handleType}
-        onChange={(e) =>
-          setHandleType(e.target.value as "straight" | "long" | "none")
-        }
-        className="w-full rounded border border-white/20 bg-neutral-900 p-2 text-white"
-      >
-        <option value="straight">Straight Handle</option>
-        <option value="long">Long Design Handle</option>
-        <option value="none">No Handles (Push-to-open)</option>
-      </select>
-
-      <select
-        value={wardrobe.caseMaterial}
-        onChange={(e) => setMaterial("caseMaterial", e.target.value)}
-        className="w-full rounded border border-white/20 bg-neutral-900 p-2 text-white"
-      >
-        <option value="dark-wood">Dark Wood</option>
-        <option value="light-wood">Light Wood</option>
-        <option value="white">White</option>
-        <option value="black">Black</option>
-        <option value="graphite">Graphite</option>
-      </select>
-
-      <select
-        value={wardrobe.doorMaterial}
-        onChange={(e) => setMaterial("doorMaterial", e.target.value)}
-        className="w-full rounded border border-white/20 bg-neutral-900 p-2 text-white"
-      >
-        <option value="dark-wood">Dark Wood</option>
-        <option value="light-wood">Light Wood</option>
-        <option value="white">White</option>
-        <option value="black">Black</option>
-        <option value="graphite">Graphite</option>
-        <option value="glass">Glass</option>
-      </select>
       {activeSegmentIdx !== null && activeSegment && (
-        <div className="animate-fade-in flex flex-col gap-4 pt-3 text-white">
-          <div className="flex flex-col gap-1 pb-1">
-            <h2 className="text-[20px] font-bold text-blue-400">
+        <div className="animate-fade-in flex flex-col gap-2 pt-2">
+          <div className="border-black-800 flex flex-col gap-1 border-b pb-2">
+            <h3 className="text-black-900 text-[18px] font-[600]">
               Bay {activeSegmentIdx + 1} Configuration
-            </h2>
+            </h3>
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-[14px] font-medium text-white">
-              Layout Type:
+            <label
+              htmlFor="segmentType"
+              className="flex w-full flex-row items-center justify-start gap-2"
+            >
+              Segment Type:{" "}
             </label>
             <select
+              id="segmentType"
               value={activeSegment?.type || "shelves"}
               onChange={(e) =>
                 changeSegmentType(
