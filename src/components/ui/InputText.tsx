@@ -38,7 +38,7 @@ const InputText = (InputData: InputTextProps) => {
       type="text"
       key={InputData.value}
       defaultValue={InputData.value}
-      className="text-black-800 border-black-800 rounded-full border-1 text-center px-2 py-1"
+      className="text-black-800 border-black-800 w-[100px] border-1 text-center px-2 py-1 outline-none focus:ring-1"
       onBlur={handleValidateAndSubmit}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {

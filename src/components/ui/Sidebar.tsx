@@ -28,7 +28,7 @@ const Sidebar = () => {
 
   return (
   
-    <div className="flex h-full w-full flex-col gap-6 overflow-y-auto p-10 text-black-500">
+    <div className="flex h-full w-full flex-col gap-6 overflow-y-auto p-6 text-black-500">
       <h2 className="text-black-900 text-[24px] font-[600]">
         Case dimensions:
       </h2>
@@ -178,7 +178,7 @@ const Sidebar = () => {
           id="doorMaterial"
           value={wardrobe.doorMaterial}
           onChange={(e) => setMaterial("doorMaterial", e.target.value)}
-          className="border-black-400 bg-white-700 text-black-900 w-full rounded-full border-1 p-2 outline-none"
+          className="border-black-400 bg-white-700 text-black-900 w-full border-1 p-2 outline-none"
         >
           <option value="dark-wood">Dark Wood</option>
           <option value="light-wood">Light Wood</option>
