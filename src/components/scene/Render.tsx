@@ -31,6 +31,7 @@ const Render = () => {
       <ViewportControls />
 	  <HistoryControls />
       <Canvas
+      resize={{ scroll: true, debounce: 0 }}
         shadows={{ type: THREE.PCFShadowMap }}
         camera={{ position: [0, 1.4, 2.5] }}
         onPointerMissed={() => {

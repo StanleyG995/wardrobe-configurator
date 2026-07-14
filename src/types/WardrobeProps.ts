@@ -59,4 +59,7 @@ export interface WardrobeState {
   setHandleType: (type: 'straight' | 'long' | 'modern' | 'none') => void;
   setMaterial: (materialType: 'caseMaterial' | 'doorMaterial', materialValue: string) => void;
   toggleDoorMirror: (segmentIndex: number) => void
+  isSidebarOpen: boolean;
+  toggleSidebar: () => void;
+  setSidebarOpen: (isOpen: boolean) => void;
 }

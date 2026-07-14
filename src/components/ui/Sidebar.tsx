@@ -10,7 +10,6 @@ const Sidebar = () => {
     updateDimension,
     activeSegmentIdx,
     setActiveSegmentIdx,
-    price,
     changeSegmentType,
     addShelfToSegment,
     removeShelfFromSegment,
@@ -28,15 +27,8 @@ const Sidebar = () => {
   );
 
   return (
-    <div className="text-black-500 flex flex-col gap-1">
-      <div className="text-black-800 flex flex-col pb-2">
-        <p className="text-black-600">Total price:</p>
-        <p className="text-[56px] leading-none font-[400]">
-          {price.toFixed(2)}{" "}
-          <span className="text-black-500 text-[16px] font-[400]">PLN</span>
-        </p>
-      </div>
-
+  
+    <div className="flex h-full w-full flex-col gap-6 overflow-y-auto p-10 text-black-500">
       <h2 className="text-black-900 text-[24px] font-[600]">
         Case dimensions:
       </h2>
@@ -67,7 +59,6 @@ const Sidebar = () => {
           />
           <div className="flex flex-row justify-between gap-2">
             <span className="w-50 text-[14px]">500 mm</span>
-
             <span className="w-50 text-right text-[14px]">2400 mm</span>
           </div>
         </div>
@@ -98,12 +89,11 @@ const Sidebar = () => {
           />
           <div className="flex flex-row justify-between gap-2">
             <span className="w-50 text-[14px]">1800 mm</span>
-
             <span className="w-50 text-right text-[14px]">2700 mm</span>
           </div>
         </div>
 
-        <div className="align-center flex flex-col justify-start gap-4 ">
+        <div className="align-center flex flex-col justify-start gap-4">
           <label
             htmlFor="depth"
             className="flex w-full flex-row items-center justify-start gap-2"
@@ -129,7 +119,6 @@ const Sidebar = () => {
           />
           <div className="flex flex-row justify-between gap-2">
             <span className="w-50 text-[14px]">40 mm</span>
-
             <span className="w-50 text-right text-[14px]">80 mm</span>
           </div>
         </div>
@@ -152,7 +141,7 @@ const Sidebar = () => {
           onChange={(e) =>
             setHandleType(e.target.value as "straight" | "long" | "none")
           }
-          className="w-full rounded border border-white/20 bg-neutral-900 p-2 text-white"
+          className="border-black-400 bg-white-700 text-black-900 w-full border-1 p-2 outline-none"
         >
           <option value="straight">Straight Handle</option>
           <option value="long">Long Design Handle</option>
@@ -170,7 +159,7 @@ const Sidebar = () => {
           id="caseMaterial"
           value={wardrobe.caseMaterial}
           onChange={(e) => setMaterial("caseMaterial", e.target.value)}
-          className="w-full rounded border border-white/20 bg-neutral-900 p-2 text-white"
+          className="border-black-400 bg-white-700 text-black-900 w-full border-1 p-2 outline-none"
         >
           <option value="dark-wood">Dark Wood</option>
           <option value="light-wood">Light Wood</option>
@@ -189,7 +178,7 @@ const Sidebar = () => {
           id="doorMaterial"
           value={wardrobe.doorMaterial}
           onChange={(e) => setMaterial("doorMaterial", e.target.value)}
-          className="w-full rounded border border-white/20 bg-neutral-900 p-2 text-white"
+          className="border-black-400 bg-white-700 text-black-900 w-full rounded-full border-1 p-2 outline-none"
         >
           <option value="dark-wood">Dark Wood</option>
           <option value="light-wood">Light Wood</option>
@@ -211,18 +200,12 @@ const Sidebar = () => {
               onClick={() => setActiveSegmentIdx(idx)}
               className={
                 segment.id === activeSegment?.id
-                  ? "align-center border-black-800 transition-box border-b-brand-500 flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[20px] p-2 transition-all"
-                  : "align-center border-black-800 flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border p-2 transition-all"
+                  ? "align-center border-black-400 transition-box border-b-brand-500 flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[20px] p-2 transition-all"
+                  : "align-center border-black-400 flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border p-2 transition-all"
               }
             >
               <div className="flex flex-col">
-                <span
-                  className={
-                    segment.id === activeSegment?.id
-                      ? "text-black-800 font-semibold"
-                      : "text-black-800 font-semibold"
-                  }
-                >
+                <span className="text-black-800 font-semibold">
                   Bay {idx + 1}
                 </span>
               </div>
@@ -305,6 +288,7 @@ const Sidebar = () => {
           </button>
         </div>
       )}
+
     </div>
   );
 };

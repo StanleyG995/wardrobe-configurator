@@ -25,68 +25,79 @@ const ViewportControls = () => {
   const handleViewportGenderToggle = useWardrobeStore(
     (state) => state.handleViewportGenderToggle,
   );
+  const price = useWardrobeStore((state) => state.price);
 
   return (
-    <div className="absolute z-50 flex flex-row gap-3 p-3">
-      <button
-        onClick={() => handleViewportToggle("dimensionsVisible")}
-        className={`${BTN_BASE} ${viewportOptions.dimensionsVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
-      >
-        <FaRuler className="mr-2 text-[20px]" />
-        {viewportOptions.dimensionsVisible ? "Hide" : "Show"} Dimensions
-      </button>
-
-      <button
-        onClick={() => handleViewportToggle("humanScaleVisible")}
-        className={`${BTN_BASE} ${viewportOptions.humanScaleVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
-      >
-        <FaUser className="mr-2 text-[20px]" />
-        {viewportOptions.humanScaleVisible ? "Hide" : "Show"} human scale
-      </button>
-
-      {viewportOptions.humanScaleVisible && (
+    <>
+      <div className="absolute z-50 flex flex-row gap-3 p-3">
         <button
-          onClick={() => handleViewportGenderToggle()}
-          className={`${BTN_BASE} ${BTN_STYLES.active}`}
+          onClick={() => handleViewportToggle("dimensionsVisible")}
+          className={`${BTN_BASE} ${viewportOptions.dimensionsVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
         >
-          {viewportOptions.humanScaleGender === "male" ? (
-            <>
-              <IoMdMale className="mr-2 text-[20px]" /> Male
-            </>
-          ) : (
-            <>
-              <IoMdFemale className="mr-2 text-[20px]" /> Female
-            </>
-          )}
+          <FaRuler className="mr-2 text-[20px]" />
+          {viewportOptions.dimensionsVisible ? "Hide" : "Show"} Dimensions
         </button>
-      )}
 
-      <button
-        onClick={() => handleViewportToggle("doorsVisible")}
-        className={`${BTN_BASE} ${viewportOptions.doorsVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
-      >
-        <FaDoorClosed className="mr-2 text-[20px]" />
-        {viewportOptions.doorsVisible ? "Hide" : "Show"} doors
-      </button>
-
-      {viewportOptions.doorsVisible && (
         <button
-          onClick={() => handleViewportToggle("doorsOpen")}
-          className={`${BTN_BASE} ${viewportOptions.doorsOpen ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+          onClick={() => handleViewportToggle("humanScaleVisible")}
+          className={`${BTN_BASE} ${viewportOptions.humanScaleVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
         >
-          <FaDoorOpen className="mr-2 text-[20px]" />
-          {viewportOptions.doorsOpen ? "Close" : "Open"} Doors
+          <FaUser className="mr-2 text-[20px]" />
+          {viewportOptions.humanScaleVisible ? "Hide" : "Show"} human scale
         </button>
-      )}
 
-      <button
-        onClick={() => handleViewportToggle("floorVisible")}
-        className={`${BTN_BASE} ${viewportOptions.floorVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
-      >
-        <FaBorderAll className="mr-2 text-[20px]" />
-        {viewportOptions.floorVisible ? "Hide" : "Show"} Floor
-      </button>
-    </div>
+        {viewportOptions.humanScaleVisible && (
+          <button
+            onClick={() => handleViewportGenderToggle()}
+            className={`${BTN_BASE} ${BTN_STYLES.active}`}
+          >
+            {viewportOptions.humanScaleGender === "male" ? (
+              <>
+                <IoMdMale className="mr-2 text-[20px]" /> Male
+              </>
+            ) : (
+              <>
+                <IoMdFemale className="mr-2 text-[20px]" /> Female
+              </>
+            )}
+          </button>
+        )}
+
+        <button
+          onClick={() => handleViewportToggle("doorsVisible")}
+          className={`${BTN_BASE} ${viewportOptions.doorsVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+        >
+          <FaDoorClosed className="mr-2 text-[20px]" />
+          {viewportOptions.doorsVisible ? "Hide" : "Show"} doors
+        </button>
+
+        {viewportOptions.doorsVisible && (
+          <button
+            onClick={() => handleViewportToggle("doorsOpen")}
+            className={`${BTN_BASE} ${viewportOptions.doorsOpen ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+          >
+            <FaDoorOpen className="mr-2 text-[20px]" />
+            {viewportOptions.doorsOpen ? "Close" : "Open"} Doors
+          </button>
+        )}
+
+        <button
+          onClick={() => handleViewportToggle("floorVisible")}
+          className={`${BTN_BASE} ${viewportOptions.floorVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+        >
+          <FaBorderAll className="mr-2 text-[20px]" />
+          {viewportOptions.floorVisible ? "Hide" : "Show"} Floor
+        </button>
+      </div>
+
+      <div className="text-black-800 absolute top-3 border-1 border-black-800 right-3 flex flex-col pb-2 z-999 background-blur-2 rounded-lg p-3 bg-gray-100">
+        <p className="text-black-600">Total price:</p>
+        <p className="text-[46px] leading-none font-[600]">
+          {price.toFixed(2)}{" "}
+          <span className="text-black-800 text-[16px] font-[600]">PLN</span>
+        </p>
+      </div>
+    </>
   );
 };
 

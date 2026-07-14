@@ -330,6 +330,18 @@ export const useWardrobeStore = create<WardrobeState>()(
           };
         });
       },
+
+      isSidebarOpen: true,
+      toggleSidebar: () =>
+        set((state) => ({
+          ...state,
+          isSidebarOpen: !state.isSidebarOpen,
+        })),
+      setSidebarOpen: (isOpen) =>
+        set((state) => ({
+          ...state,
+          isSidebarOpen: isOpen,
+        })),
     }),
     {
       partialize: (state) => ({ wardrobe: state.wardrobe }),
@@ -337,6 +349,5 @@ export const useWardrobeStore = create<WardrobeState>()(
         return JSON.stringify(currentState.wardrobe) === JSON.stringify(nextState.wardrobe);
       },
     },
-    
   ),
 );
