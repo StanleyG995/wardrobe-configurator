@@ -2,6 +2,7 @@ import type { Wardrobe } from "@/types/WardrobeProps";
 
 const PRICE_LIST = {
   m2_plate: 150,
+  m2_mirror: 300,
   shelf_item: 45,
   rod_item: 80,
   margin: 1.25,
@@ -27,11 +28,21 @@ export function calculateWardrobePrice(
 
   const totalPlateArea =
     backPlate + sidePlates + topBottomPlates + internalDivisions;
-  const basePrice = totalPlateArea * PRICE_LIST.m2_plate;
+  let basePrice = totalPlateArea * PRICE_LIST.m2_plate;
 
   let equipmentPrice = 0;
+  const segmentCount = segments.length;
+  
+  const singleDoorWidthM = segmentCount > 0 ? wM / segmentCount : 0;
 
   segments.forEach((segment) => {
+
+    if (segment.mirror) {
+      const mirrorArea = singleDoorWidthM * hM;
+      equipmentPrice += mirrorArea * PRICE_LIST.m2_mirror;
+    }
+
+
     const shelfCount =
       segment.type === "shelves" && segment.shelves
         ? segment.shelves.length

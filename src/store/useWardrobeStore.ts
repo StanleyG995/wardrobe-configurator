@@ -284,7 +284,7 @@ export const useWardrobeStore = create<WardrobeState>()(
           };
         }),
 
-      changeSegmentType: (segmentIndex, newType) =>
+      changeSegmentType: (segmentIndex, newType) => 
         set((state) => {
           const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
             if (idx !== segmentIndex) return seg;
@@ -312,7 +312,7 @@ export const useWardrobeStore = create<WardrobeState>()(
           };
         }),
 
-      toggleDoorMirror: (segmentIndex) => {
+      toggleDoorMirror: (segmentIndex) => 
         set((state) => {
           const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
             if (idx !== segmentIndex) return seg;
@@ -321,15 +321,23 @@ export const useWardrobeStore = create<WardrobeState>()(
               mirror: !seg.mirror,
             };
           });
+          const nextPrice = calculateWardrobePrice(
+            state.wardrobe.dimensions.width,
+            state.wardrobe.dimensions.height,
+            state.wardrobe.dimensions.depth,
+            updatedSegments,
+          );
+
           return {
             ...state,
+            price: nextPrice,
             wardrobe: {
               ...state.wardrobe,
               segments: updatedSegments,
             },
           };
-        });
-      },
+        }),
+      
 
       isSidebarOpen: true,
       toggleSidebar: () =>
