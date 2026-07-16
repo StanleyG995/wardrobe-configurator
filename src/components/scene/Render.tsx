@@ -1,8 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-
-import { OrbitControls, ContactShadows, Environment } from "@react-three/drei";
+import { OrbitControls, ContactShadows, Environment, useTexture } from "@react-three/drei"; // Dodałem useTexture
 
 import Floor from "@/components/scene/environment/Floor";
 import HumanScale from "@/components/scene/environment/HumanScale";
@@ -18,6 +17,7 @@ import WardrobeLabels from "./wardrobe/WardrobeLabels";
 import * as THREE from "three";
 
 import { useWardrobeStore } from "@/store/useWardrobeStore";
+import { MATERIALS } from "@/config/Materials"; // Import konfiguracji materiałów do pobrania ścieżek
 
 const Render = () => {
   const setActiveSegmentIdx = useWardrobeStore(
@@ -29,9 +29,9 @@ const Render = () => {
   return (
     <>
       <ViewportControls />
-	  <HistoryControls />
+      <HistoryControls />
       <Canvas
-      resize={{ scroll: true, debounce: 0 }}
+        resize={{ scroll: true, debounce: 0 }}
         shadows={{ type: THREE.PCFShadowMap }}
         camera={{ position: [0, 1.4, 2.5] }}
         onPointerMissed={() => {
@@ -90,5 +90,26 @@ const Render = () => {
     </>
   );
 };
+
+// TEXTURE PRELOADING
+
+const dynamicTextureUrls = Array.from(
+  new Set(
+    Object.values(MATERIALS)
+      .map((mat) => mat.textureUrl)
+      .filter((url): url is string => !!url)
+  )
+);
+
+const staticTextureUrls = [
+  "/textures/backboard.webp",
+  "/silhouette-01.svg",
+  "/silhouette-02.svg",
+];
+
+
+[...dynamicTextureUrls, ...staticTextureUrls].forEach((url) => {
+  useTexture.preload(url);
+});
 
 export default Render;

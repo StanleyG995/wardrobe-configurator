@@ -97,7 +97,9 @@ const Board = ({
         >
             <boxGeometry args={[width, height, depth]} />
         </mesh>
+        
     )
+    
 }
 
 export default Board
