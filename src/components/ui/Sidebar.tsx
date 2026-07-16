@@ -186,7 +186,7 @@ const Sidebar = () => {
           <option value="white">White</option>
           <option value="black">Black</option>
           <option value="graphite">Graphite</option>
-          <option value="glass">Glass</option>
+        
         </select>
       </div>
 
