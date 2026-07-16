@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, ContactShadows, Environment, useTexture } from "@react-three/drei"; // Dodałem useTexture
+import { OrbitControls, ContactShadows, Environment, useTexture } from "@react-three/drei";
 
 import Floor from "@/components/scene/environment/Floor";
 import HumanScale from "@/components/scene/environment/HumanScale";
@@ -17,7 +17,7 @@ import WardrobeLabels from "./wardrobe/WardrobeLabels";
 import * as THREE from "three";
 
 import { useWardrobeStore } from "@/store/useWardrobeStore";
-import { MATERIALS } from "@/config/Materials"; // Import konfiguracji materiałów do pobrania ścieżek
+import { MATERIALS } from "@/config/Materials";
 
 const Render = () => {
   const setActiveSegmentIdx = useWardrobeStore(
@@ -32,42 +32,55 @@ const Render = () => {
       <HistoryControls />
       <Canvas
         resize={{ scroll: true, debounce: 0 }}
-        shadows={{ type: THREE.PCFShadowMap }}
+        shadows={{ type: THREE.PCFSoftShadowMap }}
         camera={{ position: [0, 1.4, 2.5] }}
+        gl={{ 
+          antialias: true, 
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 0.85, 
+        }}
+
         onPointerMissed={() => {
           setActiveSegmentIdx(null);
         }}
       >
-        <Environment preset="apartment" environmentIntensity={0.4} />
+     
+        <Environment preset="apartment" environmentIntensity={0.7} />
+        
         <group name="scene">
-          <ambientLight intensity={0.2} />
+         
           <directionalLight
-            position={[2, 6, 6]}
+            position={[4, 7, 3]}
+            color="#fffdf6"
+            intensity={1.2}
             shadow-mapSize={[2048, 2048]}
-            intensity={1}
             castShadow
-            shadow-radius={5}
+            shadow-radius={8}
             shadow-camera-left={-4}
             shadow-camera-right={4}
             shadow-camera-top={4}
             shadow-camera-bottom={-1}
             shadow-camera-near={0.1}
             shadow-camera-far={20}
-            shadow-bias={-0.0005}
+            shadow-bias={-0.0002}
           />
+          
+          {/* Delikatne i stonowane światło wypełniające cienie */}
           <hemisphereLight
-            intensity={0.5}
-            color="#ffffff"
-            groundColor="#b97a20"
+            intensity={0.4}
+            color="#f5f9ff"
+            groundColor="#ebdcd0"
           />
+          
           <ContactShadows
             position={[0, -0.0005, 0]}
-            opacity={1}
+            opacity={0.65}
             scale={12}
-            blur={0.5}
-            far={0.2}
-            resolution={512}
+            blur={2.0}
+            far={0.6}
+            resolution={1024}
           />
+          
           <OrbitControls
             target={[0, 1, 0]}
             maxPolarAngle={Math.PI / 1.8}
@@ -75,11 +88,13 @@ const Render = () => {
             maxDistance={10}
           />
         </group>
+        
         <group name="viewport">
           {floorVisible && <Floor />}
           {humanScaleVisible && <HumanScale />}
           {dimensionsVisible && <WardrobeLabels />}
         </group>
+        
         <group name="wardrobe">
           <WardrobeCase />
           <WardrobeInterior />
@@ -90,8 +105,6 @@ const Render = () => {
     </>
   );
 };
-
-// TEXTURE PRELOADING
 
 const dynamicTextureUrls = Array.from(
   new Set(
@@ -106,7 +119,6 @@ const staticTextureUrls = [
   "/silhouette-01.svg",
   "/silhouette-02.svg",
 ];
-
 
 [...dynamicTextureUrls, ...staticTextureUrls].forEach((url) => {
   useTexture.preload(url);
