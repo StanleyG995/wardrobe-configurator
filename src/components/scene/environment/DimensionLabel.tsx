@@ -9,7 +9,7 @@ const LINE_WIDTH = 1
 const CAP_SIZE = 0.05
 
 const INPUT_BASE =
-  "flex justify-start items-center border-1 border-black-800 text-[12px] py-2 px-3 gap-1 rounded-full cursor-pointer transition-all duration-200 backdrop-blur-sm outline-none";
+  "flex justify-start items-center border-1 border-black-800 text-[12px] py-2 px-3 gap-1 cursor-pointer transition-all duration-200 backdrop-blur-sm outline-none";
 
 const INPUT_STYLES = {
   inactive: `${INPUT_BASE} bg-gray-50/40 text-black-800 focus-within:bg-black-800 focus-within:text-gray-100`,

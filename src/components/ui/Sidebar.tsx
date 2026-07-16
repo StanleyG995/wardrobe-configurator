@@ -29,6 +29,7 @@ const Sidebar = () => {
   return (
   
     <div className="flex h-full w-full flex-col gap-6 overflow-y-auto p-6 text-black-500">
+      <h1 className='text-black-900 text-[32px] font-[600]'>Configuration:</h1>
       <h2 className="text-black-900 text-[24px] font-[600]">
         Case dimensions:
       </h2>
@@ -191,7 +192,7 @@ const Sidebar = () => {
 
       <div className="flex flex-col gap-2">
         <h2 className="text-black-900 text-[24px] font-[600]">
-          Segment configuration:
+          Segment:
         </h2>
         <div className="height-[100px] flex w-full flex-row flex-nowrap">
           {wardrobe.segments?.map((segment, idx) => (
@@ -243,7 +244,7 @@ const Sidebar = () => {
                   e.target.value as "shelves" | "hanger" | "empty",
                 )
               }
-              className="w-full rounded border border-gray-300 bg-neutral-900 p-2 text-white outline-none"
+              className="border-black-400 bg-white-700 text-black-900 w-full border-1 p-2 outline-none"
             >
               <option value="shelves">Shelves</option>
               <option value="hanger">Hanger Rod</option>
@@ -253,20 +254,20 @@ const Sidebar = () => {
 
           {activeSegment?.type === "shelves" && (
             <div className="mt-1 flex flex-col gap-2">
-              <label className="text-[14px] text-white/70">
+              <label className="text-[14px] text-black-800">
                 Shelves in section:{" "}
                 <strong>{activeSegment.shelves.length}</strong>
               </label>
               <div className="flex flex-row gap-2">
                 <button
                   onClick={() => removeShelfFromSegment(activeSegmentIdx)}
-                  className="w-full cursor-pointer rounded-md bg-[#E04646] px-3 py-2 text-[14px] text-white transition-colors hover:bg-red-600"
+                  className="border-black-400 bg-white-700 text-black-900 w-full border-1 p-2 outline-none cursor-pointer"
                 >
                   - Remove Shelf
                 </button>
                 <button
                   onClick={() => addShelfToSegment(activeSegmentIdx)}
-                  className="w-full cursor-pointer rounded-md bg-[#2b7fff] px-3 py-2 text-[14px] text-white transition-colors hover:bg-blue-600"
+                  className="border-black-400 bg-white-700 text-black-900 w-full border-1 p-2 outline-none cursor-pointer"
                 >
                   + Add Shelf
                 </button>
@@ -275,14 +276,14 @@ const Sidebar = () => {
           )}
           <button
             onClick={() => handleDoorPositionChange(activeSegmentIdx)}
-            className="w-full cursor-pointer rounded-md border border-white/20 bg-white/10 py-2.5 text-[14px] text-white transition-all hover:bg-white/20"
+            className="border-black-400 bg-white-700 text-black-900 w-full border-1 p-2 outline-none cursor-pointer"
           >
             Change door position: <strong>{activeSegment.doorPosition}</strong>
           </button>
 
           <button
             onClick={() => toggleDoorMirror(activeSegmentIdx)}
-            className="w-full cursor-pointer rounded-md border border-white/20 bg-white/10 py-2.5 text-[14px] text-white transition-all hover:bg-white/20"
+            className="border-black-400 bg-white-700 text-black-900 w-full border-1 p-2 outline-none cursor-pointer"
           >
             Has mirror: <strong>{activeSegment.mirror ? "Yes" : "No"}</strong>
           </button>

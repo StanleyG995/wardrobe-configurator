@@ -42,9 +42,9 @@ export default function Home() {
       <button 
         onClick={toggleSidebar}
         style={{
-          right: isSidebarOpen ? "460px" : "10px",
+          right: isSidebarOpen ? "450px" : "0px",
         }}
-        className="fixed top-1/2 -translate-y-1/2 z-50 h-10 w-10 cursor-pointer rounded-full border border-gray-800 bg-gray-100 shadow-lg transition-all duration-300 text-gray-800 flex items-center justify-center"
+        className="fixed top-1/2 -translate-y-1/2 z-50 h-10 w-10 cursor-pointer border border-gray-800 bg-gray-100 shadow-lg transition-all duration-300 text-gray-800 flex items-center justify-center"
       >
         {isSidebarOpen ? (
           <FaChevronRight className="text-[14px] translate-x-[1px]" />

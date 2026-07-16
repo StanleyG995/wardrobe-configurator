@@ -10,7 +10,7 @@ import { IoMdMale, IoMdFemale } from "react-icons/io";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 
 const BTN_BASE =
-  "flex justify-start items-center border-1 border-black-800 text-[12px] py-2 px-3 gap-2 rounded-full cursor-pointer transition-colors duration-200 bg-blur-2";
+  "flex justify-start items-center border-1 border-black-800 text-[12px] py-2 px-3 gap-2 cursor-pointer transition-colors duration-200 bg-blur-2";
 
 const BTN_STYLES = {
   active: `${BTN_BASE} bg-black-800 text-gray-100`,
@@ -90,7 +90,7 @@ const ViewportControls = () => {
         </button>
       </div>
 
-      <div className="text-black-800 absolute top-3 border-1 border-black-800 right-3 flex flex-col pb-2 z-999 background-blur-2 rounded-lg p-3 bg-gray-100">
+      <div className="text-black-800 absolute top-3 border-1 border-black-800 right-3 flex flex-col pb-2 z-999 background-blur-2 p-3 bg-gray-100">
         <p className="text-black-600">Total price:</p>
         <p className="text-[46px] leading-none font-[600]">
           {price.toFixed(2)}{" "}
