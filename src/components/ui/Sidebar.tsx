@@ -210,7 +210,7 @@ const Sidebar = () => {
                   Bay {idx + 1}
                 </span>
               </div>
-              <span className="text-black-600 rounded border-1 border-gray-400 bg-gray-200 px-2 py-0.5 text-[14px]">
+              <span className="text-black-600 border-1 border-gray-400 bg-gray-200 px-2 py-0.5 text-[14px]">
                 {segment.type === "shelves"
                   ? `${segment.shelves.length} shelves`
                   : segment.type}
