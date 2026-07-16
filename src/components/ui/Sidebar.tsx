@@ -115,7 +115,7 @@ const Sidebar = () => {
             id="depth-range"
             min={400}
             max={800}
-            value={wardrobe.dimensions.width}
+            value={wardrobe.dimensions.depth}
             onUpdate={(key, value) => updateDimension(key, value)}
           />
           <div className="flex flex-row justify-between gap-2">

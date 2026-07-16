@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { cn } from "@/helpers/cn";
 
 export interface InputRangeProps {
   id: "width-range" | "height-range" | "depth-range";
@@ -26,7 +27,7 @@ const InputRange = (InputData: InputRangeProps) => {
       id={InputData.id}
       type="range"
       step={InputData.step || 1}
-      className="accent-brand-500 w-full cursor-pointer rounded-lg"
+      className={STYLES.input}
       max={InputData.max}
       min={InputData.min}
       value={localValue}
@@ -37,5 +38,9 @@ const InputRange = (InputData: InputRangeProps) => {
   );
 };
 
-export default InputRange;
+const STYLES = {
+  // cn function needed for prettier tailwind class sorting
+  input: cn("w-full cursor-pointer rounded-lg accent-brand-500"),
+};
 
+export default InputRange;
