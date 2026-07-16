@@ -140,12 +140,12 @@ const Sidebar = () => {
           id="handleType"
           value={wardrobe.handleType}
           onChange={(e) =>
-            setHandleType(e.target.value as "straight" | "long" | "none")
+            setHandleType(e.target.value as "straight" | "knob" | "none")
           }
           className="border-black-400 bg-white-700 text-black-900 w-full border-1 p-2 outline-none"
         >
           <option value="straight">Straight Handle</option>
-          <option value="long">Long Design Handle</option>
+          <option value="knob">Knob Handle</option>
           <option value="none">No Handles (Push-to-open)</option>
         </select>
 

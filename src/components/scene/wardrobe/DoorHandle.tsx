@@ -4,13 +4,11 @@ import { ThreeElements } from '@react-three/fiber'
 import { useWardrobeStore } from '@/store/useWardrobeStore'
 
 import HandleStraight from '@/components/scene/wardrobe/handles/HandleStraight'
-import HandleLong from '@/components/scene/wardrobe/handles/HandleLong'
-import HandleModern from '@/components/scene/wardrobe/handles/HandleModern'
+import HandleKnob from '@/components/scene/wardrobe/handles/HandleKnob'
 
 const HANDLE_COMPONENTS = {
   straight: HandleStraight,
-  long: HandleLong,
-  modern: HandleModern,
+  knob: HandleKnob,
   none: null,
 } as const;
 

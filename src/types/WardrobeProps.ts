@@ -1,5 +1,5 @@
 export interface HandleType {
-    handleType: 'straight' | 'long' | 'modern' | 'none'; 
+    handleType: 'straight' | 'knob' | 'none'; 
 }
 
 export interface Material {
@@ -56,7 +56,7 @@ export interface WardrobeState {
   addShelfToSegment: (segmentIndex: number) => void;
   removeShelfFromSegment: (segmentIndex: number) => void;
   changeSegmentType: (segmentIndex: number, newType: "shelves" | "hanger" | "empty") => void;
-  setHandleType: (type: 'straight' | 'long' | 'modern' | 'none') => void;
+  setHandleType: (type: 'straight' | 'knob' | 'none') => void;
   setMaterial: (materialType: 'caseMaterial' | 'doorMaterial', materialValue: string) => void;
   toggleDoorMirror: (segmentIndex: number) => void
   isSidebarOpen: boolean;
