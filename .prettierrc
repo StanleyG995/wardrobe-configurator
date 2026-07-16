@@ -1,4 +1,7 @@
 {
   "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindAttributes": ["className", "STYLES", "styles"]
+  "tailwindFunctions": ["cn"],
+  "tailwindAttributes": ["className", "STYLES"],
+  "printWidth": 160,
+  "tailwindConfig": "./src/app/globals.css"
 }

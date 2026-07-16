@@ -32,16 +32,14 @@ export function calculateWardrobePrice(
 
   let equipmentPrice = 0;
   const segmentCount = segments.length;
-  
+
   const singleDoorWidthM = segmentCount > 0 ? wM / segmentCount : 0;
 
   segments.forEach((segment) => {
-
     if (segment.mirror) {
       const mirrorArea = singleDoorWidthM * hM;
       equipmentPrice += mirrorArea * PRICE_LIST.m2_mirror;
     }
-
 
     const shelfCount =
       segment.type === "shelves" && segment.shelves
