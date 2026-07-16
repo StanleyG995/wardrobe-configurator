@@ -1,108 +1,106 @@
-'use client';
+"use client";
 
-import { useWardrobeStore } from '@/store/useWardrobeStore';
+import { useWardrobeStore } from "@/store/useWardrobeStore";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Line, Html, useTexture } from "@react-three/drei";
+import { toMeters, toMilimeters } from "@/helpers/unitConverter";
+import { cn } from "@/helpers/cn";
+import * as THREE from "three";
 
-import { useRef } from "react"
-import { useFrame } from "@react-three/fiber"
-import { Line, Html, useTexture } from "@react-three/drei"
-import { toMeters, toMilimeters } from "@/helpers/unitConverter"
-import * as THREE from "three"
+const ASPECT_RATIO = 0.268;
+const MALE_HEIGHT_MM = 1800;
+const FEMALE_HEIGHT_MM = 1650;
+const DIMENSION_OFFSET = 0.4;
 
-const ASPECT_RATIO = 0.268
-const MALE_HEIGHT_MM = 1800
-const FEMALE_HEIGHT_MM = 1650
-const DIMENSION_OFFSET = 0.4
+const LINE_COLOR = "black";
+const LINE_WIDTH = 1;
+const COMPONENT_POSITION: [number, number, number] = [0, 0, 1.4];
 
-const LINE_COLOR = "black"
-const LINE_WIDTH = 1
-const COMPONENT_POSITION: [number, number, number] = [0, 0, 1.4]
-
-
-const SILHOUETTE_COLOR = "#ba1807" 
+const SILHOUETTE_COLOR = "#ba1807";
 
 const HumanScale = () => {
-    const { humanScaleGender, dimensionsVisible } = useWardrobeStore((state) => state.viewportOptions)
+  const { humanScaleGender, dimensionsVisible } = useWardrobeStore((state) => state.viewportOptions);
 
-    const groupRef = useRef<THREE.Group>(null)
+  const groupRef = useRef<THREE.Group>(null);
 
-   
-    const maleTexture = useTexture("/silhouette-01.svg")
-    const femaleTexture = useTexture("/silhouette-02.svg")
+  const maleTexture = useTexture("/silhouette-01.svg");
+  const femaleTexture = useTexture("/silhouette-02.svg");
 
-    const maleHeight = toMeters(MALE_HEIGHT_MM)
-    const maleWidth = maleHeight * ASPECT_RATIO
+  const maleHeight = toMeters(MALE_HEIGHT_MM);
+  const maleWidth = maleHeight * ASPECT_RATIO;
 
-    const femaleHeight = toMeters(FEMALE_HEIGHT_MM)
-    const femaleWidth = femaleHeight * ASPECT_RATIO
+  const femaleHeight = toMeters(FEMALE_HEIGHT_MM);
+  const femaleWidth = femaleHeight * ASPECT_RATIO;
 
-    const currentHeight = humanScaleGender === "male" ? maleHeight : femaleHeight
+  const currentHeight = humanScaleGender === "male" ? maleHeight : femaleHeight;
 
-    useFrame(({ camera }) => {
-        if (!groupRef.current) return
-        
-        groupRef.current.rotation.y = Math.atan2(
-            camera.position.x - groupRef.current.position.x,
-            camera.position.z - groupRef.current.position.z
-        )
-    })
+  useFrame(({ camera }) => {
+    if (!groupRef.current) return;
 
-    return (
-        <group ref={groupRef} position={COMPONENT_POSITION}>
-            
-            {humanScaleGender === "male" && (
-                <mesh position={[0, maleHeight / 2, 0]}>
-                    <planeGeometry args={[maleWidth, maleHeight]} />
-                    <meshBasicMaterial 
-                        color={SILHOUETTE_COLOR} 
-                        map={maleTexture}
-                        transparent
-                        opacity={0.8}
-                        depthWrite={false}
-                    />
-                </mesh>
-            )}
-            {humanScaleGender === "female" && (
-                <mesh position={[0, femaleHeight / 2, 0]}>
-                    <planeGeometry args={[femaleWidth, femaleHeight]} />
-                    <meshBasicMaterial 
-                        color={SILHOUETTE_COLOR} 
-                        map={femaleTexture}
-                        transparent
-                        opacity={0.8}
-                        depthWrite={false}
-                    />
-                </mesh>
-            )}
+    groupRef.current.rotation.y = Math.atan2(camera.position.x - groupRef.current.position.x, camera.position.z - groupRef.current.position.z);
+  });
 
-            {dimensionsVisible && (
-                <group>
-                    <Html position={[DIMENSION_OFFSET, currentHeight / 2, 0]} center>
-                        <div className='bg-black/60 whitespace-nowrap backdrop-blur-md text-white px-2 flex flex-row justify-center py-1 rounded border border-white/20 text-[10px] text-[clamp(10px,1vw,14px)] max-w-[200px]'>
-                            <span>{Math.round(toMilimeters(currentHeight))} mm</span>
-                        </div>
-                    </Html>
-                    <Line 
-                        color={LINE_COLOR} 
-                        lineWidth={LINE_WIDTH} 
-                        points={[[DIMENSION_OFFSET, 0, 0], [DIMENSION_OFFSET, currentHeight, 0]]} 
-                    />
-                    <Line 
-                        color={LINE_COLOR} 
-                        lineWidth={LINE_WIDTH} 
-                        points={[[0, 0, 0], [DIMENSION_OFFSET, 0, 0]]} 
-                    />
-                    <Line 
-                        color={LINE_COLOR} 
-                        lineWidth={LINE_WIDTH} 
-                        points={[[0, currentHeight, 0], [DIMENSION_OFFSET, currentHeight, 0]]} 
-                    />
-                </group>
-            )}
+  return (
+    <group ref={groupRef} position={COMPONENT_POSITION}>
+      {humanScaleGender === "male" && (
+        <mesh position={[0, maleHeight / 2, 0]}>
+          <planeGeometry args={[maleWidth, maleHeight]} />
+          <meshBasicMaterial color={SILHOUETTE_COLOR} map={maleTexture} transparent opacity={0.8} depthWrite={false} />
+        </mesh>
+      )}
+      {humanScaleGender === "female" && (
+        <mesh position={[0, femaleHeight / 2, 0]}>
+          <planeGeometry args={[femaleWidth, femaleHeight]} />
+          <meshBasicMaterial color={SILHOUETTE_COLOR} map={femaleTexture} transparent opacity={0.8} depthWrite={false} />
+        </mesh>
+      )}
+
+      {dimensionsVisible && (
+        <group>
+          <Html position={[DIMENSION_OFFSET, currentHeight / 2, 0]} center>
+            <div className={STYLES.label}>
+              <span>{Math.round(toMilimeters(currentHeight))} mm</span>
+            </div>
+          </Html>
+          <Line
+            color={LINE_COLOR}
+            lineWidth={LINE_WIDTH}
+            points={[
+              [DIMENSION_OFFSET, 0, 0],
+              [DIMENSION_OFFSET, currentHeight, 0],
+            ]}
+          />
+          <Line
+            color={LINE_COLOR}
+            lineWidth={LINE_WIDTH}
+            points={[
+              [0, 0, 0],
+              [DIMENSION_OFFSET, 0, 0],
+            ]}
+          />
+          <Line
+            color={LINE_COLOR}
+            lineWidth={LINE_WIDTH}
+            points={[
+              [0, currentHeight, 0],
+              [DIMENSION_OFFSET, currentHeight, 0],
+            ]}
+          />
         </group>
-    )
-}
+      )}
+    </group>
+  );
+};
 
-useTexture.preload("/silhouette-01.svg")
-useTexture.preload("/silhouette-02.svg")
+const STYLES = {
+  // cn function needed for prettier tailwind class sorting
+  label: cn(
+    "flex cursor-pointer items-center justify-start gap-1 border border-black-800 bg-gray-100 px-3 py-2 text-[12px] whitespace-nowrap text-black-800 transition-all duration-200 outline-none",
+  ),
+};
 
-export default HumanScale
+useTexture.preload("/silhouette-01.svg");
+useTexture.preload("/silhouette-02.svg");
+
+export default HumanScale;
