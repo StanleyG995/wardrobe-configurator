@@ -4,9 +4,9 @@ import { MdUndo, MdRedo } from "react-icons/md";
 
 import { useStore } from "zustand";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
+import { cn } from "@/helpers/cn";
 
 const HistoryControls = () => {
-  // POPRAWKA: Przekazujemy temporal API do hooka useStore, aby poprawnie subskrybować historię
   const { undo, redo, pastStates, futureStates } = useStore(
     useWardrobeStore.temporal,
     (state) => state,
@@ -45,5 +45,9 @@ const HistoryControls = () => {
     </div>
   );
 };
+
+const STYLES = {
+  container: 'absolute right-[10px] bottom-[10px] z-50 flex flex-row gap-2'
+}
 
 export default HistoryControls;
