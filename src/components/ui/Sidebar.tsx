@@ -201,7 +201,7 @@ const Sidebar = () => {
               onClick={() => setActiveSegmentIdx(idx)}
               className={
                 segment.id === activeSegment?.id
-                  ? "align-center border-black-400 transition-box border-b-brand-500 flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[20px] p-2 transition-all"
+                  ? "align-center border-black-400 transition-box border-b-brand-500 flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[10px] p-2 transition-all"
                   : "align-center border-black-400 flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border p-2 transition-all"
               }
             >

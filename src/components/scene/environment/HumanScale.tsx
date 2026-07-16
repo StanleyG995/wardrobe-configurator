@@ -17,7 +17,7 @@ const LINE_COLOR = "black"
 const LINE_WIDTH = 1
 const COMPONENT_POSITION: [number, number, number] = [0, 0, 1.4]
 
-// Kolor sylwetki - możesz go zmienić na dowolny kolor hex (np. Twój brand-500: #ba1807)
+
 const SILHOUETTE_COLOR = "#ba1807" 
 
 const HumanScale = () => {
@@ -25,7 +25,7 @@ const HumanScale = () => {
 
     const groupRef = useRef<THREE.Group>(null)
 
-    // Ładujemy tekstury SVG za pomocą hooka (dzięki temu mamy nad nimi 100% kontroli)
+   
     const maleTexture = useTexture("/silhouette-01.svg")
     const femaleTexture = useTexture("/silhouette-02.svg")
 
@@ -49,7 +49,6 @@ const HumanScale = () => {
     return (
         <group ref={groupRef} position={COMPONENT_POSITION}>
             
-            {/* Sylwetka Mężczyzny */}
             {humanScaleGender === "male" && (
                 <mesh position={[0, maleHeight / 2, 0]}>
                     <planeGeometry args={[maleWidth, maleHeight]} />
@@ -58,12 +57,10 @@ const HumanScale = () => {
                         map={maleTexture}
                         transparent
                         opacity={0.8}
-                        depthWrite={false} // Zapobiega brzydkim glitchom renderowania krawędzi przezroczystości
+                        depthWrite={false}
                     />
                 </mesh>
             )}
-
-            {/* Sylwetka Kobiety */}
             {humanScaleGender === "female" && (
                 <mesh position={[0, femaleHeight / 2, 0]}>
                     <planeGeometry args={[femaleWidth, femaleHeight]} />
