@@ -4,7 +4,7 @@ import { useWardrobeStore } from '@/store/useWardrobeStore';
 
 import { useRef } from "react"
 import { useFrame } from "@react-three/fiber"
-import { Image as DreiImage, Line, Html, useTexture } from "@react-three/drei"
+import { Line, Html, useTexture } from "@react-three/drei"
 import { toMeters, toMilimeters } from "@/helpers/unitConverter"
 import * as THREE from "three"
 
@@ -17,11 +17,17 @@ const LINE_COLOR = "black"
 const LINE_WIDTH = 1
 const COMPONENT_POSITION: [number, number, number] = [0, 0, 1.4]
 
-const HumanScale = () => {
+// Kolor sylwetki - możesz go zmienić na dowolny kolor hex (np. Twój brand-500: #ba1807)
+const SILHOUETTE_COLOR = "#ba1807" 
 
+const HumanScale = () => {
     const { humanScaleGender, dimensionsVisible } = useWardrobeStore((state) => state.viewportOptions)
 
     const groupRef = useRef<THREE.Group>(null)
+
+    // Ładujemy tekstury SVG za pomocą hooka (dzięki temu mamy nad nimi 100% kontroli)
+    const maleTexture = useTexture("/silhouette-01.svg")
+    const femaleTexture = useTexture("/silhouette-02.svg")
 
     const maleHeight = toMeters(MALE_HEIGHT_MM)
     const maleWidth = maleHeight * ASPECT_RATIO
@@ -42,23 +48,34 @@ const HumanScale = () => {
 
     return (
         <group ref={groupRef} position={COMPONENT_POSITION}>
-            <DreiImage
-                url="/silhouette-01.svg"
-                scale={[maleWidth, maleHeight]}
-                position={[0, maleHeight / 2, 0]}
-                transparent
-                opacity={0.8}
-                visible={humanScaleGender === "male"} 
-            />
+            
+            {/* Sylwetka Mężczyzny */}
+            {humanScaleGender === "male" && (
+                <mesh position={[0, maleHeight / 2, 0]}>
+                    <planeGeometry args={[maleWidth, maleHeight]} />
+                    <meshBasicMaterial 
+                        color={SILHOUETTE_COLOR} 
+                        map={maleTexture}
+                        transparent
+                        opacity={0.8}
+                        depthWrite={false} // Zapobiega brzydkim glitchom renderowania krawędzi przezroczystości
+                    />
+                </mesh>
+            )}
 
-            <DreiImage
-                url="/silhouette-02.svg"
-                scale={[femaleWidth, femaleHeight]}
-                position={[0, femaleHeight / 2, 0]}
-                transparent
-                opacity={0.8}
-                visible={humanScaleGender === "female"}
-            />
+            {/* Sylwetka Kobiety */}
+            {humanScaleGender === "female" && (
+                <mesh position={[0, femaleHeight / 2, 0]}>
+                    <planeGeometry args={[femaleWidth, femaleHeight]} />
+                    <meshBasicMaterial 
+                        color={SILHOUETTE_COLOR} 
+                        map={femaleTexture}
+                        transparent
+                        opacity={0.8}
+                        depthWrite={false}
+                    />
+                </mesh>
+            )}
 
             {dimensionsVisible && (
                 <group>
