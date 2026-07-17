@@ -9,7 +9,7 @@ export interface InputTextProps {
   min: number;
   max: number;
   step?: number;
-  value: string | number; // Przywrócone w typach
+  value: string | number;
   onUpdate: (key: "width" | "height" | "depth", value: number) => void;
 }
 
