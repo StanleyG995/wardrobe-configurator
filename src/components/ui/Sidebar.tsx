@@ -30,7 +30,7 @@ const Sidebar = () => {
       <h2 className={STYLES.header2}>Case dimensions:</h2>
       <div>
         <div className={STYLES.inputRange}>
-          <label htmlFor="width" className="flex w-full flex-row items-center justify-start gap-2">
+          <label htmlFor="width" className={STYLES.label}>
             Width: <InputText name="width" id="width" min={500} max={2400} value={wardrobe.dimensions.width} onUpdate={handleUpdateDimension} />
             <span className="text-black-900">mm</span>
           </label>
@@ -49,7 +49,7 @@ const Sidebar = () => {
         </div>
 
         <div className="align-center flex flex-col justify-start gap-2 pb-2">
-          <label htmlFor="height" className="flex w-full flex-row items-center justify-start gap-2">
+          <label htmlFor="height" className={STYLES.label}>
             Height: <InputText name="height" id="height" min={1800} max={2600} value={wardrobe.dimensions.height} onUpdate={handleUpdateDimension} />
             <span className="text-black-900">mm</span>
           </label>
@@ -68,7 +68,7 @@ const Sidebar = () => {
         </div>
 
         <div className="align-center flex flex-col justify-start gap-4">
-          <label htmlFor="depth" className="flex w-full flex-row items-center justify-start gap-2">
+          <label htmlFor="depth" className={STYLES.label}>
             Depth: <InputText name="depth" id="depth" min={400} max={800} value={wardrobe.dimensions.depth} onUpdate={handleUpdateDimension} />
             <span className="text-black-900"> mm</span>
           </label>
@@ -88,9 +88,9 @@ const Sidebar = () => {
       </div>
 
       <div className="flex flex-col gap-2 border-b border-black-300 pb-6">
-        <h2 className="text-[24px] font-[600] text-black-900">Materials & Handles:</h2>
+        <h2 className={STYLES.header2}>Materials & Handles:</h2>
 
-        <label htmlFor="handleType" className="flex w-full flex-row items-center justify-start gap-2">
+        <label htmlFor="handleType" className={STYLES.label}>
           Handle Type:{" "}
         </label>
         <select
@@ -104,7 +104,7 @@ const Sidebar = () => {
           <option value="none">No Handles (Push-to-open)</option>
         </select>
 
-        <label htmlFor="caseMaterial" className="flex w-full flex-row items-center justify-start gap-2">
+        <label htmlFor="caseMaterial" className={STYLES.label}>
           Case Material:{" "}
         </label>
 
@@ -116,7 +116,7 @@ const Sidebar = () => {
           <option value="graphite">Graphite</option>
         </select>
 
-        <label htmlFor="doorMaterial" className="flex w-full flex-row items-center justify-start gap-2">
+        <label htmlFor="doorMaterial" className={STYLES.label}>
           Door Material:{" "}
         </label>
         <select id="doorMaterial" value={wardrobe.doorMaterial} onChange={(e) => setMaterial("doorMaterial", e.target.value)} className={STYLES.select}>
@@ -129,16 +129,16 @@ const Sidebar = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <h2 className="text-[24px] font-[600] text-black-900">Segment:</h2>
-        <div className="height-[100px] flex w-full flex-row flex-nowrap">
+        <h2 className={STYLES.header2}>Segment:</h2>
+        <div className={STYLES.segmentBoxes}>
           {wardrobe.segments?.map((segment, idx) => (
             <div
               key={segment.id}
               onClick={() => setActiveSegmentIdx(idx)}
               className={
                 segment.id === activeSegment?.id
-                  ? "align-center transition-box flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[10px] border-black-400 border-b-brand-500 p-2 transition-all"
-                  : "align-center flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-black-400 p-2 transition-all"
+                  ? STYLES.segmentBox
+                  : STYLES.segmentBoxActive
               }
             >
               <div className="flex flex-col">
@@ -159,7 +159,7 @@ const Sidebar = () => {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label htmlFor="segmentType" className="flex w-full flex-row items-center justify-start gap-2">
+            <label htmlFor="segmentType" className={STYLES.label}>
               Segment Type:{" "}
             </label>
             <select
@@ -175,37 +175,25 @@ const Sidebar = () => {
           </div>
 
           {activeSegment?.type === "shelves" && (
-            <div className="mt-1 flex flex-col gap-2">
-              <label className="text-[14px] text-black-800">
+            <div className="flex flex-col gap-2">
+              <label className={STYLES.label}>
                 Shelves in section: <strong>{activeSegment.shelves.length}</strong>
               </label>
               <div className="flex flex-row gap-2">
-                <button
-                  onClick={() => removeShelfFromSegment(activeSegmentIdx)}
-                  className="bg-white-700 w-full cursor-pointer border-1 border-black-400 p-2 text-black-900 outline-none"
-                >
+                <button onClick={() => removeShelfFromSegment(activeSegmentIdx)} className={STYLES.button}>
                   - Remove Shelf
                 </button>
-                <button
-                  onClick={() => addShelfToSegment(activeSegmentIdx)}
-                  className="bg-white-700 w-full cursor-pointer border-1 border-black-400 p-2 text-black-900 outline-none"
-                >
+                <button onClick={() => addShelfToSegment(activeSegmentIdx)} className={STYLES.button}>
                   + Add Shelf
                 </button>
               </div>
             </div>
           )}
-          <button
-            onClick={() => handleDoorPositionChange(activeSegmentIdx)}
-            className="bg-white-700 w-full cursor-pointer border-1 border-black-400 p-2 text-black-900 outline-none"
-          >
+          <button onClick={() => handleDoorPositionChange(activeSegmentIdx)} className={STYLES.button}>
             Change door position: <strong>{activeSegment.doorPosition}</strong>
           </button>
 
-          <button
-            onClick={() => toggleDoorMirror(activeSegmentIdx)}
-            className="bg-white-700 w-full cursor-pointer border-1 border-black-400 p-2 text-black-900 outline-none"
-          >
+          <button onClick={() => toggleDoorMirror(activeSegmentIdx)} className={STYLES.button}>
             Has mirror: <strong>{activeSegment.mirror ? "Yes" : "No"}</strong>
           </button>
         </div>
@@ -220,6 +208,11 @@ const STYLES = {
   header2: cn("text-2xl font-semibold text-black-900"),
   select: cn("bg-white-700 w-full border-1 border-black-400 p-2 text-black-900 outline-none"),
   inputRange: cn('align-center pb-2" flex flex-col justify-start gap-2'),
+  button: cn("bg-white-700 w-full cursor-pointer border-1 border-black-400 p-2 text-black-900 outline-none"),
+  label: cn("flex w-full flex-row items-center justify-start gap-2"),
+  segmentBoxes: cn('height-[100px] flex w-full flex-row flex-nowrap'),
+  segmentBox: cn('align-center transition-box flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[10px] border-black-400 border-b-brand-500 p-2 transition-all'),
+  segmentBoxActive: cn('align-center flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-black-400 p-2 transition-all'),
 };
 
 export default Sidebar;
