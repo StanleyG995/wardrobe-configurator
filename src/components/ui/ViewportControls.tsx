@@ -1,30 +1,12 @@
-import {
-  FaRuler,
-  FaUser,
-  FaDoorClosed,
-  FaBorderAll,
-  FaDoorOpen,
-} from "react-icons/fa6";
+import { FaRuler, FaUser, FaDoorClosed, FaBorderAll, FaDoorOpen } from "react-icons/fa6";
 import { IoMdMale, IoMdFemale } from "react-icons/io";
-
+import { cn } from "@/helpers/cn";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
-
-const BTN_BASE =
-  "flex justify-start items-center border-1 border-black-800 text-[12px] py-2 px-3 gap-2 cursor-pointer transition-colors duration-200 bg-blur-2";
-
-const BTN_STYLES = {
-  active: `${BTN_BASE} bg-black-800 text-gray-100`,
-  inactive: `${BTN_BASE} bg-gray-100 text-black-800`,
-};
 
 const ViewportControls = () => {
   const viewportOptions = useWardrobeStore((state) => state.viewportOptions);
-  const handleViewportToggle = useWardrobeStore(
-    (state) => state.handleViewportToggle,
-  );
-  const handleViewportGenderToggle = useWardrobeStore(
-    (state) => state.handleViewportGenderToggle,
-  );
+  const handleViewportToggle = useWardrobeStore((state) => state.handleViewportToggle);
+  const handleViewportGenderToggle = useWardrobeStore((state) => state.handleViewportGenderToggle);
   const price = useWardrobeStore((state) => state.price);
 
   return (
@@ -32,32 +14,29 @@ const ViewportControls = () => {
       <div className="absolute z-50 flex flex-row gap-3 p-3">
         <button
           onClick={() => handleViewportToggle("dimensionsVisible")}
-          className={`${BTN_BASE} ${viewportOptions.dimensionsVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+          className={`${STYLES.button} ${viewportOptions.dimensionsVisible ? STYLES.buttonActive : STYLES.buttonInactive}`}
         >
-          <FaRuler className="mr-2 text-[20px]" />
+          <FaRuler className={STYLES.icon} />
           {viewportOptions.dimensionsVisible ? "Hide" : "Show"} Dimensions
         </button>
 
         <button
           onClick={() => handleViewportToggle("humanScaleVisible")}
-          className={`${BTN_BASE} ${viewportOptions.humanScaleVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+          className={`${STYLES.button} ${viewportOptions.humanScaleVisible ? STYLES.buttonActive : STYLES.buttonInactive}`}
         >
-          <FaUser className="mr-2 text-[20px]" />
+          <FaUser className={STYLES.icon} />
           {viewportOptions.humanScaleVisible ? "Hide" : "Show"} human scale
         </button>
 
         {viewportOptions.humanScaleVisible && (
-          <button
-            onClick={() => handleViewportGenderToggle()}
-            className={`${BTN_BASE} ${BTN_STYLES.active}`}
-          >
+          <button onClick={() => handleViewportGenderToggle()} className={`${STYLES.button} ${STYLES.buttonActive}`}>
             {viewportOptions.humanScaleGender === "male" ? (
               <>
-                <IoMdMale className="mr-2 text-[20px]" /> Male
+                <IoMdMale className={STYLES.icon} /> Male
               </>
             ) : (
               <>
-                <IoMdFemale className="mr-2 text-[20px]" /> Female
+                <IoMdFemale className={STYLES.icon} /> Female
               </>
             )}
           </button>
@@ -65,40 +44,51 @@ const ViewportControls = () => {
 
         <button
           onClick={() => handleViewportToggle("doorsVisible")}
-          className={`${BTN_BASE} ${viewportOptions.doorsVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+          className={`${STYLES.button} ${viewportOptions.doorsVisible ? STYLES.buttonActive : STYLES.buttonInactive}`}
         >
-          <FaDoorClosed className="mr-2 text-[20px]" />
+          <FaDoorClosed className={STYLES.icon} />
           {viewportOptions.doorsVisible ? "Hide" : "Show"} doors
         </button>
 
         {viewportOptions.doorsVisible && (
           <button
             onClick={() => handleViewportToggle("doorsOpen")}
-            className={`${BTN_BASE} ${viewportOptions.doorsOpen ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+            className={`${STYLES.button} ${viewportOptions.doorsOpen ? STYLES.buttonActive : STYLES.buttonInactive}`}
           >
-            <FaDoorOpen className="mr-2 text-[20px]" />
+            <FaDoorOpen className={STYLES.icon} />
             {viewportOptions.doorsOpen ? "Close" : "Open"} Doors
           </button>
         )}
 
         <button
           onClick={() => handleViewportToggle("floorVisible")}
-          className={`${BTN_BASE} ${viewportOptions.floorVisible ? BTN_STYLES.active : BTN_STYLES.inactive}`}
+          className={`${STYLES.button} ${viewportOptions.floorVisible ? STYLES.buttonActive : STYLES.buttonInactive}`}
         >
-          <FaBorderAll className="mr-2 text-[20px]" />
+          <FaBorderAll className={STYLES.icon} />
           {viewportOptions.floorVisible ? "Hide" : "Show"} Floor
         </button>
       </div>
 
-      <div className="text-black-800 absolute top-3 border-1 border-black-800 right-3 flex flex-col pb-2 z-999 background-blur-2 p-3 bg-gray-100">
-        <p className="text-black-600">Total price:</p>
-        <p className="text-[46px] leading-none font-[600]">
-          {price.toFixed(2)}{" "}
-          <span className="text-black-800 text-[16px] font-[600]">PLN</span>
+      <div className={STYLES.priceContainer}>
+        <p className={STYLES.priceLabel}>Total price:</p>
+        <p className={STYLES.price}>
+          {price.toFixed(2)} <span className={STYLES.priceCurrency}>PLN</span>
         </p>
       </div>
     </>
   );
+};
+
+const STYLES = {
+  // cn function needed for prettier tailwind class sorting
+  icon: cn("mr-2 text-lg"),
+  priceContainer: cn("absolute top-3 right-3 z-999 flex flex-col border-1 border-black-800 bg-gray-100 p-3 pb-2 text-black-800"),
+  priceCurrency: cn("text-lg"),
+  priceLabel: cn('text-black-500'),
+  price: cn("text-[46px] leading-none font-semibold"),
+  button: cn("bg-blur-2 flex cursor-pointer items-center justify-start gap-2 border-1 border-black-800 px-3 py-2 text-[12px] transition-colors duration-200"),
+  buttonActive: cn("bg-black-800 text-gray-100"),
+  buttonInactive: cn("bg-gray-100 text-black-800"),
 };
 
 export default ViewportControls;
