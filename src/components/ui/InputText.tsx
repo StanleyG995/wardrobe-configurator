@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from "react";
+import { cn } from "@/helpers/cn";
 
 export interface InputTextProps {
   id: "width" | "height" | "depth";
@@ -41,7 +42,7 @@ const InputText = (InputData: InputTextProps) => {
       type="text"
       key={InputData.value}
       defaultValue={InputData.value}
-      className="text-black-800 border-black-800 w-[100px] border-1 px-2 py-1 text-center outline-none focus:ring-1"
+      className={STYLES.input}
       onBlur={handleValidateAndSubmit}
       onKeyDown={(e) => {
         if (e.key === "Enter") {
@@ -56,6 +57,11 @@ const InputText = (InputData: InputTextProps) => {
       }}
     />
   );
+};
+
+const STYLES = {
+  // cn function needed for prettier tailwind class sorting
+  input: cn("text-black-800 border-black-800 w-[100px] border-1 px-2 py-1 text-center outline-none focus:ring-1"),
 };
 
 export default InputText;

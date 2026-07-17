@@ -65,7 +65,6 @@ const Render = () => {
             shadow-bias={-0.0002}
           />
           
-          {/* Delikatne i stonowane światło wypełniające cienie */}
           <hemisphereLight
             intensity={0.4}
             color="#f5f9ff"
