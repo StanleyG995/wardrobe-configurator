@@ -8,11 +8,11 @@ import HumanScale from "@/components/scene/environment/HumanScale";
 import ViewportControls from "@/components/ui/controls/Viewport";
 import HistoryControls from "@/components/ui/controls/History";
 
-import WardrobeCase from "@/components/scene/wardrobe/WardrobeCase";
-import WardrobeDoors from "@/components/scene/wardrobe/WardrobeDoors";
-import WardrobeHitbox from "./wardrobe/WardrobeHitbox";
-import WardrobeInterior from "@/components/scene/wardrobe/WardrobeInterior";
-import WardrobeLabels from "./wardrobe/WardrobeLabels";
+import Case from "@/components/scene/wardrobe/Case";
+import Doors from "@/components/scene/wardrobe/Doors";
+import Hitbox from "./wardrobe/Hitboxes";
+import Interior from "@/components/scene/wardrobe/Interior";
+import Labels from "@/components/scene/wardrobe/Labels";
 
 import * as THREE from "three";
 
@@ -91,14 +91,14 @@ const Render = () => {
         <group name="viewport">
           {floorVisible && <Floor />}
           {humanScaleVisible && <HumanScale />}
-          {dimensionsVisible && <WardrobeLabels />}
+          {dimensionsVisible && <Labels />}
         </group>
         
         <group name="wardrobe">
-          <WardrobeCase />
-          <WardrobeInterior />
-          <WardrobeHitbox />
-          {doorsVisible && <WardrobeDoors />}
+          <Case />
+          <Interior />
+          <Hitbox />
+          {doorsVisible && <Doors />}
         </group>
       </Canvas>
     </>

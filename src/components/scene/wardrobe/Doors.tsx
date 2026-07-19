@@ -12,7 +12,7 @@ const TOP_BAY_DOORS_BREAKPOINT = 2300
 const TOP_BAY_HEIGHT = 1900
 const DEFAULT_HINGE_SIDE = "left"
 
-const WardrobeDoors = () => {
+const Doors = () => {
     const { dimensions: { width, height, depth }, boardThickness, segments, doorMaterial } = useWardrobeStore((state) => state.wardrobe)
     const { doorsOpen: isOpen } = useWardrobeStore((state) => state.viewportOptions)
 
@@ -78,4 +78,4 @@ const WardrobeDoors = () => {
     )
 }
 
-export default WardrobeDoors
+export default Doors

@@ -36,6 +36,7 @@ const Viewport = () => {
             onClick={() => handleViewportGenderToggle()}
             icon={viewportOptions.humanScaleGender === "male" ? <PiGenderMale className={STYLES.icon} /> : <PiGenderFemale className={STYLES.icon} />}
             iconPosition="left"
+            active={true}
           >
             {viewportOptions.humanScaleGender === "male" ? <>Male</> : <>Female</>}
           </Button>

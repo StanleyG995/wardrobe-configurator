@@ -5,7 +5,7 @@ import { useWardrobeStore } from "@/store/useWardrobeStore";
 
 import { MATERIALS } from "@/config/Materials";
 
-const WardrobeCase = () => {
+const Case = () => {
   const {
     dimensions: { width, height, depth },
     boardThickness,
@@ -124,4 +124,4 @@ const WardrobeCase = () => {
   );
 };
 
-export default WardrobeCase;
+export default Case;

@@ -4,7 +4,7 @@ import DimensionLabel from "../environment/DimensionLabel"
 import { toMeters } from "@/helpers/unitConverter"
 import { useWardrobeStore } from "@/store/useWardrobeStore"
 
-const WardrobeLabels = () => {
+const Labels = () => {
 	const wardrobe = useWardrobeStore((state) => state.wardrobe)
     const handleUpdateDimension = useWardrobeStore((state) => state.updateDimension)
     return(
@@ -71,4 +71,4 @@ const WardrobeLabels = () => {
 							/>
 						</group>)}
 
-export default WardrobeLabels
+export default Labels

@@ -17,7 +17,7 @@ const LINE_COLOR = "black";
 const LINE_WIDTH = 1;
 const COMPONENT_POSITION: [number, number, number] = [0, 0, 1.4];
 
-const SILHOUETTE_COLOR = "#ba1807";
+const SILHOUETTE_COLOR = "#4282ac";
 
 const HumanScale = () => {
   const { humanScaleGender, dimensionsVisible } = useWardrobeStore((state) => state.viewportOptions);

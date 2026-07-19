@@ -4,4 +4,5 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
   active?: boolean;
+  fullWidth?: boolean;
 }

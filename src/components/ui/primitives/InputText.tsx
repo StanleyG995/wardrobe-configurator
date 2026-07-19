@@ -32,7 +32,7 @@ const InputText = (InputData: InputTextProps) => {
         type="text"
         key={InputData.value}
         defaultValue={InputData.value}
-        className={cn(STYLES.input, InputData.widthFull ? "w-full" : "w-auto")}
+        className={cn(STYLES.input, InputData.fullWidth ? "w-full" : "w-auto")}
         onBlur={handleValidateAndSubmit}
         onKeyDown={(e) => {
           if (e.key === "Enter") {

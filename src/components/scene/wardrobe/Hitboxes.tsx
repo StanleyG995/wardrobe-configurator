@@ -5,11 +5,13 @@ import { toMeters } from "@/helpers/unitConverter";
 
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 
-const HITBOX_COLOR = "#bb0707";
-const ACTIVE_OPACITY = 0.4;
+import * as THREE from "three";
+
+const HITBOX_COLOR = "#4282ac";
+const ACTIVE_OPACITY = 0.6;
 const INACTIVE_OPACITY = 0;
 
-function WardrobeHitbox({}) {
+function Hitboxes({}) {
   const {
     segments = [],
     dimensions: { width, height, depth },
@@ -75,6 +77,9 @@ function WardrobeHitbox({}) {
               opacity={
                 idx === activeSegmentIdx ? ACTIVE_OPACITY : INACTIVE_OPACITY
               }
+              premultipliedAlpha={true}
+              blending={THREE.NormalBlending}
+              depthWrite={false}
             />
           </mesh>
         );
@@ -83,4 +88,4 @@ function WardrobeHitbox({}) {
   );
 }
 
-export default WardrobeHitbox;
+export default Hitboxes;

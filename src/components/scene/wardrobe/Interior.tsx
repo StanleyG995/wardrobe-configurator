@@ -22,7 +22,7 @@ const ROD_COLOR = "#cccccc"
 const ROD_METALNESS = 0.8
 const ROD_ROUGHNESS = 0.2
 
-const WardrobeInterior = () => {
+const Interior = () => {
     
     const { dimensions: { width, height, depth }, boardThickness, segments, caseMaterial } = useWardrobeStore((state) => state.wardrobe)
     const resolvedMaterial = MATERIALS[caseMaterial as keyof typeof MATERIALS]
@@ -143,4 +143,4 @@ const WardrobeInterior = () => {
     )
 }
 
-export default WardrobeInterior
+export default Interior

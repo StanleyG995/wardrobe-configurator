@@ -93,7 +93,7 @@ const Sidebar = () => {
           value={wardrobe.caseMaterial}
           onChange={(val) => setMaterial("caseMaterial", val)}
           options={[
-            { value: "dark-wood", label: "Dark Wood" },
+            { value: "dark-wood", label: "Dark Wood", img: '/dark-wood.webp'},
             { value: "light-wood", label: "Light Wood" },
             { value: "white", label: "White" },
             { value: "black", label: "Black" },
@@ -123,21 +123,13 @@ const Sidebar = () => {
         </div>
         <div className={STYLES.bayCardsContainer}>
           {wardrobe.segments?.map((segment, idx) => (
-            <BayCard
-              id={segment.id}
-              key={segment.id}
-              onClick={() => setActiveSegmentIdx(idx)}
-              segmentType={segment.type}
-              idx={idx}
-              shelves={segment.shelves}
-            />
-          
+            <BayCard id={segment.id} key={segment.id} onClick={() => setActiveSegmentIdx(idx)} segmentType={segment.type} idx={idx} shelves={segment.shelves} />
           ))}
         </div>
 
         {activeSegmentIdx !== null && activeSegment && (
           <div className="animate-fade-in flex flex-col gap-2 pt-2">
-            <div className="flex flex-col gap-1 border-b border-black-800 pb-2">
+            <div className="flex flex-col gap-1">
               <h3 className={cn(STYLES.heading, STYLES.heading3)}>Bay {activeSegmentIdx + 1} Configuration</h3>
             </div>
 
@@ -157,18 +149,23 @@ const Sidebar = () => {
 
             {activeSegment?.type === "shelves" && (
               <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-2">
-                  <Button onClick={() => removeShelfFromSegment(activeSegmentIdx)}>- Remove Shelf</Button>
-                  <Button onClick={() => addShelfToSegment(activeSegmentIdx)}>+ Add Shelf</Button>
+                <div className="flex flex-row gap-2 items-center">
+                  <Button fullWidth={true} onClick={() => removeShelfFromSegment(activeSegmentIdx)}>
+                    - Remove
+                  </Button>
+                   <span className="text-center mx-4">{activeSegment.shelves.length}</span>
+                  <Button fullWidth={true} onClick={() => addShelfToSegment(activeSegmentIdx)}>
+                    + Add
+                  </Button>
                 </div>
               </div>
             )}
 
-            <Button onClick={() => handleDoorPositionChange(activeSegmentIdx)}>
+            <Button fullWidth={true} onClick={() => handleDoorPositionChange(activeSegmentIdx)}>
               Change door position: <strong>{activeSegment.doorPosition}</strong>
             </Button>
 
-            <Button onClick={() => toggleDoorMirror(activeSegmentIdx)}>
+            <Button fullWidth={true} onClick={() => toggleDoorMirror(activeSegmentIdx)}>
               Has mirror: <strong>{activeSegment.mirror ? "Yes" : "No"}</strong>
             </Button>
           </div>
@@ -188,7 +185,7 @@ const STYLES = {
   heading3: cn("text-sm tracking-wider uppercase"),
   headingIcon: cn("text-xl text-brand-500"),
 
-  bayCardsContainer: cn("height-[100px] flex w-full flex-row flex-nowra gap-2")
+  bayCardsContainer: cn("height-[100px] flex-nowra flex w-full flex-row gap-2"),
 };
 
 export default Sidebar;

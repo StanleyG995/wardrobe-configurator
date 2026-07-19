@@ -29,11 +29,9 @@ const BayCard = ({ id, idx, segmentType, shelves, onClick }: BayCardProps) => {
 
 const STYLES = {
   BayCard: cn(
-    "align-center transition-box flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 rounded-md border  border-black-300 bg-gray-100 p-2 shadow-md shadow-brand-700/10 transition-all",
+    "align-center transition-box flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 rounded-md border border-black-300 bg-gray-50 p-2 shadow-md shadow-brand-700/10 transition-all",
   ),
-  BayCardActive: cn(
-    "ring-2 ring-brand-500 bg-gray-50",
-  ),
+  BayCardActive: cn("bg-gray-50 ring-2 ring-brand-500"),
   icon: cn("text-xl transition-colors duration-150"),
 };
 
