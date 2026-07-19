@@ -1,5 +1,5 @@
-import { FaRuler, FaUser, FaDoorClosed, FaBorderAll, FaDoorOpen } from "react-icons/fa6";
-import { IoMdMale, IoMdFemale } from "react-icons/io";
+import { PiRuler, PiUser, PiDoor, PiGridFour, PiDoorOpen, PiGenderMale, PiGenderFemale } from "react-icons/pi";
+
 import { cn } from "@/helpers/cn";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 import Button from "@/components/ui/primitives/Button";
@@ -15,7 +15,7 @@ const Viewport = () => {
       <div className="absolute z-50 flex flex-row gap-3 p-3">
         <Button
           onClick={() => handleViewportToggle("dimensionsVisible")}
-          icon={<FaRuler className={STYLES.icon} />}
+          icon={<PiRuler className={STYLES.icon} />}
           iconPosition="left"
           active={viewportOptions.dimensionsVisible}
         >
@@ -24,7 +24,7 @@ const Viewport = () => {
 
         <Button
           onClick={() => handleViewportToggle("humanScaleVisible")}
-          icon={<FaUser className={STYLES.icon} />}
+          icon={<PiUser className={STYLES.icon} />}
           iconPosition="left"
           active={viewportOptions.humanScaleVisible}
         >
@@ -34,7 +34,7 @@ const Viewport = () => {
         {viewportOptions.humanScaleVisible && (
           <Button
             onClick={() => handleViewportGenderToggle()}
-            icon={viewportOptions.humanScaleGender === "male" ? <IoMdMale className={STYLES.icon} /> : <IoMdFemale className={STYLES.icon} />}
+            icon={viewportOptions.humanScaleGender === "male" ? <PiGenderMale className={STYLES.icon} /> : <PiGenderFemale className={STYLES.icon} />}
             iconPosition="left"
           >
             {viewportOptions.humanScaleGender === "male" ? <>Male</> : <>Female</>}
@@ -43,7 +43,7 @@ const Viewport = () => {
 
         <Button
           onClick={() => handleViewportToggle("doorsVisible")}
-          icon={<FaDoorClosed className={STYLES.icon} />}
+          icon={<PiDoor className={STYLES.icon} />}
           iconPosition="left"
           active={viewportOptions.doorsVisible}
         >
@@ -53,7 +53,7 @@ const Viewport = () => {
         {viewportOptions.doorsVisible && (
           <Button
             onClick={() => handleViewportToggle("doorsOpen")}
-            icon={<FaDoorOpen className={STYLES.icon} />}
+            icon={<PiDoorOpen className={STYLES.icon} />}
             iconPosition="left"
             active={viewportOptions.doorsOpen}
           >
@@ -63,7 +63,7 @@ const Viewport = () => {
 
         <Button
           onClick={() => handleViewportToggle("floorVisible")}
-          icon={<FaBorderAll className={STYLES.icon} />}
+          icon={<PiGridFour className={STYLES.icon} />}
           iconPosition="left"
           active={viewportOptions.floorVisible}
         >

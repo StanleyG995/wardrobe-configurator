@@ -7,5 +7,6 @@ export interface InputTextProps {
   max: number;
   step?: number;
   value: string | number;
+  widthFull?: boolean
   onUpdate: (key: "width" | "height" | "depth", value: number) => void;
 }

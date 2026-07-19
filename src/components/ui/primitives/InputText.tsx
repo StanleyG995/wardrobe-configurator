@@ -32,7 +32,7 @@ const InputText = (InputData: InputTextProps) => {
         type="text"
         key={InputData.value}
         defaultValue={InputData.value}
-        className={STYLES.input}
+        className={cn(STYLES.input, InputData.widthFull ? "w-full" : "w-auto")}
         onBlur={handleValidateAndSubmit}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
@@ -53,7 +53,7 @@ const InputText = (InputData: InputTextProps) => {
 const STYLES = {
   // cn function needed for prettier tailwind class sorting
   input: cn(
-    "w-full rounded-md border-1 border-gray-300 bg-gray-100 px-3 py-2 text-center text-black-800 shadow-md shadow-brand-700/10 ring-brand-500 outline-none focus:ring-2",
+    "rounded-md border-1 border-gray-300 bg-gray-100 px-3 py-2 text-center text-black-800 shadow-md shadow-brand-700/10 ring-brand-500 outline-none focus:ring-2",
   ),
 };
 

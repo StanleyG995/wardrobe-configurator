@@ -2,7 +2,7 @@
 
 import Sidebar from "@/components/ui/controls/Sidebar";
 import Render from "@/components/scene/Render";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { PiArrowLeft, PiArrowRight } from "react-icons/pi";
 import { useWardrobeHistory } from "@/hooks/useUndoRedo";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 import { cn } from "@/helpers/cn";
@@ -45,7 +45,7 @@ export default function Home() {
         }}
         className="fixed top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-l-md border border-r-0 border-gray-400 bg-gray-50 text-black-800 shadow-md shadow-brand-700/10 transition-all duration-300"
       >
-        {isSidebarOpen ? <FaChevronRight className="translate-x-[1px] text-[14px]" /> : <FaChevronLeft className="-translate-x-[1px] text-[14px]" />}
+        {isSidebarOpen ? <PiArrowRight className="translate-x-[1px] text-[14px]" /> : <PiArrowLeft className="-translate-x-[1px] text-[14px]" />}
       </button>
     </main>
   );

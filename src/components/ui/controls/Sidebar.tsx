@@ -6,7 +6,8 @@ import InputRange from "@/components/ui/primitives/InputRange";
 import Select from "@/components/ui/primitives/Select";
 import { cn } from "@/helpers/cn";
 import { RxDimensions, RxLayers, RxLayout } from "react-icons/rx";
-import Button from "../primitives/Button";
+import Button from "@/components/ui/primitives/Button";
+import BayCard from "@/components/ui/primitives/BayCard";
 
 const Sidebar = () => {
   const wardrobe = useWardrobeStore((state) => state.wardrobe);
@@ -120,20 +121,17 @@ const Sidebar = () => {
           <RxLayout className={STYLES.headingIcon} />
           <h2 className={cn(STYLES.heading, STYLES.heading2)}>Segments</h2>
         </div>
-        <div className={STYLES.segmentBoxes}>
+        <div className={STYLES.bayCardsContainer}>
           {wardrobe.segments?.map((segment, idx) => (
-            <div
+            <BayCard
+              id={segment.id}
               key={segment.id}
               onClick={() => setActiveSegmentIdx(idx)}
-              className={segment.id === activeSegment?.id ? STYLES.segmentBox : STYLES.segmentBoxActive}
-            >
-              <div className="flex flex-col">
-                <span className="font-semibold text-black-800">Bay {idx + 1}</span>
-              </div>
-              <span className="border-1 border-gray-400 bg-gray-200 px-2 py-0.5 text-xs text-black-600">
-                {segment.type === "shelves" ? `${segment.shelves.length} shelves` : segment.type}
-              </span>
-            </div>
+              segmentType={segment.type}
+              idx={idx}
+              shelves={segment.shelves}
+            />
+          
           ))}
         </div>
 
@@ -160,12 +158,8 @@ const Sidebar = () => {
             {activeSegment?.type === "shelves" && (
               <div className="flex flex-col gap-2">
                 <div className="flex flex-row gap-2">
-                  <Button onClick={() => removeShelfFromSegment(activeSegmentIdx)}>
-                    - Remove Shelf
-                  </Button>
-                  <Button onClick={() => addShelfToSegment(activeSegmentIdx)}>
-                    + Add Shelf
-                  </Button>
+                  <Button onClick={() => removeShelfFromSegment(activeSegmentIdx)}>- Remove Shelf</Button>
+                  <Button onClick={() => addShelfToSegment(activeSegmentIdx)}>+ Add Shelf</Button>
                 </div>
               </div>
             )}
@@ -194,13 +188,7 @@ const STYLES = {
   heading3: cn("text-sm tracking-wider uppercase"),
   headingIcon: cn("text-xl text-brand-500"),
 
-  segmentBoxes: cn("height-[100px] flex w-full flex-row flex-nowra gap-2"),
-  segmentBox: cn(
-    "align-center transition-box flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[10px] border-black-400 border-b-brand-500 p-2 transition-all",
-  ),
-  segmentBoxActive: cn(
-    "align-center flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-black-400 p-2 transition-all",
-  ),
+  bayCardsContainer: cn("height-[100px] flex w-full flex-row flex-nowra gap-2")
 };
 
 export default Sidebar;
