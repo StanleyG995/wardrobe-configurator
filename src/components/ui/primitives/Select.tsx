@@ -8,7 +8,7 @@ const Select = ({ id, label, options, value, onChange }: SelectProps) => {
       <Label htmlFor={id}>{label}</Label>
       <select value={value} onChange={(e) => onChange(e.target.value)} className={STYLES.select}>
         {options.map((option) => (
-          <option key={option.value} value={option.value} selected={option.value === value}>
+          <option key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}
@@ -17,6 +17,6 @@ const Select = ({ id, label, options, value, onChange }: SelectProps) => {
   );
 };
 const STYLES = {
-  select: cn("bg-white-700 w-full border-1 border-black-400 p-2 text-black-900 outline-none"),
+  select: cn("bg-white-700 w-full border-1 border-black-400 p-2 text-black-900 outline-none mt-1"),
 };
 export default Select;

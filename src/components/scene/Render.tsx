@@ -5,7 +5,7 @@ import { OrbitControls, ContactShadows, Environment, useTexture } from "@react-t
 
 import Floor from "@/components/scene/environment/Floor";
 import HumanScale from "@/components/scene/environment/HumanScale";
-import ViewportControls from "@/components/ui/controls/Viewpor";
+import ViewportControls from "@/components/ui/controls/Viewport";
 import HistoryControls from "@/components/ui/controls/History";
 
 import WardrobeCase from "@/components/scene/wardrobe/WardrobeCase";

@@ -12,12 +12,12 @@ export default function Home() {
 
   const isSidebarOpen = useWardrobeStore((state) => state.isSidebarOpen);
   const toggleSidebar = useWardrobeStore((state) => state.toggleSidebar);
-  const SIDEBAR_WIDTH = 400;
+  const SIDEBAR_WIDTH = 420;
 
   return (
-    <main className="relative flex h-screen w-full overflow-hidden bg-white">
+    <main className={STYLES.main}>
       <div
-        className="relative h-full bg-white transition-all duration-300 ease-in-out"
+        className={STYLES.renderContainer}
         style={{
           width: isSidebarOpen ? `calc(100% - ${SIDEBAR_WIDTH}px)` : "100%",
         }}
@@ -26,9 +26,8 @@ export default function Home() {
       </div>
 
       <div
-        className={cn(
-          `absolute top-0 right-0 flex h-full w-[${SIDEBAR_WIDTH}px] flex-col border-l border-gray-400 bg-gradient-to-t from-gray-100 to-gray-200 text-white shadow-2xl backdrop-blur-xl transition-transform duration-300 ease-in-out`,
-        )}
+        className={cn(STYLES.sidebarContainer, `w-[${SIDEBAR_WIDTH}px]`)}
+
         style={{
           width: `${SIDEBAR_WIDTH}px`,
           transform: isSidebarOpen ? "translateX(0)" : "translateX(100%)",
@@ -51,3 +50,12 @@ export default function Home() {
     </main>
   );
 }
+
+const STYLES = {
+  main: cn("relative flex h-screen w-full overflow-hidden bg-white"),
+  renderContainer: cn("relative h-full bg-white transition-all duration-300 ease-in-out"),
+  sidebarContainer: cn(
+    "absolute top-0 right-0 flex h-full flex-col border-l border-gray-400 bg-gradient-to-t from-gray-100 to-gray-200 text-white shadow-2xl backdrop-blur-xl transition-transform duration-300 ease-in-out",
+  ),
+  heading: cn("font-semibold text-black-900"),
+};

@@ -82,10 +82,10 @@ const ViewportControls = () => {
 const STYLES = {
   // cn function needed for prettier tailwind class sorting
   icon: cn("mr-2 text-lg"),
-  priceContainer: cn("absolute top-3 right-3 z-999 flex flex-col border-1 border-black-800 bg-gray-100 p-3 pb-2 text-black-800"),
-  priceCurrency: cn("text-lg"),
-  priceLabel: cn('text-black-500'),
-  price: cn("text-[46px] leading-none font-semibold"),
+  priceContainer: cn("absolute top-3 right-3 z-999 flex flex-col border-1 border-black-800 bg-gray-100 p-3 pb-2"),
+  price: cn("text-4xl leading-none font-semibold text-brand-500"),
+  priceCurrency: cn("font-normal text-lg text-black-700"),
+  priceLabel: cn("text-black-800"),
   button: cn("bg-blur-2 flex cursor-pointer items-center justify-start gap-2 border-1 border-black-800 px-3 py-2 text-[12px] transition-colors duration-200"),
   buttonActive: cn("bg-black-800 text-gray-100"),
   buttonInactive: cn("bg-gray-100 text-black-800"),
