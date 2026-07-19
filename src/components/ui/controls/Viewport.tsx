@@ -2,6 +2,7 @@ import { FaRuler, FaUser, FaDoorClosed, FaBorderAll, FaDoorOpen } from "react-ic
 import { IoMdMale, IoMdFemale } from "react-icons/io";
 import { cn } from "@/helpers/cn";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
+import Button from "@/components/ui/primitives/Button";
 
 const ViewportControls = () => {
   const viewportOptions = useWardrobeStore((state) => state.viewportOptions);
@@ -12,61 +13,71 @@ const ViewportControls = () => {
   return (
     <>
       <div className="absolute z-50 flex flex-row gap-3 p-3">
-        <button
+        <Button
           onClick={() => handleViewportToggle("dimensionsVisible")}
-          className={`${STYLES.button} ${viewportOptions.dimensionsVisible ? STYLES.buttonActive : STYLES.buttonInactive}`}
+          className={cn(STYLES.button, viewportOptions.dimensionsVisible ? STYLES.buttonActive : STYLES.buttonInactive)}
+          icon={<FaRuler className={STYLES.icon} />}
+          iconPosition="left"
         >
-          <FaRuler className={STYLES.icon} />
-          {viewportOptions.dimensionsVisible ? "Hide" : "Show"} Dimensions
-        </button>
+          {viewportOptions.dimensionsVisible ? "Hide" : "Show"} dimensions
+        </Button>
 
-        <button
+        <Button
           onClick={() => handleViewportToggle("humanScaleVisible")}
-          className={`${STYLES.button} ${viewportOptions.humanScaleVisible ? STYLES.buttonActive : STYLES.buttonInactive}`}
+          className={cn(STYLES.button, viewportOptions.humanScaleVisible ? STYLES.buttonActive : STYLES.buttonInactive)}
+          icon={<FaUser className={STYLES.icon} />}
+          iconPosition="left"
         >
-          <FaUser className={STYLES.icon} />
           {viewportOptions.humanScaleVisible ? "Hide" : "Show"} human scale
-        </button>
+        </Button>
 
         {viewportOptions.humanScaleVisible && (
-          <button onClick={() => handleViewportGenderToggle()} className={`${STYLES.button} ${STYLES.buttonActive}`}>
+          <Button
+            onClick={() => handleViewportGenderToggle()}
+            className={cn(STYLES.button, STYLES.buttonActive)}
+            icon={viewportOptions.humanScaleGender === "male" ? <IoMdMale className={STYLES.icon} /> : <IoMdFemale className={STYLES.icon} />}
+            iconPosition="left"
+          >
             {viewportOptions.humanScaleGender === "male" ? (
               <>
-                <IoMdMale className={STYLES.icon} /> Male
+                Male
               </>
             ) : (
               <>
-                <IoMdFemale className={STYLES.icon} /> Female
+                Female
               </>
             )}
-          </button>
+          </Button>
         )}
 
-        <button
+        <Button
           onClick={() => handleViewportToggle("doorsVisible")}
-          className={`${STYLES.button} ${viewportOptions.doorsVisible ? STYLES.buttonActive : STYLES.buttonInactive}`}
+          className={cn(STYLES.button, viewportOptions.doorsVisible ? STYLES.buttonActive : STYLES.buttonInactive)}
+          icon={<FaDoorClosed className={STYLES.icon} />}
+          iconPosition="left"
         >
-          <FaDoorClosed className={STYLES.icon} />
           {viewportOptions.doorsVisible ? "Hide" : "Show"} doors
-        </button>
+        </Button>
 
         {viewportOptions.doorsVisible && (
-          <button
+          <Button
             onClick={() => handleViewportToggle("doorsOpen")}
-            className={`${STYLES.button} ${viewportOptions.doorsOpen ? STYLES.buttonActive : STYLES.buttonInactive}`}
+            className={cn(STYLES.button, viewportOptions.doorsOpen ? STYLES.buttonActive : STYLES.buttonInactive)}
+            icon={<FaDoorOpen className={STYLES.icon} />}
+            iconPosition="left"
           >
-            <FaDoorOpen className={STYLES.icon} />
             {viewportOptions.doorsOpen ? "Close" : "Open"} Doors
-          </button>
+          </Button>
         )}
 
-        <button
+        <Button
           onClick={() => handleViewportToggle("floorVisible")}
-          className={`${STYLES.button} ${viewportOptions.floorVisible ? STYLES.buttonActive : STYLES.buttonInactive}`}
+          className={cn(STYLES.button, viewportOptions.floorVisible ? STYLES.buttonActive : STYLES.buttonInactive)}
+          icon={<FaBorderAll className={STYLES.icon} />}
+          iconPosition="left"
         >
-          <FaBorderAll className={STYLES.icon} />
           {viewportOptions.floorVisible ? "Hide" : "Show"} Floor
-        </button>
+        </Button>
       </div>
 
       <div className={STYLES.priceContainer}>
@@ -84,7 +95,7 @@ const STYLES = {
   icon: cn("mr-2 text-lg"),
   priceContainer: cn("absolute top-3 right-3 z-999 flex flex-col border-1 border-black-800 bg-gray-100 p-3 pb-2"),
   price: cn("text-4xl leading-none font-semibold text-brand-500"),
-  priceCurrency: cn("font-normal text-lg text-black-700"),
+  priceCurrency: cn("text-lg font-normal text-black-700"),
   priceLabel: cn("text-black-800"),
   button: cn("bg-blur-2 flex cursor-pointer items-center justify-start gap-2 border-1 border-black-800 px-3 py-2 text-[12px] transition-colors duration-200"),
   buttonActive: cn("bg-black-800 text-gray-100"),
