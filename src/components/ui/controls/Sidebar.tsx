@@ -93,7 +93,7 @@ const Sidebar = () => {
           value={wardrobe.caseMaterial}
           onChange={(val) => setMaterial("caseMaterial", val)}
           options={[
-            { value: "dark-wood", label: "Dark Wood", img: '/dark-wood.webp'},
+            { value: "dark-wood", label: "Dark Wood" },
             { value: "light-wood", label: "Light Wood" },
             { value: "white", label: "White" },
             { value: "black", label: "Black" },
@@ -149,11 +149,11 @@ const Sidebar = () => {
 
             {activeSegment?.type === "shelves" && (
               <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-2 items-center">
+                <div className="flex flex-row items-center gap-2">
                   <Button fullWidth={true} onClick={() => removeShelfFromSegment(activeSegmentIdx)}>
                     - Remove
                   </Button>
-                   <span className="text-center mx-4">{activeSegment.shelves.length}</span>
+                  <span className="mx-4 text-center">{activeSegment.shelves.length}</span>
                   <Button fullWidth={true} onClick={() => addShelfToSegment(activeSegmentIdx)}>
                     + Add
                   </Button>
