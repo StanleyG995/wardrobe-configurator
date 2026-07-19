@@ -18,6 +18,7 @@ const Viewport = () => {
           icon={<PiRuler className={STYLES.icon} />}
           iconPosition="left"
           active={viewportOptions.dimensionsVisible}
+          toggleable={true}
         >
           {viewportOptions.dimensionsVisible ? "Hide" : "Show"} dimensions
         </Button>
@@ -27,6 +28,7 @@ const Viewport = () => {
           icon={<PiUser className={STYLES.icon} />}
           iconPosition="left"
           active={viewportOptions.humanScaleVisible}
+          toggleable={true}
         >
           {viewportOptions.humanScaleVisible ? "Hide" : "Show"} human scale
         </Button>
@@ -37,6 +39,7 @@ const Viewport = () => {
             icon={viewportOptions.humanScaleGender === "male" ? <PiGenderMale className={STYLES.icon} /> : <PiGenderFemale className={STYLES.icon} />}
             iconPosition="left"
             active={true}
+            toggleable={true}
           >
             {viewportOptions.humanScaleGender === "male" ? <>Male</> : <>Female</>}
           </Button>
@@ -47,6 +50,7 @@ const Viewport = () => {
           icon={<PiDoor className={STYLES.icon} />}
           iconPosition="left"
           active={viewportOptions.doorsVisible}
+          toggleable={true}
         >
           {viewportOptions.doorsVisible ? "Hide" : "Show"} doors
         </Button>
@@ -57,6 +61,7 @@ const Viewport = () => {
             icon={<PiDoorOpen className={STYLES.icon} />}
             iconPosition="left"
             active={viewportOptions.doorsOpen}
+            toggleable={true}
           >
             {viewportOptions.doorsOpen ? "Close" : "Open"} Doors
           </Button>
@@ -67,6 +72,7 @@ const Viewport = () => {
           icon={<PiGridFour className={STYLES.icon} />}
           iconPosition="left"
           active={viewportOptions.floorVisible}
+          toggleable={true}
         >
           {viewportOptions.floorVisible ? "Hide" : "Show"} Floor
         </Button>

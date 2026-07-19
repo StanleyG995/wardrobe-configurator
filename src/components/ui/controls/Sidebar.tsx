@@ -77,7 +77,7 @@ const Sidebar = () => {
 
         <Select
           id="handle-type"
-          label="Handle Type"
+          label="Handle type"
           value={wardrobe.handleType}
           onChange={(val) => setHandleType(val as "straight" | "knob" | "none")}
           options={[
@@ -88,8 +88,8 @@ const Sidebar = () => {
         />
 
         <Select
-          id="handle-type"
-          label="Handle Type"
+          id="case-material"
+          label="Case material"
           value={wardrobe.caseMaterial}
           onChange={(val) => setMaterial("caseMaterial", val)}
           options={[
@@ -103,7 +103,7 @@ const Sidebar = () => {
 
         <Select
           id="door-material"
-          label="Door Material"
+          label="Door material"
           value={wardrobe.doorMaterial}
           onChange={(val) => setMaterial("doorMaterial", val)}
           options={[
@@ -165,7 +165,7 @@ const Sidebar = () => {
               Change door position: <strong>{activeSegment.doorPosition}</strong>
             </Button>
 
-            <Button fullWidth={true} onClick={() => toggleDoorMirror(activeSegmentIdx)}>
+            <Button toggleable={true} active={activeSegment.mirror} fullWidth={true} onClick={() => toggleDoorMirror(activeSegmentIdx)}>
               Has mirror: <strong>{activeSegment.mirror ? "Yes" : "No"}</strong>
             </Button>
           </div>
