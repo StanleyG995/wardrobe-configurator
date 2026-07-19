@@ -6,6 +6,7 @@ import InputRange from "@/components/ui/primitives/InputRange";
 import Select from "@/components/ui/primitives/Select";
 import { cn } from "@/helpers/cn";
 import { RxDimensions, RxLayers, RxLayout } from "react-icons/rx";
+import Button from "../primitives/Button";
 
 const Sidebar = () => {
   const wardrobe = useWardrobeStore((state) => state.wardrobe);
@@ -159,23 +160,23 @@ const Sidebar = () => {
             {activeSegment?.type === "shelves" && (
               <div className="flex flex-col gap-2">
                 <div className="flex flex-row gap-2">
-                  <button onClick={() => removeShelfFromSegment(activeSegmentIdx)} className={STYLES.button}>
+                  <Button onClick={() => removeShelfFromSegment(activeSegmentIdx)}>
                     - Remove Shelf
-                  </button>
-                  <button onClick={() => addShelfToSegment(activeSegmentIdx)} className={STYLES.button}>
+                  </Button>
+                  <Button onClick={() => addShelfToSegment(activeSegmentIdx)}>
                     + Add Shelf
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}
 
-            <button onClick={() => handleDoorPositionChange(activeSegmentIdx)} className={STYLES.button}>
+            <Button onClick={() => handleDoorPositionChange(activeSegmentIdx)}>
               Change door position: <strong>{activeSegment.doorPosition}</strong>
-            </button>
+            </Button>
 
-            <button onClick={() => toggleDoorMirror(activeSegmentIdx)} className={STYLES.button}>
+            <Button onClick={() => toggleDoorMirror(activeSegmentIdx)}>
               Has mirror: <strong>{activeSegment.mirror ? "Yes" : "No"}</strong>
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -185,7 +186,7 @@ const Sidebar = () => {
 
 const STYLES = {
   sidebar: cn("flex h-full w-full flex-col overflow-y-auto px-4 py-6 text-sm text-black-500"),
-  sidebarSection: cn("my-4 flex flex-col gap-2 border-b border-black-300 pb-4"),
+  sidebarSection: cn("my-4 flex flex-col gap-2 pb-2"),
 
   heading: cn("leading-none font-semibold text-black-900"),
   heading1: cn("text-2xl"),
@@ -193,7 +194,6 @@ const STYLES = {
   heading3: cn("text-sm tracking-wider uppercase"),
   headingIcon: cn("text-xl text-brand-500"),
 
-  button: cn("bg-white-700 w-full cursor-pointer border-1 border-black-400 p-2 text-black-900 outline-none"),
   segmentBoxes: cn("height-[100px] flex w-full flex-row flex-nowra gap-2"),
   segmentBox: cn(
     "align-center transition-box flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[10px] border-black-400 border-b-brand-500 p-2 transition-all",

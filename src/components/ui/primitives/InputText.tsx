@@ -24,11 +24,7 @@ const InputText = (InputData: InputTextProps) => {
 
   return (
     <div className="flex flex-row items-center gap-3 py-2">
-      {InputData.label && (
-        <Label htmlFor={InputData.id}>
-          {InputData.label}
-        </Label>
-      )}
+      {InputData.label && <Label htmlFor={InputData.id}>{InputData.label}</Label>}
       <input
         ref={inputRef}
         id={InputData.id}
@@ -56,7 +52,9 @@ const InputText = (InputData: InputTextProps) => {
 
 const STYLES = {
   // cn function needed for prettier tailwind class sorting
-  input: cn("w-[100px] border-1 border-black-800 px-2 py-1 text-center text-black-800 outline-none focus:ring-1"),
+  input: cn(
+    "w-full rounded-md border-1 border-gray-300 bg-gray-100 px-3 py-2 text-center text-black-800 shadow-md shadow-brand-700/10 ring-brand-500 outline-none focus:ring-2",
+  ),
 };
 
 export default InputText;

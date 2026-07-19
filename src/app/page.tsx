@@ -43,7 +43,7 @@ export default function Home() {
         style={{
           right: isSidebarOpen ? `${SIDEBAR_WIDTH}px` : "0px",
         }}
-        className="fixed top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center border border-gray-800 bg-gray-100 text-gray-800 shadow-lg transition-all duration-300"
+        className="fixed top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-l-md border border-r-0 border-gray-400 bg-gray-50 text-black-800 shadow-md shadow-brand-700/10 transition-all duration-300"
       >
         {isSidebarOpen ? <FaChevronRight className="translate-x-[1px] text-[14px]" /> : <FaChevronLeft className="-translate-x-[1px] text-[14px]" />}
       </button>

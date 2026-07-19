@@ -44,18 +44,17 @@ const InputRange = (InputData: InputRangeProps) => {
 const STYLES = {
   // cn function needed for prettier tailwind class sorting
   input: cn(
-    "w-full cursor-pointer appearance-none bg-transparent focus:outline-none",
-    
+    "w-full cursor-pointer appearance-none bg-transparent outline-none focus:outline-none",
     "[&::-webkit-slider-runnable-track]:h-[2px] [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-gray-300",
-    
-    "[&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-500 [&::-webkit-slider-thumb]:shadow-md",
-    
-    "[&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:duration-150 [&::-webkit-slider-thumb]:hover:scale-125",
-    
-    "[&::-webkit-slider-thumb]:-mt-[4px]"
+    "[&::-moz-range-track]:h-[2px] [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-gray-300",
+    "[&::-webkit-slider-thumb]:-mt-[5px] [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-500 [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:duration-150",
+    "[&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:bg-brand-500 [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:transition-all [&::-moz-range-thumb]:duration-150",
+    "[&::-moz-range-thumb]:hover:scale-125 [&::-webkit-slider-thumb]:hover:scale-125",
+    "focus:[&::-moz-range-thumb]:scale-125 focus:[&::-webkit-slider-thumb]:scale-125",
+    "focus:[&::-moz-range-thumb]:shadow-[0_0_0_4px_var(--color-brand-200)] focus:[&::-webkit-slider-thumb]:shadow-[0_0_0_4px_var(--color-brand-200)]",
   ),
-  minValue: cn("w-50 text-[14px]"),
-  maxValue: cn("w-50 text-right text-[14px]"),
+  minValue: cn("w-50 text-xs font-medium"),
+  maxValue: cn("w-50 text-right text-xs font-medium"),
 };
 
 export default InputRange;

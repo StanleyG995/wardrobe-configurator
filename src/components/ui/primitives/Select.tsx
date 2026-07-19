@@ -17,6 +17,6 @@ const Select = ({ id, label, options, value, onChange }: SelectProps) => {
   );
 };
 const STYLES = {
-  select: cn("bg-white-700 w-full border-1 border-black-400 p-2 text-black-900 outline-none mt-1"),
+  select: cn("w-full rounded-md border-1 border-gray-300 bg-gray-100 px-3 py-2 text-left text-black-800 shadow-md shadow-brand-700/10 ring-brand-500 outline-none focus:ring-2 mt-2"),
 };
 export default Select;

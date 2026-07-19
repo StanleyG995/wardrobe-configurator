@@ -5,6 +5,7 @@ import { MdUndo, MdRedo } from "react-icons/md";
 import { useStore } from "zustand";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 import { cn } from "@/helpers/cn";
+import Button from "@/components/ui/primitives/Button";
 
 const HistoryControls = () => {
   const { undo, redo, pastStates, futureStates } = useStore(useWardrobeStore.temporal, (state) => state);
@@ -14,23 +15,11 @@ const HistoryControls = () => {
 
   return (
     <div className={STYLES.container}>
-      <button
-        onClick={() => undo()}
-        disabled={!canUndo}
-        title="Undo (Ctrl+Z)"
-        className={cn(STYLES.button, canUndo ? STYLES.buttonActive : STYLES.buttonDisabled)}
-      >
-        <MdUndo className="text-lg" />
-      </button>
+      <Button onClick={() => undo()} disabled={!canUndo} title="Undo (Ctrl+Z)" icon={<MdUndo className="text-lg" />} active={canUndo} iconPosition="left" />
 
-      <button
-        onClick={() => redo()}
-        disabled={!canRedo}
-        title="Redo (Ctrl+Y)"
-        className={cn(STYLES.button, canRedo ? STYLES.buttonActive : STYLES.buttonDisabled)}
-      >
-        <MdRedo className="text-lg" />
-      </button>
+      <Button onClick={() => redo()} disabled={!canRedo} title="Redo (Ctrl+Y)" icon={<MdRedo className="text-lg" />} active={canRedo}
+      iconPosition="left">
+      </Button>
     </div>
   );
 };
