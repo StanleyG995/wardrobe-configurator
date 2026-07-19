@@ -1,9 +1,11 @@
 "use client";
 
 import { useWardrobeStore } from "@/store/useWardrobeStore";
-import InputText from "@/components/ui/InputText";
-import InputRange from "@/components/ui/InputRange";
+import InputText from "@/components/ui/primitives/InputText";
+import InputRange from "@/components/ui/primitives/InputRange";
+import Select from "@/components/ui/primitives/Select";
 import { cn } from "@/helpers/cn";
+import { RxDimensions, RxLayers, RxLayout } from "react-icons/rx";
 
 const Sidebar = () => {
   const wardrobe = useWardrobeStore((state) => state.wardrobe);
@@ -26,14 +28,17 @@ const Sidebar = () => {
 
   return (
     <div className={STYLES.sidebar}>
-      <h1 className={STYLES.header1}>Configuration:</h1>
-      <h2 className={STYLES.header2}>Case dimensions:</h2>
+      <div className="mb-2 flex flex-row items-center gap-2">
+        <h1 className={cn(STYLES.heading, STYLES.heading1)}>Customize Wardrobe</h1>
+      </div>
+      <div className="flex flex-row items-center gap-2">
+        <RxDimensions className={STYLES.headingIcon} />
+        <h2 className={cn(STYLES.heading, STYLES.heading2)}>Case dimensions</h2>
+      </div>
+
       <div>
-        <div className={STYLES.inputRange}>
-          <label htmlFor="width" className={STYLES.label}>
-            Width: <InputText name="width" id="width" min={500} max={2400} value={wardrobe.dimensions.width} onUpdate={handleUpdateDimension} />
-            <span className="text-black-900">mm</span>
-          </label>
+        <div>
+          <InputText name="width" id="width" label="Width:" min={500} max={2400} value={wardrobe.dimensions.width} onUpdate={handleUpdateDimension} />
           <InputRange
             name="width"
             id="width-range"
@@ -42,17 +47,10 @@ const Sidebar = () => {
             value={wardrobe.dimensions.width}
             onUpdate={(key, value) => updateDimension(key, value)}
           />
-          <div className="flex flex-row justify-between gap-2">
-            <span className="w-50 text-[14px]">500 mm</span>
-            <span className="w-50 text-right text-[14px]">2400 mm</span>
-          </div>
         </div>
 
-        <div className="align-center flex flex-col justify-start gap-2 pb-2">
-          <label htmlFor="height" className={STYLES.label}>
-            Height: <InputText name="height" id="height" min={1800} max={2600} value={wardrobe.dimensions.height} onUpdate={handleUpdateDimension} />
-            <span className="text-black-900">mm</span>
-          </label>
+        <div>
+          <InputText name="height" id="height" label="Height:" min={1800} max={2600} value={wardrobe.dimensions.height} onUpdate={handleUpdateDimension} />
           <InputRange
             name="height"
             id="height-range"
@@ -61,17 +59,10 @@ const Sidebar = () => {
             value={wardrobe.dimensions.height}
             onUpdate={(key, value) => updateDimension(key, value)}
           />
-          <div className="flex flex-row justify-between gap-2">
-            <span className="w-50 text-[14px]">1800 mm</span>
-            <span className="w-50 text-right text-[14px]">2700 mm</span>
-          </div>
         </div>
 
-        <div className="align-center flex flex-col justify-start gap-4">
-          <label htmlFor="depth" className={STYLES.label}>
-            Depth: <InputText name="depth" id="depth" min={400} max={800} value={wardrobe.dimensions.depth} onUpdate={handleUpdateDimension} />
-            <span className="text-black-900"> mm</span>
-          </label>
+        <div>
+          <InputText name="depth" id="depth" label="Depth:" min={400} max={800} value={wardrobe.dimensions.depth} onUpdate={handleUpdateDimension} />
           <InputRange
             name="depth"
             id="depth-range"
@@ -80,34 +71,30 @@ const Sidebar = () => {
             value={wardrobe.dimensions.depth}
             onUpdate={(key, value) => updateDimension(key, value)}
           />
-          <div className="flex flex-row justify-between gap-2">
-            <span className="w-50 text-[14px]">400 mm</span>
-            <span className="w-50 text-right text-[14px]">800 mm</span>
-          </div>
         </div>
       </div>
 
       <div className="flex flex-col gap-2 border-b border-black-300 pb-6">
-        <h2 className={STYLES.header2}>Materials & Handles:</h2>
-
-        <label htmlFor="handleType" className={STYLES.label}>
-          Handle Type:{" "}
-        </label>
-        <select
-          id="handleType"
+        <div className="flex flex-row items-center gap-2">
+          <RxLayers className={STYLES.headingIcon} />
+          <h2 className={cn(STYLES.heading, STYLES.heading2)}>Materials & Handles</h2>
+        </div>
+      
+        <Select
+          id="handle-type"
+          label="Handle Type"
           value={wardrobe.handleType}
-          onChange={(e) => setHandleType(e.target.value as "straight" | "knob" | "none")}
-          className={STYLES.select}
-        >
-          <option value="straight">Straight Handle</option>
-          <option value="knob">Knob Handle</option>
-          <option value="none">No Handles (Push-to-open)</option>
-        </select>
+          onChange={(val) => setHandleType(val as "straight" | "knob" | "none")}
+          options={[
+            { value: "straight", label: "Straight" },
+            { value: "knob", label: "Knob" },
+            { value: "none", label: "None" },
+          ]}
+        />
 
         <label htmlFor="caseMaterial" className={STYLES.label}>
           Case Material:{" "}
         </label>
-
         <select id="caseMaterial" value={wardrobe.caseMaterial} onChange={(e) => setMaterial("caseMaterial", e.target.value)} className={STYLES.select}>
           <option value="dark-wood">Dark Wood</option>
           <option value="light-wood">Light Wood</option>
@@ -115,7 +102,6 @@ const Sidebar = () => {
           <option value="black">Black</option>
           <option value="graphite">Graphite</option>
         </select>
-
         <label htmlFor="doorMaterial" className={STYLES.label}>
           Door Material:{" "}
         </label>
@@ -129,22 +115,21 @@ const Sidebar = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <h2 className={STYLES.header2}>Segment:</h2>
+        <div className="flex flex-row items-center gap-2">
+          <RxLayout className={STYLES.headingIcon} />
+          <h2 className={cn(STYLES.heading, STYLES.heading2)}>Segments</h2>
+        </div>
         <div className={STYLES.segmentBoxes}>
           {wardrobe.segments?.map((segment, idx) => (
             <div
               key={segment.id}
               onClick={() => setActiveSegmentIdx(idx)}
-              className={
-                segment.id === activeSegment?.id
-                  ? STYLES.segmentBox
-                  : STYLES.segmentBoxActive
-              }
+              className={segment.id === activeSegment?.id ? STYLES.segmentBox : STYLES.segmentBoxActive}
             >
               <div className="flex flex-col">
                 <span className="font-semibold text-black-800">Bay {idx + 1}</span>
               </div>
-              <span className="border-1 border-gray-400 bg-gray-200 px-2 py-0.5 text-[14px] text-black-600">
+              <span className="border-1 border-gray-400 bg-gray-200 px-2 py-0.5 text-xs text-black-600">
                 {segment.type === "shelves" ? `${segment.shelves.length} shelves` : segment.type}
               </span>
             </div>
@@ -155,7 +140,7 @@ const Sidebar = () => {
       {activeSegmentIdx !== null && activeSegment && (
         <div className="animate-fade-in flex flex-col gap-2 pt-2">
           <div className="flex flex-col gap-1 border-b border-black-800 pb-2">
-            <h3 className="text-[18px] font-[600] text-black-900">Bay {activeSegmentIdx + 1} Configuration</h3>
+            <h3 className={cn(STYLES.heading, STYLES.heading3)}>Bay {activeSegmentIdx + 1} Configuration</h3>
           </div>
 
           <div className="flex flex-col gap-1">
@@ -203,16 +188,23 @@ const Sidebar = () => {
 };
 
 const STYLES = {
-  sidebar: cn("flex h-full w-full flex-col gap-6 overflow-y-auto p-6 text-black-500"),
-  header1: cn("text-3xl font-semibold text-black-900"),
-  header2: cn("text-2xl font-semibold text-black-900"),
+  sidebar: cn("flex h-full w-full flex-col overflow-y-auto px-4 py-6 text-sm text-black-500"),
+  heading: cn("font-semibold text-black-900"),
+  heading1: cn("text-2xl"),
+  heading2: cn("text-base tracking-wider uppercase"),
+  heading3: cn("text-sm tracking-wider uppercase"),
+  headingIcon: cn("text-xl text-brand-500"),
   select: cn("bg-white-700 w-full border-1 border-black-400 p-2 text-black-900 outline-none"),
   inputRange: cn('align-center pb-2" flex flex-col justify-start gap-2'),
   button: cn("bg-white-700 w-full cursor-pointer border-1 border-black-400 p-2 text-black-900 outline-none"),
   label: cn("flex w-full flex-row items-center justify-start gap-2"),
-  segmentBoxes: cn('height-[100px] flex w-full flex-row flex-nowrap'),
-  segmentBox: cn('align-center transition-box flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[10px] border-black-400 border-b-brand-500 p-2 transition-all'),
-  segmentBoxActive: cn('align-center flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-black-400 p-2 transition-all'),
+  segmentBoxes: cn("height-[100px] flex w-full flex-row flex-nowrap"),
+  segmentBox: cn(
+    "align-center transition-box flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-b-[10px] border-black-400 border-b-brand-500 p-2 transition-all",
+  ),
+  segmentBoxActive: cn(
+    "align-center flex h-[100px] w-[25%] cursor-pointer flex-col items-center justify-center gap-2 border border-black-400 p-2 transition-all",
+  ),
 };
 
 export default Sidebar;
