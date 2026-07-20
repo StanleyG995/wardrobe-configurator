@@ -2,7 +2,6 @@ import { BayCardProps } from "@/types/BayCardProps";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 import { cn } from "@/helpers/cn";
 import { PiCoatHanger, PiSquare } from "react-icons/pi";
-import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { BsBookshelf } from "react-icons/bs";
 
 const BayCard = ({ id, idx, segmentType, shelves, onClick }: BayCardProps) => {
