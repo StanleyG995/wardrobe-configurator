@@ -160,14 +160,15 @@ const Sidebar = () => {
                 </div>
               </div>
             )}
+            <div className="row flex gap-2">
+              <Button fullWidth={true} onClick={() => handleDoorPositionChange(activeSegmentIdx)}>
+                Door side: <strong>{activeSegment.doorPosition}</strong>
+              </Button>
 
-            <Button fullWidth={true} onClick={() => handleDoorPositionChange(activeSegmentIdx)}>
-              Change door position: <strong>{activeSegment.doorPosition}</strong>
-            </Button>
-
-            <Button toggleable={true} active={activeSegment.mirror} fullWidth={true} onClick={() => toggleDoorMirror(activeSegmentIdx)}>
-              Has mirror: <strong>{activeSegment.mirror ? "Yes" : "No"}</strong>
-            </Button>
+              <Button toggleable={true} active={activeSegment.mirror} fullWidth={true} onClick={() => toggleDoorMirror(activeSegmentIdx)}>
+                Has mirror: <strong>{activeSegment.mirror ? "Yes" : "No"}</strong>
+              </Button>
+            </div>
           </div>
         )}
       </div>
