@@ -10,6 +10,7 @@ import * as THREE from "three";
 const HITBOX_COLOR = "#4282ac";
 const ACTIVE_OPACITY = 0.6;
 const INACTIVE_OPACITY = 0;
+const HITBOX_OFFSET = 10;
 
 function Hitboxes({}) {
   const {
@@ -68,7 +69,7 @@ function Hitboxes({}) {
               args={[
                 toMeters(compartmentWidth),
                 toMeters(innerHeight),
-                toMeters(depth),
+                toMeters(depth-HITBOX_OFFSET),
               ]}
             />
             <meshBasicMaterial

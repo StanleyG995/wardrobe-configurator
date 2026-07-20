@@ -22,7 +22,7 @@ const Viewport = () => {
         >
           {viewportOptions.dimensionsVisible ? "Hide" : "Show"} dimensions
         </Button>
-
+      
         <Button
           onClick={() => handleViewportToggle("humanScaleVisible")}
           icon={<PiUser className={STYLES.icon} />}
@@ -39,7 +39,6 @@ const Viewport = () => {
             icon={viewportOptions.humanScaleGender === "male" ? <PiGenderMale className={STYLES.icon} /> : <PiGenderFemale className={STYLES.icon} />}
             iconPosition="left"
             active={true}
-            toggleable={true}
           >
             {viewportOptions.humanScaleGender === "male" ? <>Male</> : <>Female</>}
           </Button>
@@ -63,7 +62,7 @@ const Viewport = () => {
             active={viewportOptions.doorsOpen}
             toggleable={true}
           >
-            {viewportOptions.doorsOpen ? "Close" : "Open"} Doors
+            {viewportOptions.doorsOpen ? "Close" : "Open"}
           </Button>
         )}
 

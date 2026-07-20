@@ -8,6 +8,7 @@ import { cn } from "@/helpers/cn";
 import { RxDimensions, RxLayers, RxLayout } from "react-icons/rx";
 import Button from "@/components/ui/primitives/Button";
 import BayCard from "@/components/ui/primitives/BayCard";
+import SwatchGrid from "@/components/ui/primitives/SwatchGrid";
 
 const Sidebar = () => {
   const wardrobe = useWardrobeStore((state) => state.wardrobe);
@@ -95,33 +96,30 @@ const Sidebar = () => {
             { value: "none", label: "None" },
           ]}
         />
-
-        <Select
-          id="case-material"
-          label="Case material"
+        <SwatchGrid
+          label = 'Case material'
+          options = {[
+            { label: 'Dark wood',  value: 'dark-wood', img: '/textures/dark-wood.webp'},
+            { label: 'Light wood',  value: 'light-wood', img: '/textures/light-wood.webp'},
+            { label: 'White', value: 'white', color: '#ffffff' },
+            { label: 'Black', value: 'black', color: '#222222' },
+            { label: 'Graphite', value: 'graphite', color: '#4e6070'}
+          ]}
           value={wardrobe.caseMaterial}
           onChange={(val) => setMaterial("caseMaterial", val)}
-          options={[
-            { value: "dark-wood", label: "Dark Wood" },
-            { value: "light-wood", label: "Light Wood" },
-            { value: "white", label: "White" },
-            { value: "black", label: "Black" },
-            { value: "graphite", label: "Graphite" },
-          ]}
         />
 
-        <Select
-          id="door-material"
-          label="Door material"
+        <SwatchGrid
+          label = 'Door material'
+          options = {[
+            { label: 'Dark wood',  value: 'dark-wood', img: '/textures/dark-wood.webp'},
+            { label: 'Light wood',  value: 'light-wood', img: '/textures/light-wood.webp'},
+            { label: 'White', value: 'white', color: '#ffffff' },
+            { label: 'Black', value: 'black', color: '#222222' },
+            { label: 'Graphite', value: 'graphite', color: '#4e6070'}
+          ]}
           value={wardrobe.doorMaterial}
           onChange={(val) => setMaterial("doorMaterial", val)}
-          options={[
-            { value: "dark-wood", label: "Dark Wood" },
-            { value: "light-wood", label: "Light Wood" },
-            { value: "white", label: "White" },
-            { value: "black", label: "Black" },
-            { value: "graphite", label: "Graphite" },
-          ]}
         />
       </div>
 
