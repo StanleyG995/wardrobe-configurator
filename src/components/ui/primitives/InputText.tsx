@@ -54,10 +54,10 @@ const InputText = (InputData: InputTextProps) => {
 const STYLES = {
   // cn function needed for prettier tailwind class sorting
   input: cn(
-    "rounded-md border-1 border-gray-300 bg-gray-100 px-3 py-2 text-center text-black-800 shadow-md shadow-brand-700/10 ring-brand-500 outline-none focus:ring-2",
+    "rounded-md border-1 border-gray-300 bg-gray-100 px-2 py-1 md:px-3 md:py-2 text-center text-black-800 shadow-md shadow-brand-700/10 ring-brand-500 outline-none focus:ring-2",
   ),
-  inputS: cn('text-sm'),
-  inputM: cn('text-base'),
+  inputS: cn('text-xs md:text-sm'),
+  inputM: cn('text-s md:text-base'),
 };
 
 export default InputText;

@@ -12,7 +12,7 @@ const Viewport = () => {
 
   return (
     <>
-      <div className="absolute z-50 flex flex-row gap-3 p-3">
+      <div className="absolute z-50 flex md:flex-row  flex-col gap-2 md:gap-3 p-3">
         <Button
           onClick={() => handleViewportToggle("dimensionsVisible")}
           icon={<PiRuler className={STYLES.icon} />}
@@ -20,7 +20,9 @@ const Viewport = () => {
           active={viewportOptions.dimensionsVisible}
           toggleable={true}
         >
+          <span className="hidden md:inline">
           {viewportOptions.dimensionsVisible ? "Hide" : "Show"} dimensions
+          </span>
         </Button>
       
         <Button
@@ -30,7 +32,9 @@ const Viewport = () => {
           active={viewportOptions.humanScaleVisible}
           toggleable={true}
         >
+          <span className="hidden md:inline">
           {viewportOptions.humanScaleVisible ? "Hide" : "Show"} human scale
+          </span>
         </Button>
 
         {viewportOptions.humanScaleVisible && (
@@ -40,7 +44,9 @@ const Viewport = () => {
             iconPosition="left"
             active={true}
           >
+            <span className="hidden md:inline">
             {viewportOptions.humanScaleGender === "male" ? <>Male</> : <>Female</>}
+            </span>
           </Button>
         )}
 
@@ -51,7 +57,10 @@ const Viewport = () => {
           active={viewportOptions.doorsVisible}
           toggleable={true}
         >
-          {viewportOptions.doorsVisible ? "Hide" : "Show"} doors
+          <span className="hidden md:inline">
+            {viewportOptions.doorsVisible ? "Hide" : "Show"} doors
+          </span>  
+          
         </Button>
 
         {viewportOptions.doorsVisible && (
@@ -62,7 +71,9 @@ const Viewport = () => {
             active={viewportOptions.doorsOpen}
             toggleable={true}
           >
+            <span className="hidden md:inline">
             {viewportOptions.doorsOpen ? "Close" : "Open"}
+            </span>
           </Button>
         )}
 
@@ -73,7 +84,9 @@ const Viewport = () => {
           active={viewportOptions.floorVisible}
           toggleable={true}
         >
+          <span className="hidden md:inline">
           {viewportOptions.floorVisible ? "Hide" : "Show"} Floor
+          </span>
         </Button>
       </div>
 
@@ -89,11 +102,11 @@ const Viewport = () => {
 
 const STYLES = {
   // cn function needed for prettier tailwind class sorting
-  icon: cn("mr-2 text-lg"),
+  icon: cn(" text-lg"),
   priceContainer: cn("absolute top-3 right-3 z-999 flex flex-col rounded-md border-1 border-gray-200 bg-gray-50 p-3 pb-2 shadow-md shadow-brand-700/10"),
-  price: cn("text-4xl leading-none font-semibold text-brand-500"),
-  priceCurrency: cn("text-lg font-normal text-black-700"),
-  priceLabel: cn("text-black-800"),
+  price: cn("text-xl md:text-4xl leading-none font-semibold text-brand-500"),
+  priceCurrency: cn("text-sm md:text-base font-normal text-black-700"),
+  priceLabel: cn("text-black-800 text-sm"),
 };
 
 export default Viewport;
