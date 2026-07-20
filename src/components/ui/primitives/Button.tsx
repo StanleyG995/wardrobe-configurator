@@ -24,7 +24,7 @@ const STYLES = {
   buttonWrapper: cn("flex row gap-1"),
   buttonActive: cn("border-brand-500 bg-gray-200 text-brand-700"),
   buttonDisabled: cn("cursor-not-allowed border-gray-500 bg-gray-100 text-gray-400"),
-  toggleIndicator: cn("mr-2 h-2 w-2 rounded-full bg-gray-300 md:block hidden absolute "),
+  toggleIndicator: cn("md:mr-2 w-1 h-1  md:h-2 md:w-2 rounded-full bg-gray-300 md:block "),
   toggleIndicatorActive: cn("bg-brand-500 shadow-md shadow-brand-300/50"),
   
 };
