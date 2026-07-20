@@ -36,9 +36,9 @@ export default function Home() {
 
 const STYLES = {
   main: cn("relative flex h-dvh w-full flex-col overflow-hidden bg-white transition-all duration-300 ease-in-out md:flex-row"),
-  renderContainer: cn("relative h-[45vh] w-full touch-none bg-white md:h-full md:w-full"),
+  renderContainer: cn("relative h-[45dvh] w-full touch-none bg-white md:h-full md:w-full"),
   sidebarContainer: cn(
-    "absolute right-0 bottom-0 z-40 flex h-[55vh] w-full flex-col overflow-hidden border-t border-gray-200 bg-white shadow-2xl transition-transform duration-300 ease-in-out",
+    "absolute right-0 bottom-0 z-40 flex h-[55dvh] w-full flex-col overflow-hidden border-t border-gray-200 bg-white shadow-2xl transition-transform duration-300 ease-in-out",
     "md:top-0 md:h-full md:w-[420px] md:border-t-0 md:border-l",
   ),
   toggleBtn: cn(
