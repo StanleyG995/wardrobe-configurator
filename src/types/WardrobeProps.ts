@@ -3,7 +3,7 @@ export interface HandleType {
 }
 
 export interface Material {
-    material: 'dark-wood' | 'light-wood' | 'white' | 'black' | 'graphite' | 'gray';
+    material: string;
 }
 
 export interface MaterialConfig {

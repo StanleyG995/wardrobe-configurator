@@ -97,26 +97,36 @@ const Sidebar = () => {
           ]}
         />
         <SwatchGrid
-          label = 'Case material'
-          options = {[
-            { label: 'Dark wood',  value: 'dark-wood', img: '/textures/dark-wood.webp'},
-            { label: 'Light wood',  value: 'light-wood', img: '/textures/light-wood.webp'},
-            { label: 'White', value: 'white', color: '#ffffff' },
-            { label: 'Black', value: 'black', color: '#222222' },
-            { label: 'Graphite', value: 'graphite', color: '#4e6070'}
+          label="Case material"
+          options={[
+            { label: "Dark wood", value: "dark-wood", img: "/textures/dark-wood.webp" },
+            { label: "Light wood", value: "light-wood", img: "/textures/light-wood.webp" },
+            { label: "White", value: "white", color: "#ffffff" },
+            { label: "Black", value: "black", color: "#222222" },
+            { label: "Beige", value: "beige", color: "#b39d8c" },
+            { label: "Cashmere", value: "cashmere", color: "#cf9887" },
+            { label: "Terracota", value: "terracota", color: "#b06d58" },
+            { label: "Sage", value: "sage", color: "#9eb39d" },
+            { label: "Gray", value: "gray", color: "#929699" },
+            { label: "Graphite", value: "graphite", color: "#4e6070" },
           ]}
           value={wardrobe.caseMaterial}
           onChange={(val) => setMaterial("caseMaterial", val)}
         />
 
         <SwatchGrid
-          label = 'Door material'
-          options = {[
-            { label: 'Dark wood',  value: 'dark-wood', img: '/textures/dark-wood.webp'},
-            { label: 'Light wood',  value: 'light-wood', img: '/textures/light-wood.webp'},
-            { label: 'White', value: 'white', color: '#ffffff' },
-            { label: 'Black', value: 'black', color: '#222222' },
-            { label: 'Graphite', value: 'graphite', color: '#4e6070'}
+          label="Door material"
+          options={[
+            { label: "Dark wood", value: "dark-wood", img: "/textures/dark-wood.webp" },
+            { label: "Light wood", value: "light-wood", img: "/textures/light-wood.webp" },
+            { label: "White", value: "white", color: "#ffffff" },
+            { label: "Black", value: "black", color: "#222222" },
+            { label: "Beige", value: "beige", color: "#b39d8c" },
+            { label: "Cashmere", value: "cashmere", color: "#cf9887" },
+            { label: "Terracota", value: "terracota", color: "#b06d58" },
+            { label: "Sage", value: "sage", color: "#9eb39d" },
+            { label: "Gray", value: "gray", color: "#929699" },
+            { label: "Graphite", value: "graphite", color: "#4e6070" },
           ]}
           value={wardrobe.doorMaterial}
           onChange={(val) => setMaterial("doorMaterial", val)}
