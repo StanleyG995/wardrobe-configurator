@@ -60,7 +60,7 @@ const HumanScale = () => {
         <group>
           <Html position={[DIMENSION_OFFSET, currentHeight / 2, 0]} center>
             <div className={STYLES.label}>
-              <span>{Math.round(toMilimeters(currentHeight))} mm</span>
+              <span>{Math.round(toMilimeters(currentHeight))}</span>
             </div>
           </Html>
           <Line
@@ -96,7 +96,7 @@ const HumanScale = () => {
 const STYLES = {
   // cn function needed for prettier tailwind class sorting
   label: cn(
-    "flex cursor-pointer items-center justify-start gap-1 border border-black-800 bg-gray-100 px-3 py-2 text-[12px] whitespace-nowrap text-black-800 transition-all duration-200 outline-none",
+    "rounded-md border-1 border-gray-300 bg-gray-100 px-3 py-2 text-center text-black-800 shadow-md shadow-brand-700/10 ring-brand-500 outline-none focus:ring-2 whitespace-nowrap",
   ),
 };
 

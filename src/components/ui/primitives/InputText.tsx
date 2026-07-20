@@ -32,8 +32,9 @@ const InputText = (InputData: InputTextProps) => {
         type="text"
         key={InputData.value}
         defaultValue={InputData.value}
-        className={cn(STYLES.input, InputData.fullWidth ? "w-full" : "w-auto")}
+        className={cn(STYLES.input, InputData.size === 's' ? STYLES.inputS : STYLES.inputM, InputData.fullWidth ? "w-full" : "w-auto")}
         onBlur={handleValidateAndSubmit}
+        size={InputData.dynamicWidth ? InputData.value.toString().length || 1 : 10}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.currentTarget.blur();
@@ -55,6 +56,8 @@ const STYLES = {
   input: cn(
     "rounded-md border-1 border-gray-300 bg-gray-100 px-3 py-2 text-center text-black-800 shadow-md shadow-brand-700/10 ring-brand-500 outline-none focus:ring-2",
   ),
+  inputS: cn('text-sm'),
+  inputM: cn('text-base'),
 };
 
 export default InputText;
