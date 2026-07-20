@@ -49,9 +49,9 @@ const SwatchGrid = ({ label, options, value, onChange }: SwatchGridProps) => {
 };
 
 const STYLES = {
-  wrapper: cn("flex w-full flex-col gap-2.5"),
+  wrapper: cn("flex w-full flex-col gap-2.5 text-gray-700 font-semibold mt-2"),
 
-  selectedName: cn("font-bold text-black-800"),
+  selectedName: cn("font-bold text-gray-700"),
   grid: cn("flex flex-wrap gap-2.5"),
   swatchButton: cn(
     "relative h-12 w-12 cursor-pointer overflow-hidden rounded-md border-2 p-0.5 transition-all duration-150 outline-none",
