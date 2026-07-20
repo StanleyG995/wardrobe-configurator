@@ -1,27 +1,23 @@
-import * as THREE from "three"
-import { useGLTF } from "@react-three/drei"
-import { ThreeElements } from "@react-three/fiber"
+import * as THREE from "three";
+import { useGLTF } from "@react-three/drei";
+import { ThreeElements } from "@react-three/fiber";
 
 function HingeArm(props: ThreeElements["group"]) {
-	const { nodes } = useGLTF("/models/hinge-arm.glb")
+  const { nodes } = useGLTF("/models/hinge-arm.glb");
 
-	const handleMesh = nodes.hingeArm as THREE.Mesh
+  const handleMesh = nodes.hingeArm as THREE.Mesh;
 
-	if (!handleMesh) return null
+  if (!handleMesh) return null;
 
-	return (
-		<group {...props} dispose={null}>
-			<mesh geometry={handleMesh.geometry} rotation={[Math.PI/2, Math.PI, Math.PI/2]}>
-				<meshStandardMaterial
-					color='#fafafa'
-					metalness={0.7}
-					roughness={0.1}
-				/>
-			</mesh>
-		</group>
-	)
+  return (
+    <group {...props} dispose={null}>
+      <mesh geometry={handleMesh.geometry} rotation={[Math.PI / 2, Math.PI, Math.PI / 2]}>
+        <meshStandardMaterial color="#b8b3b3" metalness={0.8} roughness={0.1} />
+      </mesh>
+    </group>
+  );
 }
 
-useGLTF.preload("/models/hinge-arm.glb")
+useGLTF.preload("/models/hinge-arm.glb");
 
-export default HingeArm
+export default HingeArm;
