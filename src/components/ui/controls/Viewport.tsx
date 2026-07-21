@@ -12,7 +12,7 @@ const Viewport = () => {
 
   return (
     <>
-      <div className="absolute z-50 flex flex-col gap-2 p-3 md:flex-row md:gap-3">
+      <div className="absolute z-50 flex flex-col gap-2 p-3 2xl:flex-row md:gap-3">
         <Button
           onClick={() => handleViewportToggle("dimensionsVisible")}
           icon={<PiRuler className={STYLES.icon} />}
@@ -20,7 +20,7 @@ const Viewport = () => {
           active={viewportOptions.dimensionsVisible}
           toggleable
         >
-          <span className="hidden md:inline">{viewportOptions.dimensionsVisible ? "Hide" : "Show"} dimensions</span>
+          <span className="hidden lg:inline">{viewportOptions.dimensionsVisible ? "Hide" : "Show"} dimensions</span>
         </Button>
 
         <Button
@@ -30,7 +30,7 @@ const Viewport = () => {
           active={viewportOptions.humanScaleVisible}
           toggleable
         >
-          <span className="hidden md:inline">{viewportOptions.humanScaleVisible ? "Hide" : "Show"} human scale</span>
+          <span className="hidden lg:inline">{viewportOptions.humanScaleVisible ? "Hide" : "Show"} human scale</span>
         </Button>
 
         {viewportOptions.humanScaleVisible && (
@@ -40,7 +40,7 @@ const Viewport = () => {
             iconPosition="left"
             active
           >
-            <span className="hidden md:inline">{viewportOptions.humanScaleGender === "male" ? <>Male</> : <>Female</>}</span>
+            <span className="hidden lg:inline">{viewportOptions.humanScaleGender === "male" ? <>Male</> : <>Female</>}</span>
           </Button>
         )}
 
@@ -51,7 +51,7 @@ const Viewport = () => {
           active={viewportOptions.doorsVisible}
           toggleable
         >
-          <span className="hidden md:inline">{viewportOptions.doorsVisible ? "Hide" : "Show"} doors</span>
+          <span className="hidden lg:inline">{viewportOptions.doorsVisible ? "Hide" : "Show"} doors</span>
         </Button>
 
         {viewportOptions.doorsVisible && (
@@ -62,7 +62,7 @@ const Viewport = () => {
             active={viewportOptions.doorsOpen}
             toggleable
           >
-            <span className="hidden md:inline">{viewportOptions.doorsOpen ? "Close" : "Open"}</span>
+            <span className="hidden lg:inline">{viewportOptions.doorsOpen ? "Close" : "Open"}</span>
           </Button>
         )}
 
@@ -73,7 +73,7 @@ const Viewport = () => {
           active={viewportOptions.floorVisible}
           toggleable
         >
-          <span className="hidden md:inline">{viewportOptions.floorVisible ? "Hide" : "Show"} floor</span>
+          <span className="hidden lg:inline">{viewportOptions.floorVisible ? "Hide" : "Show"} floor</span>
         </Button>
       </div>
 
@@ -86,13 +86,13 @@ const Viewport = () => {
         </div>
         <div className='flex flex-col gap-3 justify-end'>
           <Button onClick={() => null} icon={<PiShoppingCart className={STYLES.icon} />} iconPosition="left" primary>
-            <span className="hidden md:inline">Add to cart</span>
+            <span className="hidden lg:inline">Add to cart</span>
           </Button>
           <Button onClick={() => null} icon={<PiFolder className={STYLES.icon} />} iconPosition="left">
-            <span className="hidden md:inline">Open configuration</span>
+            <span className="hidden lg:inline">Open configuration</span>
           </Button>
           <Button onClick={() => null} icon={<PiFloppyDisk className={STYLES.icon} />} iconPosition="left">
-            <span className="hidden md:inline">Save configuration</span>
+            <span className="hidden lg:inline">Save configuration</span>
           </Button>
         </div>
       </div>

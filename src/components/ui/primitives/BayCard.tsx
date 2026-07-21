@@ -15,9 +15,32 @@ const BayCard = ({ id, idx, segmentType, shelves, onClick }: BayCardProps) => {
   const activeSegment = activeSegmentIdx !== null ? wardrobe.segments[activeSegmentIdx] : null;
   const icon = SEGMENT_ICONS[segmentType as keyof typeof SEGMENT_ICONS] || SEGMENT_ICONS.empty;
 
+  // Definiujemy isActive tutaj, żeby była dostępna w całym komponencie
+  const isActive = id === activeSegment?.id;
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onClick(idx);
+    }
+  };
+
   return (
-    <div key={id} onClick={() => onClick(idx)} className={cn(STYLES.BayCard, id === activeSegment?.id && STYLES.BayCardActive)}>
-      <div className={cn(STYLES.icon, id === activeSegment?.id ? "text-brand-500" : "text-gray-400")}>{icon}</div>
+    <div
+      key={id}
+      onClick={() => onClick(idx)}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
+      aria-pressed={isActive}
+      aria-label={`Bay ${idx + 1}, type: ${segmentType}`}
+      className={cn(
+        STYLES.BayCard, 
+        isActive && STYLES.BayCardActive,
+        "focus:outline-none focus:ring-2 focus:ring-brand-500"
+      )}
+    >
+      <div className={cn(STYLES.icon, isActive ? "text-brand-500" : "text-gray-400")}>{icon}</div>
       <div className="flex flex-col">
         <span className="font-semibold text-black-800">Bay {idx + 1}</span>
       </div>
