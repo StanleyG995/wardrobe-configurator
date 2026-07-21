@@ -22,13 +22,13 @@ An interactive 3D wardrobe configurator frontend built with modern web technolog
 
 ```text
 ├── src/
-│   ├── app/              # Next.js App Router (pages and layouts)
-│   ├── components/       # UI components (primitives, sidebar, layout)
-│   │   └── ui/primitives/# Reusable atomic components (Button, Input, Select, etc.)
-│   ├── helpers/          # Utility functions (e.g., class merging with clsx/tailwind-merge)
-│   ├── store/            # Zustand global state store
-│   └── types/            # TypeScript type definitions
-├── public/               # Static assets & textures (wood, colors)
+│   ├── app/                # Next.js App Router (pages and layouts)
+│   ├── components/         # UI components (primitives, sidebar, layout)
+│   │   └── ui/primitives/  # Reusable atomic components (Button, Input, Select, etc.)
+│   ├── helpers/            # Utility functions (e.g., class merging with clsx/tailwind-merge)
+│   ├── store/              # Zustand global state store
+│   └── types/              # TypeScript type definitions
+├── public/                 # Static assets & textures (wood, colors)
 └── ...
 ```
 
