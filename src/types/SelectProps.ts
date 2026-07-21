@@ -4,4 +4,5 @@ export interface SelectProps {
   onChange: (value: string) => void;
   id: string;
   label?: string;
+  ariaLabel?: string;
 }

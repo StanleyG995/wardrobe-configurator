@@ -14,12 +14,26 @@ const HistoryControls = () => {
   const canRedo = futureStates.length > 0;
 
   return (
-    <div className={STYLES.container}>
-      <Button onClick={() => undo()} disabled={!canUndo} title="Undo (Ctrl+Z)" icon={<MdUndo className="text-lg" />} active={canUndo} iconPosition="left" />
+    <div className={STYLES.container} role='toolbar' aria-label='History controls'>
+      <Button
+        onClick={() => undo()}
+        disabled={!canUndo}
+        title="Undo (Ctrl+Z)"
+        icon={<MdUndo className="text-lg" />}
+        active={canUndo}
+        iconPosition="left"
+        aria-label="Undo (Ctrl+Z)"
+      />
 
-      <Button onClick={() => redo()} disabled={!canRedo} title="Redo (Ctrl+Y)" icon={<MdRedo className="text-lg" />} active={canRedo}
-      iconPosition="left">
-      </Button>
+      <Button
+        onClick={() => redo()}
+        disabled={!canRedo}
+        title="Redo (Ctrl+Y)"
+        icon={<MdRedo className="text-lg" />}
+        active={canRedo}
+        iconPosition="left"
+        aria-label="Redo (Ctrl+Y)"
+      ></Button>
     </div>
   );
 };

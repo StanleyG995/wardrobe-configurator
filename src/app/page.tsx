@@ -7,9 +7,6 @@ import { useWardrobeHistory } from "@/hooks/useUndoRedo";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 import { cn } from "@/helpers/cn";
 
-// Stała szerokość bocznego panelu
-const SIDEBAR_WIDTH_PX = 420;
-
 export default function Home() {
   useWardrobeHistory();
 

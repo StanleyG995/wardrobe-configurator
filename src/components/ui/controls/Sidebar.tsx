@@ -25,21 +25,37 @@ const Sidebar = () => {
     toggleDoorMirror,
   } = useWardrobeStore((state) => state);
 
-  const activeSegment = activeSegmentIdx !== null ? wardrobe.segments[activeSegmentIdx] : null;
+  const activeSegment =
+    activeSegmentIdx !== null ? wardrobe.segments[activeSegmentIdx] : null;
 
-  const handleUpdateDimension = useWardrobeStore((state) => state.updateDimension);
+  const handleUpdateDimension = useWardrobeStore(
+    (state) => state.updateDimension,
+  );
 
   return (
-    <div className={STYLES.sidebar}>
-      <h1 className={cn(STYLES.heading, STYLES.heading1)}>Customize Wardrobe</h1>
+    <aside className={STYLES.sidebar} aria-label="Customize wardrobe">
+      <h1 className={cn(STYLES.heading, STYLES.heading1)}>
+        Customize Wardrobe
+      </h1>
 
       <div className={STYLES.sidebarSection}>
         <div className="flex flex-row items-center gap-2">
-          <RxDimensions className={STYLES.headingIcon} />
-          <h2 className={cn(STYLES.heading, STYLES.heading2)}>Case dimensions</h2>
+          <RxDimensions className={STYLES.headingIcon} aria-hidden="true" />
+          <h2 className={cn(STYLES.heading, STYLES.heading2)}>
+            Case dimensions
+          </h2>
         </div>
 
-        <InputText name="width" id="width" label="Width:" min={500} max={2400} value={wardrobe.dimensions.width} onUpdate={handleUpdateDimension} size="s" />
+        <InputText
+          name="width"
+          id="width"
+          label="Width:"
+          min={500}
+          max={2400}
+          value={wardrobe.dimensions.width}
+          onUpdate={handleUpdateDimension}
+          size="s"
+        />
         <InputRange
           name="width"
           id="width-range"
@@ -68,7 +84,16 @@ const Sidebar = () => {
           onUpdate={(key, value) => updateDimension(key, value)}
         />
 
-        <InputText name="depth" id="depth" label="Depth:" min={400} max={800} value={wardrobe.dimensions.depth} onUpdate={handleUpdateDimension} size="s" />
+        <InputText
+          name="depth"
+          id="depth"
+          label="Depth:"
+          min={400}
+          max={800}
+          value={wardrobe.dimensions.depth}
+          onUpdate={handleUpdateDimension}
+          size="s"
+        />
         <InputRange
           name="depth"
           id="depth-range"
@@ -81,8 +106,10 @@ const Sidebar = () => {
 
       <div className={STYLES.sidebarSection}>
         <div className="flex flex-row items-center gap-2">
-          <RxLayers className={STYLES.headingIcon} />
-          <h2 className={cn(STYLES.heading, STYLES.heading2)}>Materials & Handles</h2>
+          <RxLayers className={STYLES.headingIcon} aria-hidden="true" />
+          <h2 className={cn(STYLES.heading, STYLES.heading2)}>
+            Materials & Handles
+          </h2>
         </div>
 
         <Select
@@ -99,8 +126,16 @@ const Sidebar = () => {
         <SwatchGrid
           label="Case material"
           options={[
-            { label: "Dark wood", value: "dark-wood", img: "/textures/dark-wood.webp" },
-            { label: "Light wood", value: "light-wood", img: "/textures/light-wood.webp" },
+            {
+              label: "Dark wood",
+              value: "dark-wood",
+              img: "/textures/dark-wood.webp",
+            },
+            {
+              label: "Light wood",
+              value: "light-wood",
+              img: "/textures/light-wood.webp",
+            },
             { label: "White", value: "white", color: "#ffffff" },
             { label: "Black", value: "black", color: "#222222" },
             { label: "Beige", value: "beige", color: "#b39d8c" },
@@ -117,8 +152,16 @@ const Sidebar = () => {
         <SwatchGrid
           label="Door material"
           options={[
-            { label: "Dark wood", value: "dark-wood", img: "/textures/dark-wood.webp" },
-            { label: "Light wood", value: "light-wood", img: "/textures/light-wood.webp" },
+            {
+              label: "Dark wood",
+              value: "dark-wood",
+              img: "/textures/dark-wood.webp",
+            },
+            {
+              label: "Light wood",
+              value: "light-wood",
+              img: "/textures/light-wood.webp",
+            },
             { label: "White", value: "white", color: "#ffffff" },
             { label: "Black", value: "black", color: "#222222" },
             { label: "Beige", value: "beige", color: "#b39d8c" },
@@ -135,19 +178,28 @@ const Sidebar = () => {
 
       <div className={STYLES.sidebarSection}>
         <div className="flex flex-row items-center gap-2">
-          <RxLayout className={STYLES.headingIcon} />
+          <RxLayout className={STYLES.headingIcon} aria-hidden="true" />
           <h2 className={cn(STYLES.heading, STYLES.heading2)}>Segments</h2>
         </div>
-        <div className={STYLES.bayCardsContainer}>
+        <div className={STYLES.bayCardsContainer} role="region" aria-label="Segments list">
           {wardrobe.segments?.map((segment, idx) => (
-            <BayCard id={segment.id} key={segment.id} onClick={() => setActiveSegmentIdx(idx)} segmentType={segment.type} idx={idx} shelves={segment.shelves} />
+            <BayCard
+              id={segment.id}
+              key={segment.id}
+              onClick={() => setActiveSegmentIdx(idx)}
+              segmentType={segment.type}
+              idx={idx}
+              shelves={segment.shelves}
+            />
           ))}
         </div>
 
         {activeSegmentIdx !== null && activeSegment && (
           <div className="animate-fade-in flex flex-col gap-2 pt-2">
             <div className="flex flex-col gap-1">
-              <h3 className={cn(STYLES.heading, STYLES.heading3)}>Bay {activeSegmentIdx + 1} Configuration</h3>
+              <h3 className={cn(STYLES.heading, STYLES.heading3)}>
+                Bay {activeSegmentIdx + 1} Configuration
+              </h3>
             </div>
 
             <div className="flex flex-col gap-1">
@@ -155,7 +207,12 @@ const Sidebar = () => {
                 id="segmentType"
                 label="Segment Type"
                 value={activeSegment?.type || "shelves"}
-                onChange={(val) => changeSegmentType(activeSegmentIdx, val as "shelves" | "hanger" | "empty")}
+                onChange={(val) =>
+                  changeSegmentType(
+                    activeSegmentIdx,
+                    val as "shelves" | "hanger" | "empty",
+                  )
+                }
                 options={[
                   { value: "shelves", label: "Shelves" },
                   { value: "hanger", label: "Hanger Rod" },
@@ -167,34 +224,58 @@ const Sidebar = () => {
             {activeSegment?.type === "shelves" && (
               <div className="flex flex-col gap-2">
                 <div className="flex flex-row items-center gap-2">
-                  <Button fullWidth={true} onClick={() => removeShelfFromSegment(activeSegmentIdx)}>
+                  <Button
+                    fullWidth={true}
+                    onClick={() => removeShelfFromSegment(activeSegmentIdx)}
+                    aria-label={`Remove shelf from bay ${activeSegmentIdx + 1}`}
+                  >
                     - Remove
                   </Button>
-                  <span className="mx-4 text-center">{activeSegment.shelves.length}</span>
-                  <Button fullWidth={true} onClick={() => addShelfToSegment(activeSegmentIdx)}>
+                  <span className="mx-4 text-center" aria-live="polite">
+                    <span className="sr-only">Number of shelves:</span>
+                    {activeSegment.shelves.length}
+                  </span>
+                  <Button
+                    fullWidth={true}
+                    onClick={() => addShelfToSegment(activeSegmentIdx)}
+                    aria-label={`Add shelf to bay ${activeSegmentIdx + 1}`}
+                  >
                     + Add
                   </Button>
                 </div>
               </div>
             )}
             <div className="row flex gap-2">
-              <Button fullWidth={true} onClick={() => handleDoorPositionChange(activeSegmentIdx)}>
+              <Button
+                fullWidth={true}
+                onClick={() => handleDoorPositionChange(activeSegmentIdx)}
+                aria-label={`Change door side for bay ${activeSegmentIdx + 1}, current side: ${activeSegment.doorPosition}`}
+              >
                 Door side: <strong>{activeSegment.doorPosition}</strong>
               </Button>
 
-              <Button toggleable={true} active={activeSegment.mirror} fullWidth={true} onClick={() => toggleDoorMirror(activeSegmentIdx)}>
-                Has mirror: <strong>{activeSegment.mirror ? "Yes" : "No"}</strong>
+              <Button
+                toggleable={true}
+                active={activeSegment.mirror}
+                fullWidth={true}
+                onClick={() => toggleDoorMirror(activeSegmentIdx)}
+                aria-label={`Toggle mirror for bay ${activeSegmentIdx + 1}, current status: ${activeSegment.mirror ? "Yes" : "No"}`}
+              >
+                Has mirror:{" "}
+                <strong>{activeSegment.mirror ? "Yes" : "No"}</strong>
               </Button>
             </div>
           </div>
         )}
       </div>
-    </div>
+    </aside>
   );
 };
 
 const STYLES = {
-  sidebar: cn("flex h-full w-full flex-col overflow-y-auto px-4 py-6 text-sm text-black-500"),
+  sidebar: cn(
+    "flex h-full w-full flex-col overflow-y-auto px-4 py-6 text-sm text-black-500",
+  ),
   sidebarSection: cn("my-4 flex flex-col gap-2 pb-2"),
 
   heading: cn("leading-none font-semibold text-black-900"),

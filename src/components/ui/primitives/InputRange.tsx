@@ -1,17 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/helpers/cn";
 import { InputRangeProps } from "@/types/InputRangeProps";
 import Label from "@/components/ui/primitives/Label";
 
 const InputRange = (InputData: InputRangeProps) => {
   const [localValue, setLocalValue] = useState<number>(InputData.value);
-  const [prevValue, setPrevValue] = useState<number>(InputData.value);
 
-  if (InputData.value !== prevValue) {
+  useEffect(() => {
     setLocalValue(InputData.value);
-    setPrevValue(InputData.value);
-  }
+  }, [InputData.value]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -24,6 +22,10 @@ const InputRange = (InputData: InputRangeProps) => {
         name={InputData.name}
         id={InputData.id}
         type="range"
+        aria-valuenow={localValue}
+        aria-valuemin={InputData.min}
+        aria-valuemax={InputData.max}
+        aria-label={InputData.label}
         step={InputData.step || 1}
         className={STYLES.input}
         max={InputData.max}
@@ -34,8 +36,8 @@ const InputRange = (InputData: InputRangeProps) => {
         onTouchEnd={() => InputData.onUpdate(InputData.name, localValue)}
       />
       <div className="flex flex-row justify-between gap-2">
-        <span className={STYLES.minValue}>{InputData.min} mm</span>
-        <span className={STYLES.maxValue}>{InputData.max} mm</span>
+        <span className={STYLES.minValue} aria-hidden="true">{InputData.min} mm</span>
+        <span className={STYLES.maxValue} aria-hidden="true">{InputData.max} mm</span>
       </div>
     </div>
   );

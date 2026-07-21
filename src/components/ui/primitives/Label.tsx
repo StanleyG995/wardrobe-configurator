@@ -10,7 +10,7 @@ const Label = ({ htmlFor, children }: LabelProps) => {
 };
 
 const STYLES = {
-  label: cn("block text-sm font-medium text-gray-700"),
+  label: cn("block cursor-pointer text-sm font-medium text-gray-700"),
 };
 
 export default Label;

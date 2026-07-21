@@ -13,7 +13,7 @@ const SwatchGrid = ({ label, options, value, onChange }: SwatchGridProps) => {
       <div>
         <span id={labelId}>{label}:</span>
         {selectedOption && (
-          <span className={STYLES.selectedName} aria-live="polite">
+          <span className={STYLES.selectedName} aria-hidden="true">
             {" " + selectedOption.label}
           </span>
         )}
@@ -31,12 +31,18 @@ const SwatchGrid = ({ label, options, value, onChange }: SwatchGridProps) => {
               aria-checked={isSelected}
               onClick={() => onChange(option.value)}
               title={option.label}
-              className={cn(STYLES.swatchButton, isSelected ? STYLES.swatchActive : STYLES.swatchInactive)}
+              className={cn(
+                STYLES.swatchButton,
+                isSelected ? STYLES.swatchActive : STYLES.swatchInactive,
+              )}
             >
               {option.img ? (
                 <img src={option.img} alt="" className={STYLES.image} />
               ) : (
-                <div className={STYLES.colorFill} style={{ background: option.color || "#ccc" }} />
+                <div
+                  className={STYLES.colorFill}
+                  style={{ background: option.color || "#ccc" }}
+                />
               )}
 
               <span className="sr-only">{option.label}</span>
@@ -49,10 +55,10 @@ const SwatchGrid = ({ label, options, value, onChange }: SwatchGridProps) => {
 };
 
 const STYLES = {
-  wrapper: cn("flex w-full  flex-col gap-2.5 text-gray-700 font-semibold mt-2"),
+  wrapper: cn("mt-2 flex w-full flex-col gap-2.5 font-semibold text-gray-700"),
 
   selectedName: cn("font-bold text-gray-700"),
-  grid: cn("flex flex-wrap gap-2.5 "),
+  grid: cn("flex flex-wrap gap-2.5"),
   swatchButton: cn(
     "relative h-12 w-12 cursor-pointer overflow-hidden rounded-md border-2 p-0.5 transition-all duration-150 outline-none",
     "focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 active:scale-95",
