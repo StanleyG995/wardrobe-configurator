@@ -1,5 +1,5 @@
 
-# 🪵 Wardrobe 3D Configurator (Frontend)
+# Wardrobe 3D Configurator (Frontend)
 
 An interactive 3D wardrobe configurator frontend built with modern web technologies. Designed with a strong focus on clean architecture, user experience, and full web accessibility (a11y).
 
