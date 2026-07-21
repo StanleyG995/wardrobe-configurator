@@ -284,7 +284,7 @@ const STYLES = {
   heading3: cn("text-sm tracking-wider uppercase"),
   headingIcon: cn("text-xl text-brand-500"),
 
-  bayCardsContainer: cn("height-[100px] flex-nowra flex w-full flex-row gap-2"),
+  bayCardsContainer: cn("flex-nowrap flex w-full flex-row gap-2"),
 };
 
 export default Sidebar;

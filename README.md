@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🪵 Wardrobe 3D Configurator (Frontend)
 
-## Getting Started
+An interactive 3D wardrobe configurator frontend built with modern web technologies. Designed with a strong focus on clean architecture, user experience, and full web accessibility (a11y).
 
-First, run the development server:
+## 🚀 Tech Stack
 
-```bash
+* **Framework:** [Next.js](https://next.js/) (React)
+* **State Management:** [Zustand](https://github.com/pmndrs/zustand)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+* **Icons:** [React Icons](https://react-icons.github.io/react-icons/)
+
+## ✨ Key Features
+
+* **Real-time Customization:** Instantly adjust case dimensions (width, height, depth) using precise text inputs or smooth range sliders with built-in boundary clamping.
+* **Dynamic Bay Management:** Add, remove, and configure individual wardrobe segments (shelves, hanger rods, or empty space).
+* **Materials & Finishes:** Choose from a wide selection of case and door materials, handle styles, and mirror toggles via interactive swatch grids.
+* **Accessibility First (A11y):** Built following WAI-ARIA guidelines, featuring proper keyboard navigation, semantic HTML (`radiogroup`, `aside`), polite live regions, and screen reader optimizations (`sr-only`, `aria-hidden`).
+* **Responsive Sidebar:** Clean, scrollable sidebar layout optimized for desktop and mobile configurator workflows.
+
+## 📂 Project Structure
+
+```text
+├── src/
+│   ├── app/              # Next.js App Router (pages and layouts)
+│   ├── components/       # UI components (primitives, sidebar, layout)
+│   │   └── ui/primitives/# Reusable atomic components (Button, Input, Select, etc.)
+│   ├── helpers/          # Utility functions (e.g., class merging with clsx/tailwind-merge)
+│   ├── store/            # Zustand global state store
+│   └── types/            # TypeScript type definitions
+├── public/               # Static assets & textures (wood, colors)
+└── ...
+♿ Accessibility (A11y) Highlights
+Custom radios and swatches leverage full keyboard support and screen reader attributes (aria-checked, role="radio").
+
+Dynamic state changes are announced politely using aria-live="polite".
+
+Strict association between form labels and inputs using unique IDs and htmlFor.
+
+🛠️ Getting Started
+Prerequisites
+Make sure you have Node.js installed on your machine.
+
+Installation & Setup
+Clone the repository:
+
+Bash
+git clone [https://github.com/your-username/wardrobe-configurator.git](https://github.com/your-username/wardrobe-configurator.git)
+cd wardrobe-configurator
+Install dependencies:
+
+Bash
+npm install
+Run the development server:
+
+Bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Open the application:
+Open http://localhost:3000 in your browser to view the configurator.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+📄 License
+This project is open-source and available under the MIT License.
