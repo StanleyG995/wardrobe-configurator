@@ -96,7 +96,7 @@ const HumanScale = () => {
 const STYLES = {
   // cn function needed for prettier tailwind class sorting
   label: cn(
-    "rounded-md border-1 border-gray-300 bg-gray-100 px-3 py-2 text-center text-black-800 shadow-md shadow-brand-700/10 ring-brand-500 outline-none focus:ring-2 whitespace-nowrap",
+    "rounded-md border-1 border-gray-300 bg-gray-100 px-2 py-1 text-center text-black-800 shadow-md shadow-brand-700/10 ring-brand-500 outline-none focus:ring-2 md:px-3 md:py-2",
   ),
 };
 
