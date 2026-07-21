@@ -20,7 +20,7 @@ An interactive 3D wardrobe configurator frontend built with modern web technolog
 
 ## 📂 Project Structure
 
-
+```text
 ├── src/
 │   ├── app/              # Next.js App Router (pages and layouts)
 │   ├── components/       # UI components (primitives, sidebar, layout)
@@ -30,6 +30,8 @@ An interactive 3D wardrobe configurator frontend built with modern web technolog
 │   └── types/            # TypeScript type definitions
 ├── public/               # Static assets & textures (wood, colors)
 └── ...
+```
+
 ♿ Accessibility (A11y) Highlights
 Custom radios and swatches leverage full keyboard support and screen reader attributes (aria-checked, role="radio").
 
