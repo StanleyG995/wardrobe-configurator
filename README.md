@@ -1,4 +1,4 @@
-# 🪵 Wardrobe 3D Configurator (Frontend)
+```# 🪵 Wardrobe 3D Configurator (Frontend)
 
 An interactive 3D wardrobe configurator frontend built with modern web technologies. Designed with a strong focus on clean architecture, user experience, and full web accessibility (a11y).
 
@@ -19,7 +19,7 @@ An interactive 3D wardrobe configurator frontend built with modern web technolog
 
 ## 📂 Project Structure
 
-```text
+text
 ├── src/
 │   ├── app/              # Next.js App Router (pages and layouts)
 │   ├── components/       # UI components (primitives, sidebar, layout)
