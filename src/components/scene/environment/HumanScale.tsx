@@ -20,7 +20,9 @@ const COMPONENT_POSITION: [number, number, number] = [0, 0, 1.4];
 const SILHOUETTE_COLOR = "#4282ac";
 
 const HumanScale = () => {
-  const { humanScaleGender, dimensionsVisible } = useWardrobeStore((state) => state.viewportOptions);
+  const { humanScaleGender, dimensionsVisible } = useWardrobeStore(
+    (state) => state.viewportOptions,
+  );
 
   const groupRef = useRef<THREE.Group>(null);
 
@@ -38,7 +40,10 @@ const HumanScale = () => {
   useFrame(({ camera }) => {
     if (!groupRef.current) return;
 
-    groupRef.current.rotation.y = Math.atan2(camera.position.x - groupRef.current.position.x, camera.position.z - groupRef.current.position.z);
+    groupRef.current.rotation.y = Math.atan2(
+      camera.position.x - groupRef.current.position.x,
+      camera.position.z - groupRef.current.position.z,
+    );
   });
 
   return (
@@ -46,13 +51,25 @@ const HumanScale = () => {
       {humanScaleGender === "male" && (
         <mesh position={[0, maleHeight / 2, 0]}>
           <planeGeometry args={[maleWidth, maleHeight]} />
-          <meshBasicMaterial color={SILHOUETTE_COLOR} map={maleTexture} transparent opacity={0.8} depthWrite={false} />
+          <meshBasicMaterial
+            color={SILHOUETTE_COLOR}
+            map={maleTexture}
+            transparent
+            opacity={0.8}
+            depthWrite={false}
+          />
         </mesh>
       )}
       {humanScaleGender === "female" && (
         <mesh position={[0, femaleHeight / 2, 0]}>
           <planeGeometry args={[femaleWidth, femaleHeight]} />
-          <meshBasicMaterial color={SILHOUETTE_COLOR} map={femaleTexture} transparent opacity={0.8} depthWrite={false} />
+          <meshBasicMaterial
+            color={SILHOUETTE_COLOR}
+            map={femaleTexture}
+            transparent
+            opacity={0.8}
+            depthWrite={false}
+          />
         </mesh>
       )}
 
@@ -96,7 +113,7 @@ const HumanScale = () => {
 const STYLES = {
   // cn function needed for prettier tailwind class sorting
   label: cn(
-    "rounded-md border-1 border-gray-300 bg-gray-100 px-2 py-1 text-center text-black-800 shadow-md shadow-brand-700/10 ring-brand-500 outline-none focus:ring-2 md:px-3 md:py-2",
+    "rounded-md border-1 border-gray-300 bg-gray-100 px-2 py-1 text-center text-sm text-black-800 shadow-md shadow-brand-700/10 ring-brand-500 outline-none focus:ring-2 md:px-3 md:py-2",
   ),
 };
 
