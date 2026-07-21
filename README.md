@@ -45,18 +45,25 @@ Make sure you have Node.js installed on your machine.
 
 Installation & Setup
 Clone the repository:
-
+```code
 Bash
 git clone [https://github.com/your-username/wardrobe-configurator.git](https://github.com/your-username/wardrobe-configurator.git)
 cd wardrobe-configurator
-Install dependencies:
+```
 
+Install dependencies:
+```code
 Bash
 npm install
+```
+
 Run the development server:
 
+```code
 Bash
 npm run dev
+```
+
 Open the application:
 Open http://localhost:3000 in your browser to view the configurator.
 
