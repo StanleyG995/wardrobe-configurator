@@ -1,60 +1,60 @@
 import { create } from "zustand";
 import { temporal } from "zundo";
 import { calculateWardrobePrice } from "@/helpers/priceCalculator";
+import { MATERIALS } from "@/config/Materials";
 
 import type { WardrobeState } from "@/types/WardrobeProps";
+
+const getMaterialPrice = (materialKey: string): number => {
+  const mat = MATERIALS[materialKey as keyof typeof MATERIALS];
+  return mat && "price" in mat ? mat.price : 150;
+};
+
+const initialWidth = 1000;
+const initialHeight = 2000;
+const initialDepth = 600;
+const initialSegments = [
+  {
+    id: "1",
+    type: "shelves" as const,
+    shelves: [],
+    doorPosition: "left" as const,
+    mirror: false,
+  },
+  {
+    id: "2",
+    type: "hanger" as const,
+    shelves: [],
+    doorPosition: "right" as const,
+    mirror: true,
+  },
+];
+const initialCaseMaterial = "dark-wood";
+const initialDoorMaterial = "dark-wood";
 
 export const useWardrobeStore = create<WardrobeState>()(
   temporal(
     (set) => ({
       wardrobe: {
         dimensions: {
-          width: 1000,
-          height: 2000,
-          depth: 600,
+          width: initialWidth,
+          height: initialHeight,
+          depth: initialDepth,
         },
         boardThickness: 18,
         backBoardThickness: 5,
-        segments: [
-          {
-            id: "1",
-            type: "shelves",
-            shelves: [],
-            doorPosition: "left",
-            mirror: false,
-          },
-          {
-            id: "2",
-            type: "hanger",
-            shelves: [],
-            doorPosition: "right",
-            mirror: true,
-          },
-        ],
-        caseMaterial: "dark-wood",
-        doorMaterial: "dark-wood",
+        segments: initialSegments,
+        caseMaterial: initialCaseMaterial,
+        doorMaterial: initialDoorMaterial,
         handleType: "straight",
       },
       price: calculateWardrobePrice(
-        1000,
-        2000,
-        600,
-        [
-          {
-            id: "1",
-            type: "shelves",
-            shelves: [],
-            doorPosition: "left",
-            mirror: false,
-          },
-          {
-            id: "2",
-            type: "hanger",
-            shelves: [],
-            doorPosition: "right",
-            mirror: true,
-          },
-        ]
+        initialWidth,
+        initialHeight,
+        initialDepth,
+        initialSegments,
+        getMaterialPrice(initialCaseMaterial),
+        getMaterialPrice(initialDoorMaterial),
       ),
       activeSegmentIdx: null,
 
@@ -80,13 +80,27 @@ export const useWardrobeStore = create<WardrobeState>()(
         materialType: "caseMaterial" | "doorMaterial",
         materialValue: string,
       ) =>
-        set((state) => ({
-          ...state,
-          wardrobe: {
+        set((state) => {
+          const nextWardrobe = {
             ...state.wardrobe,
             [materialType]: materialValue,
-          },
-        })),
+          };
+
+          const nextPrice = calculateWardrobePrice(
+            nextWardrobe.dimensions.width,
+            nextWardrobe.dimensions.height,
+            nextWardrobe.dimensions.depth,
+            nextWardrobe.segments,
+            getMaterialPrice(nextWardrobe.caseMaterial),
+            getMaterialPrice(nextWardrobe.doorMaterial),
+          );
+
+          return {
+            ...state,
+            price: nextPrice,
+            wardrobe: nextWardrobe,
+          };
+        }),
 
       updateDimension: (key, value) =>
         set((state) => {
@@ -132,6 +146,8 @@ export const useWardrobeStore = create<WardrobeState>()(
             nextDimensions.height,
             nextDimensions.depth,
             nextSegments,
+            getMaterialPrice(state.wardrobe.caseMaterial),
+            getMaterialPrice(state.wardrobe.doorMaterial),
           );
 
           return {
@@ -199,6 +215,8 @@ export const useWardrobeStore = create<WardrobeState>()(
             state.wardrobe.dimensions.height,
             state.wardrobe.dimensions.depth,
             updatedSegments,
+            getMaterialPrice(state.wardrobe.caseMaterial),
+            getMaterialPrice(state.wardrobe.doorMaterial),
           );
           return {
             ...state,
@@ -241,6 +259,8 @@ export const useWardrobeStore = create<WardrobeState>()(
             state.wardrobe.dimensions.height,
             state.wardrobe.dimensions.depth,
             updatedSegments,
+            getMaterialPrice(state.wardrobe.caseMaterial),
+            getMaterialPrice(state.wardrobe.doorMaterial),
           );
 
           return {
@@ -272,6 +292,8 @@ export const useWardrobeStore = create<WardrobeState>()(
             state.wardrobe.dimensions.height,
             state.wardrobe.dimensions.depth,
             updatedSegments,
+            getMaterialPrice(state.wardrobe.caseMaterial),
+            getMaterialPrice(state.wardrobe.doorMaterial),
           );
 
           return {
@@ -284,7 +306,7 @@ export const useWardrobeStore = create<WardrobeState>()(
           };
         }),
 
-      changeSegmentType: (segmentIndex, newType) => 
+      changeSegmentType: (segmentIndex, newType) =>
         set((state) => {
           const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
             if (idx !== segmentIndex) return seg;
@@ -300,6 +322,8 @@ export const useWardrobeStore = create<WardrobeState>()(
             state.wardrobe.dimensions.height,
             state.wardrobe.dimensions.depth,
             updatedSegments,
+            getMaterialPrice(state.wardrobe.caseMaterial),
+            getMaterialPrice(state.wardrobe.doorMaterial),
           );
 
           return {
@@ -312,7 +336,7 @@ export const useWardrobeStore = create<WardrobeState>()(
           };
         }),
 
-      toggleDoorMirror: (segmentIndex) => 
+      toggleDoorMirror: (segmentIndex) =>
         set((state) => {
           const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
             if (idx !== segmentIndex) return seg;
@@ -326,6 +350,8 @@ export const useWardrobeStore = create<WardrobeState>()(
             state.wardrobe.dimensions.height,
             state.wardrobe.dimensions.depth,
             updatedSegments,
+            getMaterialPrice(state.wardrobe.caseMaterial),
+            getMaterialPrice(state.wardrobe.doorMaterial),
           );
 
           return {
@@ -337,7 +363,6 @@ export const useWardrobeStore = create<WardrobeState>()(
             },
           };
         }),
-      
 
       isSidebarOpen: true,
       toggleSidebar: () =>
@@ -354,7 +379,10 @@ export const useWardrobeStore = create<WardrobeState>()(
     {
       partialize: (state) => ({ wardrobe: state.wardrobe }),
       equality: (currentState, nextState) => {
-        return JSON.stringify(currentState.wardrobe) === JSON.stringify(nextState.wardrobe);
+        return (
+          JSON.stringify(currentState.wardrobe) ===
+          JSON.stringify(nextState.wardrobe)
+        );
       },
     },
   ),

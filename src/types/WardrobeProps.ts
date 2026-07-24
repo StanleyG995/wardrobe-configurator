@@ -11,6 +11,7 @@ export interface MaterialConfig {
     color?: string;
     metalness: number;
     roughness: number;
+    price: number,
 }
 
 export interface Wardrobe {
