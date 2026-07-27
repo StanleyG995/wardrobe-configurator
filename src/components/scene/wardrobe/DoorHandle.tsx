@@ -2,24 +2,18 @@
 
 import { ThreeElements } from '@react-three/fiber'
 import { useWardrobeStore } from '@/store/useWardrobeStore'
-
-import HandleStraight from '@/components/scene/wardrobe/handles/HandleStraight'
-import HandleKnob from '@/components/scene/wardrobe/handles/HandleKnob'
-
-const HANDLE_COMPONENTS = {
-  straight: HandleStraight,
-  knob: HandleKnob,
-  none: null,
-} as const;
+import { HANDLES } from '@/config/Handles'
 
 const DoorHandle = (props: ThreeElements['group']) => {
   const handleType = useWardrobeStore((state) => state.wardrobe.handleType)
 
-  if (handleType === "none" || !HANDLE_COMPONENTS[handleType]) {
+  const handleConfig = HANDLES[handleType]
+
+  if (!handleConfig || !handleConfig.model) {
     return null
   }
 
-  const SelectedHandle = HANDLE_COMPONENTS[handleType]
+  const SelectedHandle = handleConfig.model
 
   return (
     <SelectedHandle {...props} />

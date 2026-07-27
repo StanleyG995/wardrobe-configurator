@@ -14,6 +14,7 @@ export function calculateWardrobePrice(
   segments: Wardrobe["segments"],
   caseMaterialPrice: number,
   doorMaterialPrice: number,
+  handleTypePrice: number
 ): number {
   if (!segments || !Array.isArray(segments)) return 0;
 
@@ -38,6 +39,7 @@ export function calculateWardrobePrice(
   
   const totalDoorArea = singleDoorWidthM * hM * segmentCount;
   const doorPrice = totalDoorArea * doorMaterialPrice;
+  const handlePrice = segmentCount * handleTypePrice
 
   segments.forEach((segment) => {
     if (segment.mirror) {
@@ -55,7 +57,7 @@ export function calculateWardrobePrice(
     equipmentPrice += hangerCount * PRICE_LIST.rod_item;
   });
 
-  const finalPrice = (basePrice + equipmentPrice + doorPrice) * PRICE_LIST.margin;
+  const finalPrice = (basePrice + equipmentPrice + doorPrice + handlePrice) * PRICE_LIST.margin;
 
   return isNaN(finalPrice) ? 0 : Number(finalPrice.toFixed(2));
 }

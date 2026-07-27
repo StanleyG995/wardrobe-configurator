@@ -1,5 +1,13 @@
+import { ComponentType } from 'react';
+import { ThreeElements } from '@react-three/fiber';
+
 export interface HandleType {
     handleType: 'straight' | 'knob' | 'none'; 
+}
+
+export interface HandleConfig {
+  model: ComponentType<ThreeElements['group']> | null;
+  price: number;
 }
 
 export interface Material {
