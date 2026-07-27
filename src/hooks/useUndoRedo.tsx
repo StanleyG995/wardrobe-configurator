@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 
 export function useWardrobeHistory() {
-  const { undo, redo } = useWardrobeStore.temporal.getState();
+  const undo = useWardrobeStore((state) => state.undo);
+  const redo = useWardrobeStore((state) => state.redo);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

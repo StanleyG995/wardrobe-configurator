@@ -1,17 +1,19 @@
 "use client";
 
 import { MdUndo, MdRedo } from "react-icons/md";
-
-import { useStore } from "zustand";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 import { cn } from "@/helpers/cn";
 import Button from "@/components/ui/primitives/Button";
 
 const HistoryControls = () => {
-  const { undo, redo, pastStates, futureStates } = useStore(useWardrobeStore.temporal, (state) => state);
+  // Pobieramy funkcje i tablice historii bezpośrednio z naszego store'a
+  const undo = useWardrobeStore((state) => state.undo);
+  const redo = useWardrobeStore((state) => state.redo);
+  const history = useWardrobeStore((state) => state.history);
+  const future = useWardrobeStore((state) => state.future);
 
-  const canUndo = pastStates.length > 0;
-  const canRedo = futureStates.length > 0;
+  const canUndo = history.length > 0;
+  const canRedo = future.length > 0;
 
   return (
     <div className={STYLES.container} role='toolbar' aria-label='History controls'>
@@ -33,13 +35,12 @@ const HistoryControls = () => {
         active={canRedo}
         iconPosition="left"
         aria-label="Redo (Ctrl+Y)"
-      ></Button>
+      />
     </div>
   );
 };
 
 const STYLES = {
-  // cn function needed for prettier tailwind class sorting
   container: cn("absolute right-3 bottom-3 z-50 flex flex-row gap-2"),
   button: cn("flex items-center justify-center border p-3 shadow-lg transition-all"),
   buttonDisabled: cn("cursor-not-allowed border-gray-500 bg-gray-100 text-gray-400"),

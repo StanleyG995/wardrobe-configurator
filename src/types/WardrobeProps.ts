@@ -71,4 +71,12 @@ export interface WardrobeState {
   isSidebarOpen: boolean;
   toggleSidebar: () => void;
   setSidebarOpen: (isOpen: boolean) => void;
+  history: Wardrobe[];
+  future: Wardrobe[];
+  saveToHistory: () => void;
+  undo: () => void;
+  redo: () => void;
+  updateDimensionPreview: (key: keyof Wardrobe["dimensions"], value: number) => void;
+  commitDimension: (key: keyof Wardrobe["dimensions"], value: number) => void;
+
 }

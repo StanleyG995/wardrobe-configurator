@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/helpers/cn";
 import { InputRangeProps } from "@/types/InputRangeProps";
 import Label from "@/components/ui/primitives/Label";
+import { useWardrobeStore } from "@/store/useWardrobeStore";
 
 const InputRange = (InputData: InputRangeProps) => {
   const [localValue, setLocalValue] = useState<number>(InputData.value);
@@ -31,9 +32,22 @@ const InputRange = (InputData: InputRangeProps) => {
         max={InputData.max}
         min={InputData.min}
         value={localValue}
-        onChange={(e) => setLocalValue(parseFloat(e.target.value))}
-        onMouseUp={() => InputData.onUpdate(InputData.name, localValue)}
-        onTouchEnd={() => InputData.onUpdate(InputData.name, localValue)}
+        // Usuwamy onMouseDown / onTouchStart, żeby nie tworzyć pustych akcji!
+        onChange={(e) => {
+          const val = parseFloat(e.target.value);
+          setLocalValue(val);
+          // Płynny podgląd 3D na żywo
+          useWardrobeStore.getState().updateDimensionPreview(InputData.name as any, val);
+        }}
+        onMouseUp={() => {
+          // Zapisujemy w historii i zatwierdzamy TYLKO po puszczeniu suwaka
+          useWardrobeStore.getState().commitDimension(InputData.name as any, localValue);
+          InputData.onUpdate(InputData.name, localValue);
+        }}
+        onTouchEnd={() => {
+          useWardrobeStore.getState().commitDimension(InputData.name as any, localValue);
+          InputData.onUpdate(InputData.name, localValue);
+        }}
       />
       <div className="flex flex-row justify-between gap-2">
         <span className={STYLES.minValue} aria-hidden="true">{InputData.min} mm</span>
@@ -44,7 +58,6 @@ const InputRange = (InputData: InputRangeProps) => {
 };
 
 const STYLES = {
-  // cn function needed for prettier tailwind class sorting
   input: cn(
     "w-full cursor-pointer appearance-none bg-transparent outline-none focus:outline-none",
     "[&::-webkit-slider-runnable-track]:h-[2px] [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-gray-300",

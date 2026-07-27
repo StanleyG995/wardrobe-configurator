@@ -1,9 +1,7 @@
 import { create } from "zustand";
-import { temporal } from "zundo";
 import { calculateWardrobePrice } from "@/helpers/priceCalculator";
 import { MATERIALS } from "@/config/Materials";
 import { HANDLES } from '@/config/Handles';
-
 import type { WardrobeState, Wardrobe } from "@/types/WardrobeProps";
 
 const getMaterialPrice = (materialKey: string): number => {
@@ -31,7 +29,7 @@ const computePrice = (wardrobe: Wardrobe): number => {
 const initialWidth = 1000;
 const initialHeight = 2000;
 const initialDepth = 600;
-const initialSegments = [
+const initialSegments: Wardrobe["segments"] = [
   {
     id: "1",
     type: "shelves" as const,
@@ -47,9 +45,6 @@ const initialSegments = [
     mirror: true,
   },
 ];
-const initialCaseMaterial = "dark-wood";
-const initialDoorMaterial = "dark-wood";
-const initialHandleType = "straight";
 
 const initialWardrobe: Wardrobe = {
   dimensions: {
@@ -60,254 +55,235 @@ const initialWardrobe: Wardrobe = {
   boardThickness: 18,
   backBoardThickness: 5,
   segments: initialSegments,
-  caseMaterial: initialCaseMaterial,
-  doorMaterial: initialDoorMaterial,
-  handleType: initialHandleType,
+  caseMaterial: "dark-wood",
+  doorMaterial: "dark-wood",
+  handleType: "straight",
 };
 
-export const useWardrobeStore = create<WardrobeState>()(
-  temporal(
-    (set) => ({
-      wardrobe: initialWardrobe,
-      price: computePrice(initialWardrobe),
-      activeSegmentIdx: null,
+const calculateSegmentsForWidth = (value: number, currentSegments: Wardrobe["segments"]): Wardrobe["segments"] => {
+  let nextSegments = [...currentSegments];
+  const targetSegmentCount =
+    value < 700 ? 1 : value < 1400 ? 2 : value < 2100 ? 3 : value < 2800 ? 4 : 5;
+  const currentCount = nextSegments.length;
 
-      viewportOptions: {
-        dimensionsVisible: true,
-        humanScaleVisible: false,
-        humanScaleGender: "male",
-        doorsOpen: false,
-        doorsVisible: true,
-        floorVisible: true,
-      },
+  if (targetSegmentCount > currentCount) {
+    const segmentsToAdd = Array.from({
+      length: targetSegmentCount - currentCount,
+    }).map((_, i) => ({
+      id: `segment-${currentCount + i}-${crypto.randomUUID().slice(0, 4)}`,
+      type: "shelves" as const,
+      shelves: [],
+      doorPosition: "right" as ("left" | "right"),
+      mirror: false,
+    }));
+    nextSegments = [...nextSegments, ...segmentsToAdd];
+  } else if (targetSegmentCount < currentCount) {
+    nextSegments = nextSegments.slice(0, targetSegmentCount);
+  }
+  return nextSegments;
+};
 
-      setHandleType: (type) =>
-        set((state) => {
-          const nextWardrobe = { ...state.wardrobe, handleType: type };
-          return {
-            ...state,
-            price: computePrice(nextWardrobe),
-            wardrobe: nextWardrobe,
-          };
-        }),
+export const useWardrobeStore = create<WardrobeState>()((set, get) => ({
+  wardrobe: initialWardrobe,
+  price: computePrice(initialWardrobe),
+  activeSegmentIdx: null,
 
-      setMaterial: (materialType, materialValue) =>
-        set((state) => {
-          const nextWardrobe = {
-            ...state.wardrobe,
-            [materialType]: materialValue,
-          };
-          return {
-            ...state,
-            price: computePrice(nextWardrobe),
-            wardrobe: nextWardrobe,
-          };
-        }),
+  history: [],
+  future: [],
 
-      updateDimension: (key, value) =>
-        set((state) => {
-          const nextDimensions = {
-            ...state.wardrobe.dimensions,
-            [key]: value,
-          };
+  saveToHistory: () => {
+    const { history, wardrobe } = get();
+    // Zapobiegamy tworzeniu duplikatów tego samego stanu pod rząd
+    const lastHistoryItem = history[history.length - 1];
+    if (lastHistoryItem === wardrobe) return;
 
-          let nextSegments = [...state.wardrobe.segments];
+    set({
+      history: [...history, wardrobe],
+      future: [],
+    });
+  },
 
-          if (key === "width") {
-            const targetSegmentCount =
-              value < 700 ? 1 : value < 1400 ? 2 : value < 2100 ? 3 : value < 2800 ? 4 : 5;
+  undo: () => {
+    const { history, wardrobe, future } = get();
+    if (history.length === 0) return;
 
-            const currentCount = nextSegments.length;
+    const previous = history[history.length - 1];
+    const newHistory = history.slice(0, history.length - 1);
 
-            if (targetSegmentCount > currentCount) {
-              const segmentsToAdd = Array.from({
-                length: targetSegmentCount - currentCount,
-              }).map((_, i) => ({
-                id: `segment-${currentCount + i}-${crypto.randomUUID().slice(0, 4)}`,
-                type: "shelves" as const,
-                shelves: [],
-                doorPosition: "right" as const,
-                mirror: false,
-              }));
-              nextSegments = [...nextSegments, ...segmentsToAdd];
-            } else if (targetSegmentCount < currentCount) {
-              nextSegments = nextSegments.slice(0, targetSegmentCount);
-            }
-          }
+    set({
+      wardrobe: previous,
+      price: computePrice(previous),
+      history: newHistory,
+      future: [wardrobe, ...future],
+    });
+  },
 
-          const nextWardrobe = {
-            ...state.wardrobe,
-            dimensions: nextDimensions,
-            segments: nextSegments,
-          };
+  redo: () => {
+    const { history, wardrobe, future } = get();
+    if (future.length === 0) return;
 
-          return {
-            ...state,
-            price: computePrice(nextWardrobe),
-            wardrobe: nextWardrobe,
-          };
-        }),
+    const next = future[0];
+    const newFuture = future.slice(1);
 
-      setActiveSegmentIdx: (idx) => set(() => ({ activeSegmentIdx: idx })),
+    set({
+      wardrobe: next,
+      price: computePrice(next),
+      history: [...history, wardrobe],
+      future: newFuture,
+    });
+  },
 
-      handleViewportToggle: (name) =>
-        set((state) => ({
-          ...state,
-          viewportOptions: {
-            ...state.viewportOptions,
-            [name]: !state.viewportOptions[name],
-          },
-        })),
-
-      handleViewportGenderToggle: () =>
-        set((state) => ({
-          ...state,
-          viewportOptions: {
-            ...state.viewportOptions,
-            humanScaleGender:
-              state.viewportOptions.humanScaleGender === "male" ? "female" : "male",
-          },
-        })),
-
-      toggleOpenDoors: () =>
-        set((state) => {
-          const nextDoorsOpen = !state.viewportOptions.doorsOpen;
-          return {
-            ...state,
-            viewportOptions: {
-              ...state.viewportOptions,
-              doorsOpen: nextDoorsOpen,
-              doorRotation: nextDoorsOpen ? [0, -Math.PI / 1.5, 0] : [0, 0, 0],
-            },
-          };
-        }),
-
-      handleDoorPositionChange: (segmentIndex) =>
-        set((state) => {
-          const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
-            if (idx !== segmentIndex) return seg;
-            return {
-              ...seg,
-              doorPosition: (seg.doorPosition === "left" ? "right" : "left") as "left" | "right",
-            };
-          });
-
-          const nextWardrobe = { ...state.wardrobe, segments: updatedSegments };
-          return {
-            ...state,
-            price: computePrice(nextWardrobe),
-            wardrobe: nextWardrobe,
-          };
-        }),
-
-      addShelfToSegment: (segmentIndex) =>
-        set((state) => {
-          const currentSegment = state.wardrobe.segments[segmentIndex];
-          if (!currentSegment || currentSegment.type !== "shelves") return state;
-
-          const minShelfGap = 450;
-          const usableHeight =
-            state.wardrobe.dimensions.height -
-            2 * state.wardrobe.boardThickness -
-            currentSegment.shelves.length * state.wardrobe.boardThickness;
-
-          const potentialGap =
-            (usableHeight - state.wardrobe.boardThickness) /
-            (currentSegment.shelves.length + 1);
-
-          if (potentialGap <= minShelfGap) return state;
-
-          const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
-            if (idx !== segmentIndex) return seg;
-            return {
-              ...seg,
-              shelves: [...seg.shelves, crypto.randomUUID()],
-            };
-          });
-
-          const nextWardrobe = { ...state.wardrobe, segments: updatedSegments };
-          return {
-            ...state,
-            price: computePrice(nextWardrobe),
-            wardrobe: nextWardrobe,
-          };
-        }),
-
-      removeShelfFromSegment: (segmentIndex) =>
-        set((state) => {
-          const currentSegment = state.wardrobe.segments[segmentIndex];
-          if (!currentSegment || currentSegment.shelves.length === 0) return state;
-
-          const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
-            if (idx !== segmentIndex) return seg;
-            return {
-              ...seg,
-              shelves: seg.shelves.slice(0, -1),
-            };
-          });
-
-          const nextWardrobe = { ...state.wardrobe, segments: updatedSegments };
-          return {
-            ...state,
-            price: computePrice(nextWardrobe),
-            wardrobe: nextWardrobe,
-          };
-        }),
-
-      changeSegmentType: (segmentIndex, newType) =>
-        set((state) => {
-          const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
-            if (idx !== segmentIndex) return seg;
-            return {
-              ...seg,
-              type: newType,
-              shelves: [],
-            };
-          });
-
-          const nextWardrobe = { ...state.wardrobe, segments: updatedSegments };
-          return {
-            ...state,
-            price: computePrice(nextWardrobe),
-            wardrobe: nextWardrobe,
-          };
-        }),
-
-      toggleDoorMirror: (segmentIndex) =>
-        set((state) => {
-          const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
-            if (idx !== segmentIndex) return seg;
-            return {
-              ...seg,
-              mirror: !seg.mirror,
-            };
-          });
-
-          const nextWardrobe = { ...state.wardrobe, segments: updatedSegments };
-          return {
-            ...state,
-            price: computePrice(nextWardrobe),
-            wardrobe: nextWardrobe,
-          };
-        }),
-
-      isSidebarOpen: true,
-      toggleSidebar: () =>
-        set((state) => ({
-          ...state,
-          isSidebarOpen: !state.isSidebarOpen,
-        })),
-      setSidebarOpen: (isOpen) =>
-        set((state) => ({
-          ...state,
-          isSidebarOpen: isOpen,
-        })),
+  updateDimensionPreview: (key, value) =>
+    set((state) => {
+      const nextDimensions = { ...state.wardrobe.dimensions, [key]: value };
+      let nextSegments = [...state.wardrobe.segments];
+      if (key === "width") {
+        nextSegments = calculateSegmentsForWidth(value, nextSegments);
+      }
+      const nextWardrobe: Wardrobe = {
+        ...state.wardrobe,
+        dimensions: nextDimensions,
+        segments: nextSegments,
+      };
+      return {
+        price: computePrice(nextWardrobe),
+        wardrobe: nextWardrobe,
+      };
     }),
-    {
-      partialize: (state) => ({ wardrobe: state.wardrobe }),
-      equality: (currentState, nextState) => {
-        return JSON.stringify(currentState.wardrobe) === JSON.stringify(nextState.wardrobe);
+
+  commitDimension: (key, value) => {
+    get().saveToHistory();
+    get().updateDimensionPreview(key, value);
+  },
+
+  setHandleType: (type) => {
+    get().saveToHistory();
+    set((state) => {
+      const nextWardrobe = { ...state.wardrobe, handleType: type };
+      return { price: computePrice(nextWardrobe), wardrobe: nextWardrobe };
+    });
+  },
+
+  setMaterial: (materialType, materialValue) => {
+    get().saveToHistory();
+    set((state) => {
+      const nextWardrobe = { ...state.wardrobe, [materialType]: materialValue };
+      return { price: computePrice(nextWardrobe), wardrobe: nextWardrobe };
+    });
+  },
+
+  updateDimension: (key, value) => {
+    get().saveToHistory();
+    get().commitDimension(key, value);
+  },
+
+  setActiveSegmentIdx: (idx) => set(() => ({ activeSegmentIdx: idx })),
+
+  handleViewportToggle: (name) =>
+    set((state) => ({
+      viewportOptions: {
+        ...state.viewportOptions,
+        [name]: !state.viewportOptions[name],
       },
-    },
-  ),
-);
+    })),
+
+  handleViewportGenderToggle: () =>
+    set((state) => ({
+      viewportOptions: {
+        ...state.viewportOptions,
+        humanScaleGender: state.viewportOptions.humanScaleGender === "male" ? "female" : "male",
+      },
+    })),
+
+  toggleOpenDoors: () =>
+    set((state) => {
+      const nextDoorsOpen = !state.viewportOptions.doorsOpen;
+      return {
+        viewportOptions: {
+          ...state.viewportOptions,
+          doorsOpen: nextDoorsOpen,
+        },
+      };
+    }),
+
+  handleDoorPositionChange: (segmentIndex) => {
+    get().saveToHistory();
+    set((state) => {
+      const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
+        if (idx !== segmentIndex) return seg;
+        return { ...seg, doorPosition: (seg.doorPosition === "left" ? "right" : "left") as ("left" | "right") };
+      });
+      const nextWardrobe = { ...state.wardrobe, segments: updatedSegments };
+      return { price: computePrice(nextWardrobe), wardrobe: nextWardrobe };
+    });
+  },
+
+  addShelfToSegment: (segmentIndex) => {
+    const state = get();
+    const currentSegment = state.wardrobe.segments[segmentIndex];
+    if (!currentSegment || currentSegment.type !== "shelves") return;
+
+    get().saveToHistory();
+    set((state) => {
+      const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
+        if (idx !== segmentIndex) return seg;
+        return { ...seg, shelves: [...seg.shelves, crypto.randomUUID()] };
+      });
+      const nextWardrobe = { ...state.wardrobe, segments: updatedSegments };
+      return { price: computePrice(nextWardrobe), wardrobe: nextWardrobe };
+    });
+  },
+
+  removeShelfFromSegment: (segmentIndex) => {
+    const state = get();
+    const currentSegment = state.wardrobe.segments[segmentIndex];
+    if (!currentSegment || currentSegment.shelves.length === 0) return;
+
+    get().saveToHistory();
+    set((state) => {
+      const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
+        if (idx !== segmentIndex) return seg;
+        return { ...seg, shelves: seg.shelves.slice(0, -1) };
+      });
+      const nextWardrobe = { ...state.wardrobe, segments: updatedSegments };
+      return { price: computePrice(nextWardrobe), wardrobe: nextWardrobe };
+    });
+  },
+
+  changeSegmentType: (segmentIndex, newType) => {
+    get().saveToHistory();
+    set((state) => {
+      const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
+        if (idx !== segmentIndex) return seg;
+        return { ...seg, type: newType, shelves: [] };
+      });
+      const nextWardrobe = { ...state.wardrobe, segments: updatedSegments };
+      return { price: computePrice(nextWardrobe), wardrobe: nextWardrobe };
+    });
+  },
+
+  toggleDoorMirror: (segmentIndex) => {
+    get().saveToHistory();
+    set((state) => {
+      const updatedSegments = state.wardrobe.segments.map((seg, idx) => {
+        if (idx !== segmentIndex) return seg;
+        return { ...seg, mirror: !seg.mirror };
+      });
+      const nextWardrobe = { ...state.wardrobe, segments: updatedSegments };
+      return { price: computePrice(nextWardrobe), wardrobe: nextWardrobe };
+    });
+  },
+
+  isSidebarOpen: true,
+  toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
+  setSidebarOpen: (isOpen) => set({ isSidebarOpen: isOpen }),
+
+  viewportOptions: {
+    dimensionsVisible: true,
+    humanScaleVisible: false,
+    humanScaleGender: "male",
+    doorsOpen: false,
+    doorsVisible: true,
+    floorVisible: true,
+  },
+}));
