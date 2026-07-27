@@ -2,12 +2,12 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/helpers/cn";
 import { InputRangeProps } from "@/types/InputRangeProps";
-import Label from "@/components/ui/primitives/Label";
 import { useWardrobeStore } from "@/store/useWardrobeStore";
 
 const InputRange = (InputData: InputRangeProps) => {
   const [localValue, setLocalValue] = useState<number>(InputData.value);
 
+  // Synchronizujemy lokalny stan suwaka, gdy stan w store zmienia się z zewnątrz (np. przy Undo/Redo)
   useEffect(() => {
     setLocalValue(InputData.value);
   }, [InputData.value]);
@@ -15,9 +15,9 @@ const InputRange = (InputData: InputRangeProps) => {
   return (
     <div className="flex flex-col gap-2">
       {InputData.label && (
-        <Label htmlFor={InputData.id}>
+        <label htmlFor={InputData.id} className="text-sm font-medium">
           {InputData.label}
-        </Label>
+        </label>
       )}
       <input
         name={InputData.name}
@@ -32,21 +32,29 @@ const InputRange = (InputData: InputRangeProps) => {
         max={InputData.max}
         min={InputData.min}
         value={localValue}
-        // Usuwamy onMouseDown / onTouchStart, żeby nie tworzyć pustych akcji!
+        // 1. Zapisujemy stan do historii w momencie chwycenia suwaka (zanim zaczniesz ruszać)
+        onMouseDown={() => {
+          useWardrobeStore.getState().saveToHistory();
+        }}
+        onTouchStart={() => {
+          useWardrobeStore.getState().saveToHistory();
+        }}
+        // 2. Płynny podgląd 3D na żywo podczas przesuwania
         onChange={(e) => {
           const val = parseFloat(e.target.value);
           setLocalValue(val);
-          // Płynny podgląd 3D na żywo
           useWardrobeStore.getState().updateDimensionPreview(InputData.name as any, val);
         }}
+        // 3. Opcjonalnie zatwierdzenie po puszczeniu
         onMouseUp={() => {
-          // Zapisujemy w historii i zatwierdzamy TYLKO po puszczeniu suwaka
-          useWardrobeStore.getState().commitDimension(InputData.name as any, localValue);
-          InputData.onUpdate(InputData.name, localValue);
+          if (InputData.onUpdate) {
+            InputData.onUpdate(InputData.name, localValue);
+          }
         }}
         onTouchEnd={() => {
-          useWardrobeStore.getState().commitDimension(InputData.name as any, localValue);
-          InputData.onUpdate(InputData.name, localValue);
+          if (InputData.onUpdate) {
+            InputData.onUpdate(InputData.name, localValue);
+          }
         }}
       />
       <div className="flex flex-row justify-between gap-2">

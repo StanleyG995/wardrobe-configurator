@@ -93,12 +93,15 @@ export const useWardrobeStore = create<WardrobeState>()((set, get) => ({
 
   saveToHistory: () => {
     const { history, wardrobe } = get();
-    // Zapobiegamy tworzeniu duplikatów tego samego stanu pod rząd
+    const wardrobeCopy: Wardrobe = JSON.parse(JSON.stringify(wardrobe));
+
     const lastHistoryItem = history[history.length - 1];
-    if (lastHistoryItem === wardrobe) return;
+    if (lastHistoryItem && JSON.stringify(lastHistoryItem) === JSON.stringify(wardrobeCopy)) {
+      return;
+    }
 
     set({
-      history: [...history, wardrobe],
+      history: [...history, wardrobeCopy],
       future: [],
     });
   },
@@ -109,12 +112,13 @@ export const useWardrobeStore = create<WardrobeState>()((set, get) => ({
 
     const previous = history[history.length - 1];
     const newHistory = history.slice(0, history.length - 1);
+    const currentCopy: Wardrobe = JSON.parse(JSON.stringify(wardrobe));
 
     set({
       wardrobe: previous,
       price: computePrice(previous),
       history: newHistory,
-      future: [wardrobe, ...future],
+      future: [currentCopy, ...future],
     });
   },
 
@@ -124,11 +128,12 @@ export const useWardrobeStore = create<WardrobeState>()((set, get) => ({
 
     const next = future[0];
     const newFuture = future.slice(1);
+    const currentCopy: Wardrobe = JSON.parse(JSON.stringify(wardrobe));
 
     set({
       wardrobe: next,
       price: computePrice(next),
-      history: [...history, wardrobe],
+      history: [...history, currentCopy],
       future: newFuture,
     });
   },
