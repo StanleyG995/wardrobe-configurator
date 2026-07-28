@@ -7,7 +7,6 @@ import { useWardrobeStore } from "@/store/useWardrobeStore";
 const InputRange = (InputData: InputRangeProps) => {
   const [localValue, setLocalValue] = useState<number>(InputData.value);
 
-  // Synchronizujemy lokalny stan suwaka, gdy stan w store zmienia się z zewnątrz (np. przy Undo/Redo)
   useEffect(() => {
     setLocalValue(InputData.value);
   }, [InputData.value]);
