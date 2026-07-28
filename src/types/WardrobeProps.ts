@@ -1,5 +1,9 @@
 import { ComponentType } from 'react';
 import { ThreeElements } from '@react-three/fiber';
+import type { HistorySlice } from "@/store/slices/historySlice.types";
+import type { WardrobeSlice } from "@/store/slices/wardrobeSlice.types";
+import type { SegmentsSlice } from "@/store/slices/segmentsSlice.types";
+import type { UISlice } from "@/store/slices/uiSlice.types";
 
 export interface HandleType {
     handleType: 'straight' | 'knob' | 'none'; 
@@ -42,41 +46,9 @@ export interface Wardrobe {
   handleType: HandleType["handleType"];
 }
 
-export interface ViewportOptionsProps {
-  dimensionsVisible: boolean;
-  humanScaleVisible: boolean;
-  humanScaleGender: "male" | "female";
-  doorsOpen: boolean;
-  doorsVisible: boolean;
-  floorVisible: boolean;
-}
-
-export interface WardrobeState {
-  wardrobe: Wardrobe;
-  viewportOptions: ViewportOptionsProps;
-  price: number;
-  activeSegmentIdx: number | null;
-  updateDimension: (key: keyof Wardrobe["dimensions"], value: number) => void;
-  setActiveSegmentIdx: (idx: number | null) => void;
-  handleViewportToggle: (name: keyof ViewportOptionsProps) => void;
-  handleViewportGenderToggle: () => void;
-  toggleOpenDoors: () => void;
-  handleDoorPositionChange: (segmentIndex: number) => void;
-  addShelfToSegment: (segmentIndex: number) => void;
-  removeShelfFromSegment: (segmentIndex: number) => void;
-  changeSegmentType: (segmentIndex: number, newType: "shelves" | "hanger" | "empty") => void;
-  setHandleType: (type: 'straight' | 'knob' | 'none') => void;
-  setMaterial: (materialType: 'caseMaterial' | 'doorMaterial', materialValue: string) => void;
-  toggleDoorMirror: (segmentIndex: number) => void
-  isSidebarOpen: boolean;
-  toggleSidebar: () => void;
-  setSidebarOpen: (isOpen: boolean) => void;
-  history: Wardrobe[];
-  future: Wardrobe[];
-  saveToHistory: () => void;
-  undo: () => void;
-  redo: () => void;
-  updateDimensionPreview: (key: keyof Wardrobe["dimensions"], value: number) => void;
-  commitDimension: (key: keyof Wardrobe["dimensions"], value: number) => void;
-
-}
+// Główny typ stanu łączący wszystkie mniejsze slice'y
+export type WardrobeState = 
+  & HistorySlice 
+  & WardrobeSlice 
+  & SegmentsSlice 
+  & UISlice;
