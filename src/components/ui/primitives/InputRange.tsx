@@ -33,7 +33,7 @@ const InputRange = (InputData: InputRangeProps) => {
         min={InputData.min}
         value={localValue}
         
-        // 1. ZŁAPANIE SUVAKA: Tu robimy snapshot stanu POCZĄTKOWEGO do historii (zanim zaczniesz cokolwiek ruszać)
+     
         onPointerDown={() => {
           useWardrobeStore.getState().saveToHistory();
         }}

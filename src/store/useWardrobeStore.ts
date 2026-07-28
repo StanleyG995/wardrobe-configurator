@@ -157,8 +157,11 @@ export const useWardrobeStore = create<WardrobeState>()((set, get) => ({
     }),
 
   commitDimension: (key, value) => {
-    
     get().updateDimensionPreview(key, value);
+  },
+
+  updateDimension: (key, value) => {
+    get().commitDimension(key, value);
   },
 
   setHandleType: (type) => {
@@ -177,10 +180,7 @@ export const useWardrobeStore = create<WardrobeState>()((set, get) => ({
     });
   },
 
-  updateDimension: (key, value) => {
-    
-    get().commitDimension(key, value);
-  },
+  
 
   setActiveSegmentIdx: (idx) => set(() => ({ activeSegmentIdx: idx })),
 
