@@ -41,19 +41,14 @@ const InputRange = (InputData: InputRangeProps) => {
           useWardrobeStore.getState().saveToHistory();
         }}
 
-        // 2. RUCH: Płynny podgląd 3D na żywo
         onChange={(e) => {
           const val = parseFloat(e.target.value);
           setLocalValue(val);
           useWardrobeStore.getState().updateDimensionPreview(InputData.name as any, val);
         }}
 
-        // 3. PUSZCZENIE: Nic nie zapisujemy do historii, bo stan początkowy bezpiecznie czekał w history 
-        // od momentu onPointerDown, a obecny stan jest już ustawiony przez preview.
         onPointerUp={() => {
           if (InputData.onUpdate) {
-            // Jeśli onUpdate w rodzicu tylko aktualizuje stan bez zapisu do historii – jest ok.
-            // Ale najlepiej, jeśli onUpdate NIE wywołuje ponownego saveToHistory().
             InputData.onUpdate(InputData.name, localValue);
           }
         }}

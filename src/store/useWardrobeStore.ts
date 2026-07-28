@@ -157,7 +157,7 @@ export const useWardrobeStore = create<WardrobeState>()((set, get) => ({
     }),
 
   commitDimension: (key, value) => {
-    get().saveToHistory();
+    
     get().updateDimensionPreview(key, value);
   },
 
@@ -178,7 +178,7 @@ export const useWardrobeStore = create<WardrobeState>()((set, get) => ({
   },
 
   updateDimension: (key, value) => {
-    get().saveToHistory();
+    
     get().commitDimension(key, value);
   },
 
