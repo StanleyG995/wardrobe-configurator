@@ -32,22 +32,28 @@ const InputRange = (InputData: InputRangeProps) => {
         max={InputData.max}
         min={InputData.min}
         value={localValue}
-        // 1. Zapisujemy stan do historii w momencie chwycenia suwaka (zanim zaczniesz ruszać)
-        onMouseDown={() => {
+        
+        // 1. ZŁAPANIE SUVAKA: Tu robimy snapshot stanu POCZĄTKOWEGO do historii (zanim zaczniesz cokolwiek ruszać)
+        onPointerDown={() => {
           useWardrobeStore.getState().saveToHistory();
         }}
         onTouchStart={() => {
           useWardrobeStore.getState().saveToHistory();
         }}
-        // 2. Płynny podgląd 3D na żywo podczas przesuwania
+
+        // 2. RUCH: Płynny podgląd 3D na żywo
         onChange={(e) => {
           const val = parseFloat(e.target.value);
           setLocalValue(val);
           useWardrobeStore.getState().updateDimensionPreview(InputData.name as any, val);
         }}
-        // 3. Opcjonalnie zatwierdzenie po puszczeniu
-        onMouseUp={() => {
+
+        // 3. PUSZCZENIE: Nic nie zapisujemy do historii, bo stan początkowy bezpiecznie czekał w history 
+        // od momentu onPointerDown, a obecny stan jest już ustawiony przez preview.
+        onPointerUp={() => {
           if (InputData.onUpdate) {
+            // Jeśli onUpdate w rodzicu tylko aktualizuje stan bez zapisu do historii – jest ok.
+            // Ale najlepiej, jeśli onUpdate NIE wywołuje ponownego saveToHistory().
             InputData.onUpdate(InputData.name, localValue);
           }
         }}

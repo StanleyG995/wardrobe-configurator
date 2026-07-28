@@ -46,16 +46,7 @@ const Sidebar = () => {
           </h2>
         </div>
 
-        <InputText
-          name="width"
-          id="width"
-          label="Width:"
-          min={500}
-          max={2400}
-          value={wardrobe.dimensions.width}
-          onUpdate={handleUpdateDimension}
-          size="s"
-        />
+        
         <InputRange
           name="width"
           id="width-range"
@@ -65,16 +56,7 @@ const Sidebar = () => {
           onUpdate={(key, value) => updateDimension(key, value)}
         />
 
-        <InputText
-          name="height"
-          id="height"
-          label="Height:"
-          min={1800}
-          max={2600}
-          value={wardrobe.dimensions.height}
-          onUpdate={handleUpdateDimension}
-          size="s"
-        />
+        
         <InputRange
           name="height"
           id="height-range"
@@ -84,16 +66,7 @@ const Sidebar = () => {
           onUpdate={(key, value) => updateDimension(key, value)}
         />
 
-        <InputText
-          name="depth"
-          id="depth"
-          label="Depth:"
-          min={400}
-          max={800}
-          value={wardrobe.dimensions.depth}
-          onUpdate={handleUpdateDimension}
-          size="s"
-        />
+        
         <InputRange
           name="depth"
           id="depth-range"
