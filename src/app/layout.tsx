@@ -15,6 +15,22 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Wardrobe Configurator",
   description: "3D object manipulator with dynamic price calculator",
+  openGraph: {
+    title: "Wardrobe Configurator",
+    description: "3D object manipulator with dynamic price calculator",
+    url: "https://vercel.app",
+    siteName: "Wardrobe Configurator",
+    images: [
+      {
+        url: "https://vercel.app/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Wardrobe Configurator 3D Preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
