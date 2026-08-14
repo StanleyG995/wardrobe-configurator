@@ -1,4 +1,4 @@
-<img width="494" height="265" alt="demo" src="https://github.com/user-attachments/assets/32cf3419-e528-48d6-b3db-3397de0714d6" />
+![Demo Konfiguratora](https://raw.githubusercontent.com/StanleyG995/wardrobe-configurator/main/public/demo.webp)
 
 # Wardrobe 3D Configurator (Frontend)
 
