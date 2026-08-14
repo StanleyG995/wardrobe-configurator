@@ -1,7 +1,4 @@
-<video width="100%" autoplay loop muted playsinline>
-  <source src="https://raw.githubusercontent.com/StanleyG995/wardrobe-configurator/main/public/demo.webm" type="video/webm">
-  Twoja przeglądarka nie wspiera wideo.
-</video>
+[![Demo Konfiguratora](./public/demo.webm)](https://raw.githubusercontent.com/StanleyG995/wardrobe-configurator/main/public/demo.webm)
 
 # Wardrobe 3D Configurator (Frontend)
 
