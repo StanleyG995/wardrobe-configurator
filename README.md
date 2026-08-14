@@ -1,3 +1,4 @@
+<img src="/demo.gif" width="600" alt="Opis animacji" />
 
 # Wardrobe 3D Configurator (Frontend)
 
