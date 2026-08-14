@@ -1,4 +1,7 @@
-<img src="/demo.gif" width="600" alt="Opis animacji" />
+<video width="100%" autoplay loop muted playsinline>
+  <source src="/demo.webm" type="video/webm">
+  Twoja przeglądarka nie wspiera wideo.
+</video>
 
 # Wardrobe 3D Configurator (Frontend)
 
