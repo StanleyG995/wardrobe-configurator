@@ -1,5 +1,5 @@
 <video width="100%" autoplay loop muted playsinline>
-  <source src="/demo.webm" type="video/webm">
+  <source src="https://raw.githubusercontent.com/StanleyG995/wardrobe-configurator/main/public/demo.webm" type="video/webm">
   Twoja przeglądarka nie wspiera wideo.
 </video>
 
