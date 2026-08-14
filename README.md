@@ -1,4 +1,4 @@
-![Demo Konfiguratora](https://i.imgur.com/0ohxUF6.gif)
+<img width="494" height="265" alt="demo" src="https://github.com/user-attachments/assets/32cf3419-e528-48d6-b3db-3397de0714d6" />
 
 # Wardrobe 3D Configurator (Frontend)
 
