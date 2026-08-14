@@ -145,7 +145,7 @@ const Viewport = () => {
             {price.toFixed(2)} <span className={STYLES.priceCurrency}>PLN</span>
           </p>
         </div>
-        <div className="flex flex-col justify-end gap-3">
+        {/* <div className="flex flex-col justify-end gap-3">
           <Button
             onClick={() => null}
             icon={<PiShoppingCart className={STYLES.icon} />}
@@ -171,7 +171,7 @@ const Viewport = () => {
           >
             <span className="hidden lg:inline">Save configuration</span>
           </Button>
-        </div>
+        </div> */}
       </div>
     </>
   );
