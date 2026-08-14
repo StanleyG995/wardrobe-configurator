@@ -1,4 +1,4 @@
-[![Demo Konfiguratora](./public/demo.webm)](https://raw.githubusercontent.com/StanleyG995/wardrobe-configurator/main/public/demo.webm)
+![Demo Konfiguratora](https://imgur.com/a/4XsLigw)
 
 # Wardrobe 3D Configurator (Frontend)
 
