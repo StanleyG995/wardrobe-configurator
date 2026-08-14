@@ -1,4 +1,4 @@
-![Demo Konfiguratora](https://imgur.com/a/4XsLigw)
+![Demo Konfiguratora](https://i.imgur.com/0ohxUF6.gif)
 
 # Wardrobe 3D Configurator (Frontend)
 
