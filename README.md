@@ -48,7 +48,7 @@ Installation & Setup
 Clone the repository:
 ```code
 Bash
-ggit clone https://github.com/StanleyG995/wardrobe-configurator
+git clone https://github.com/StanleyG995/wardrobe-configurator
 cd wardrobe-configurator
 ```
 
